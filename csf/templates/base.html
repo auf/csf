@@ -46,12 +46,12 @@
 
     <div id="main" class="container">
       <header class="row">
-	<div class="span2" id="logo-wrapper">
+	<div class="span3" id="logo-wrapper">
 	  <a href="/">
-	    <img src="{{ STATIC_URL }}img/Logo_Auf_FR.png" />
+	    <img src="{{ STATIC_URL }}img/Logo_Auf_FR.png" height="125" width="174"/>
 	  </a>
 	</div>
-	<div class="offset3 span7">
+	<div class="offset1 span8">
 	  <div id="top-rainbow" class="rainbow">
 	    <span class="elem bleu"></span>
 	    <span class="elem jaune"></span>
@@ -72,8 +72,9 @@
 	      {% endblock %}
 	    </ul>
 	  </div>
-	  <h1 id="title">{% trans 'Ciências sem Fronteiras en francophonie' %}</h1>
-	  <p>{% trans 'Portail d’information et d’autoformation en français pour les étudiants brésiliens du programme Ciências sem Fronteiras' %}</p>
+	  <div class="clear"></div>
+	  <h1 id="title">{% trans '<span class="italic">Ciências sem Fronteiras</span> en francophonie' %}</h1>
+	  <p class="subtitle">{% trans 'Portail d’information et d’autoformation en français pour les étudiants brésiliens du programme Ciências sem Fronteiras' %}</p>
 	</div>
       </header>
       

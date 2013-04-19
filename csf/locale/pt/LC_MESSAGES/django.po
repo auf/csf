@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-19 13:06-0400\n"
+"POT-Creation-Date: 2013-04-19 16:23-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,61 +29,64 @@ msgstr "Falta de tradução."
 msgid "Recent Actions"
 msgstr "Falta de tradução."
 
+#: splash/templates/home.html:8
+msgid ""
+"Le programme brésilien <a class=\"italic\" href=\"http://www."
+"cienciasemfronteiras.gov.br/\" target=\"_blank\">Ciências sem Fronteiras</a> "
+"consiste à favoriser la mobilité des étudiants brésiliens par l’octroi de "
+"bourses facilitant la poursuite d’études à l’étranger. Le programme vise à "
+"envoyer 101 000 étudiants brésiliens étudier à l’étranger dans les domaines "
+"de la science, de la technologie, de l’ingénierie et des mathématiques d’ici "
+"2015."
+msgstr "Falta de tradução."
+
 #: splash/templates/home.html:10
 msgid ""
-"Le programme brésilien Ciências sem Fronteiras consiste à favoriser la "
-"mobilité des étudiants brésiliens par l’octroi de bourses facilitant la "
-"poursuite d’études à l’étranger. Le programme vise à envoyer 101 000 "
-"étudiants brésiliens étudier à l’étranger dans les domaines de la science, "
-"de la technologie, de l’ingénierie et des mathématiques d’ici 2015."
+"Afin de valoriser le choix par les étudiants brésiliens d’établissements "
+"francophones qui répondront à leurs besoins de formation et aux exigences du "
+"programme, l’<a href=\"http://www.auf.org/\" target=\"_blank\">Agence "
+"universitaire de la Francophonie</a> participe à la mise en œuvre de <span "
+"class=\"italic\">Ciências sem Fronteiras</span> en mettant à la disposition "
+"des étudiants brésiliens un portail composé de deux volets :"
 msgstr "Falta de tradução."
 
 #: splash/templates/home.html:12
 msgid ""
-"Afin de valoriser le choix par les étudiants brésiliens d’établissements "
-"francophones qui répondront à leurs besoins de formation et aux exigences du "
-"programme, l’Agence universitaire de la Francophonie participe à la mise en "
-"œuvre de Ciências sem Fronteiras en mettant à la disposition des étudiants "
-"brésiliens un portail composé de deux volets :"
+"de l’<strong>autoformation en français</strong> en ligne : le contenu, "
+"établi par des spécialistes du français sur objectifs universitaires, est "
+"mis en place progressivement sur une plateforme interactive de formation"
 msgstr "Falta de tradução."
 
-#: splash/templates/home.html:14
-msgid ""
-"de l’autoformation en français en ligne : le contenu, établi par des "
-"spécialistes du français sur objectifs universitaires, est mis en place "
-"progressivement sur une plateforme interactive de formation"
+#: splash/templates/home.html:13
+msgid "de l’<strong>information</strong> ayant pour objectifs de"
 msgstr "Falta de tradução."
 
 #: splash/templates/home.html:15
-msgid "de l’information ayant pour objectifs de"
-msgstr "Falta de tradução."
-
-#: splash/templates/home.html:17
 msgid ""
 "fournir des renseignements pratiques relatifs aux trois pays francophones "
 "participants (Belgique, Canada, France)"
 msgstr "Falta de tradução."
 
-#: splash/templates/home.html:18
+#: splash/templates/home.html:16
 msgid ""
 "permettre aux étudiants d’identifier des établissements francophones offrant "
 "un programme de formation dans la discipline de leur choix."
 msgstr "Falta de tradução."
 
-#: splash/templates/home.html:21
+#: splash/templates/home.html:19
 msgid "Le lancement du portail est prévu pour novembre 2013."
 msgstr "Falta de tradução."
 
-#: templates/base.html:94
-msgid "Ciências sem Fronteiras en francophonie"
+#: templates/base.html:76
+msgid "<span class=\"italic\">Ciências sem Fronteiras</span> en francophonie"
 msgstr "Falta de tradução."
 
-#: templates/base.html:95
+#: templates/base.html:77
 msgid ""
 "Portail d’information et d’autoformation en français pour les étudiants "
 "brésiliens du programme Ciências sem Fronteiras"
 msgstr "Falta de tradução."
 
-#: templates/base.html:115
+#: templates/base.html:97
 msgid "AUF 2013 Tous droits réservés"
 msgstr "Falta de tradução."

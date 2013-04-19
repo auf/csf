@@ -19,6 +19,10 @@ h1 {
     font-size: @veryLargeFont;
 }
 
+h1 span {
+    font-size: @veryLargeFont;
+}
+
 h2 {
     font-size: @largeFont;
 }
@@ -40,7 +44,7 @@ h6 {
 }
 
 p, ul li, div, span, a, b, strong, i {
-    line-height: 1.5em;
+    line-height: 15px;
     font-size: @mediumSmallFont;
     
 }
@@ -48,6 +52,14 @@ p, ul li, div, span, a, b, strong, i {
 p {
     text-align:justify;
     text-justify:inter-word;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.clear {
+    clear: both;
 }
 
 .container {
@@ -63,9 +75,10 @@ body {
     color: #616161;
 }
 
-footer.container {
+footer.container p {
     padding-top: 15px;
     color: #A3A4A7;
+    font-size: 0.8em;
 }
 
 #rainbow-sep {
@@ -132,3 +145,16 @@ footer.container {
     display: inline;
 }
     
+#logo-wrapper img {
+    padding-top: 5px;
+    margin-left: -@mainPadding;
+}
+
+#title {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-size: @mediumFont;
+}

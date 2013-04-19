@@ -14,6 +14,7 @@ handler500 # Pyflakes
 urlpatterns = patterns(
     '',
     # admin
+    url(r'^$', include('csf.splash.urls')),
     url(r'^admin_tools/', include('admin_tools.urls')),
     (r'^admin/', include(admin.site.urls)),
 )

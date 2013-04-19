@@ -2,16 +2,8 @@
 
 import os
 import socket
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as \
-        DEFAULT_TEMPLATE_CONTEXT_PROCESSORS
-from django.conf.global_settings import STATICFILES_FINDERS as \
-        DEFAULT_STATICFILES_FINDERS
-from django.conf.global_settings import MIDDLEWARE_CLASSES as \
-        DEFAULT_MIDDLEWARE_CLASSES
-from django.conf.global_settings import AUTHENTICATION_BACKENDS as \
-        DEFAULT_AUTHENTICATION_BACKENDS
-from django.conf.global_settings import TEMPLATE_LOADERS as \
-        DEFAULT_TEMPLATE_LOADERS
+from django.conf import *
+
 
 # Rapports d'erreurs
 SERVER_EMAIL = 'ne-pas-repondre@auf.org'
@@ -22,7 +14,13 @@ MANAGERS = ADMINS
 
 TIME_ZONE = 'America/Montreal'
 
-LANGUAGE_CODE = 'fr-ca'
+LANGUAGE_CODE = 'fr'
+
+LANGUAGES = (
+    ('pt', 'Português'),
+    ('fr', 'Français'),
+)
+
 
 SITE_ID = '1'
 
@@ -41,11 +39,12 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
-STATICFILES_FINDERS = DEFAULT_STATICFILES_FINDERS
+STATICFILES_FINDERS = global_settings.STATICFILES_FINDERS
 
 ROOT_URLCONF = 'csf.urls'
 
 INSTALLED_APPS = (
+    'localeurl',
     'admin_tools',
     'admin_tools.theming',
     'admin_tools.menu',
@@ -59,20 +58,37 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'south',
     'raven.contrib.django',
+    # AUF
+    'csf.splash',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_TEMPLATE_CONTEXT_PROCESSORS + (
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.request',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.static',
     'django.core.context_processors.request',
+    'csf.context_processors.csf',
 )
 
-TEMPLATE_LOADERS = DEFAULT_TEMPLATE_LOADERS
+TEMPLATE_LOADERS = global_settings.TEMPLATE_LOADERS
 
-MIDDLEWARE_CLASSES = DEFAULT_MIDDLEWARE_CLASSES + (
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'localeurl.middleware.LocaleURLMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     'auf.django.piwik.middleware.TrackMiddleware',
 )
 
-AUTHENTICATION_BACKENDS = DEFAULT_AUTHENTICATION_BACKENDS
+AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS
 
 TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(__file__), "templates"),

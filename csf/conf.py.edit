@@ -12,11 +12,11 @@ DATABASES = {
     }
 }
 
+SECRET_KEY = 'ilseraitsagedemodifiercetteclefpourquelquechosedautre.'
+
 RAVEN_CONFIG = {
     'dsn': '',
 }
 
 # Optionnel
 PIWIK_TOKEN = None
-
-SECRET_KEY = "tMTh6A671zELzzG34bXidTT7G3Z51TVzji3LJetHEpK3ULKfrX"

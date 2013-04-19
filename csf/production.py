@@ -7,3 +7,7 @@ sys.stdout = sys.stderr
 
 from csf.settings import *
 
+DEBUG = False
+TEMPLATE_DEBUG = DEBUG
+
+

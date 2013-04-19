@@ -10,6 +10,7 @@ src/*
 
 # DB de dev
 *.db
+db.sqlite
 
 # restants de merge
 *.orig

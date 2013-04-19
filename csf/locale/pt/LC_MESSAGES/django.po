@@ -1,0 +1,89 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-19 13:06-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: dashboard.py:16
+msgid "Applications"
+msgstr "Falta de tradução."
+
+#: dashboard.py:22
+msgid "Administration"
+msgstr "Falta de tradução."
+
+#: dashboard.py:27
+msgid "Recent Actions"
+msgstr "Falta de tradução."
+
+#: splash/templates/home.html:10
+msgid ""
+"Le programme brésilien Ciências sem Fronteiras consiste à favoriser la "
+"mobilité des étudiants brésiliens par l’octroi de bourses facilitant la "
+"poursuite d’études à l’étranger. Le programme vise à envoyer 101 000 "
+"étudiants brésiliens étudier à l’étranger dans les domaines de la science, "
+"de la technologie, de l’ingénierie et des mathématiques d’ici 2015."
+msgstr "Falta de tradução."
+
+#: splash/templates/home.html:12
+msgid ""
+"Afin de valoriser le choix par les étudiants brésiliens d’établissements "
+"francophones qui répondront à leurs besoins de formation et aux exigences du "
+"programme, l’Agence universitaire de la Francophonie participe à la mise en "
+"œuvre de Ciências sem Fronteiras en mettant à la disposition des étudiants "
+"brésiliens un portail composé de deux volets :"
+msgstr "Falta de tradução."
+
+#: splash/templates/home.html:14
+msgid ""
+"de l’autoformation en français en ligne : le contenu, établi par des "
+"spécialistes du français sur objectifs universitaires, est mis en place "
+"progressivement sur une plateforme interactive de formation"
+msgstr "Falta de tradução."
+
+#: splash/templates/home.html:15
+msgid "de l’information ayant pour objectifs de"
+msgstr "Falta de tradução."
+
+#: splash/templates/home.html:17
+msgid ""
+"fournir des renseignements pratiques relatifs aux trois pays francophones "
+"participants (Belgique, Canada, France)"
+msgstr "Falta de tradução."
+
+#: splash/templates/home.html:18
+msgid ""
+"permettre aux étudiants d’identifier des établissements francophones offrant "
+"un programme de formation dans la discipline de leur choix."
+msgstr "Falta de tradução."
+
+#: splash/templates/home.html:21
+msgid "Le lancement du portail est prévu pour novembre 2013."
+msgstr "Falta de tradução."
+
+#: templates/base.html:94
+msgid "Ciências sem Fronteiras en francophonie"
+msgstr "Falta de tradução."
+
+#: templates/base.html:95
+msgid ""
+"Portail d’information et d’autoformation en français pour les étudiants "
+"brésiliens du programme Ciências sem Fronteiras"
+msgstr "Falta de tradução."
+
+#: templates/base.html:115
+msgid "AUF 2013 Tous droits réservés"
+msgstr "Falta de tradução."

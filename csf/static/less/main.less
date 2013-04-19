@@ -1,0 +1,134 @@
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+@import "bootstrap";
+@import "responsive";
+
+@mainPadding: 22px;
+@mainBorderWidth: 8px;
+
+@smallFont: 10px;
+@mediumSmallFont: 12px;
+@mediumFont: 14px;
+@mediumLargeFont: 18px;
+@largeFont: 22px;
+@veryLargeFont: 27px;
+
+h1 {
+    font-size: @veryLargeFont;
+}
+
+h2 {
+    font-size: @largeFont;
+}
+
+h3 {
+    font-size: @mediumLargeFont;
+}
+
+h4 {
+    font-size: @mediumFont;
+}
+
+h5 {
+    font-size: @mediumSmallFont;
+}
+
+h6 {
+    font-size: @smallFont;
+}
+
+p, ul li, div, span, a, b, strong, i {
+    line-height: 1.5em;
+    font-size: @mediumSmallFont;
+    
+}
+
+p {
+    text-align:justify;
+    text-justify:inter-word;
+}
+
+.container {
+    border-left: @mainBorderWidth solid #E9E9EA;
+    border-right: @mainBorderWidth solid #E9E9EA;
+    padding: 0 @mainPadding;
+}
+
+body {
+    padding: 0px;
+    background-color: white;
+    font-family:Arial,Helvetica,Sans-serif;
+    color: #616161;
+}
+
+footer.container {
+    padding-top: 15px;
+    color: #A3A4A7;
+}
+
+#rainbow-sep {
+    width: @gridRowWidth + 2 * @mainPadding;
+    margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+    #top-rainbow {
+	display: none;
+    }
+}
+
+@media (min-width: 1200px) {
+    #rainbow-sep {
+	width: @gridRowWidth1200 + 2 * @mainPadding;
+	margin: 0 auto;
+    }
+}
+@media (min-width: 768px) and (max-width: 979px) {
+    #rainbow-sep {
+	width: @gridRowWidth768 + 2 * @mainPadding;
+	margin: 0 auto;
+    }
+}
+@media (max-width: 767px) {
+    #rainbow-sep {
+	width: 90%;
+	margin: 0 auto;
+    }
+}
+
+.rainbow .elem {
+    height:5px;
+    display: block;
+    float: left;
+    width: 20%;
+}
+.rainbow .bleu{
+    background-color:#0b94e8;
+}
+.rainbow .jaune{
+    background-color:#fdca00;
+}
+.rainbow .vert{
+    background-color:#79b00b;
+}
+.rainbow .mauve{
+    background-color:#55006a;
+}
+.rainbow .rouge{
+    background-color:#e30000;
+}
+
+#language-switcher {
+    float: right;
+}
+
+#language-switcher ul {
+    list-style-type: none;
+}
+
+#language-switcher ul li {
+    display: inline;
+}
+    

@@ -36,6 +36,9 @@
     <link
        rel="stylesheet"
        href="{{ STATIC_URL }}css/main.css">
+    <link
+       rel="stylesheet"
+       href="{{ STATIC_URL }}css/csf.css">
     {% endif %}
     <script src="{{ STATIC_URL }}js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
   </head>
@@ -47,7 +50,7 @@
     <div id="main" class="container">
       <header class="row">
 	<div class="span5" id="logo-wrapper">
-	  <a href="/">
+	  <a href="http://www.auf.org">
 	    <img src="{{ STATIC_URL }}img/Logo_Auf_FR.png" height="125" width="174"/>
 	  </a>
 	  <a href="http://www.cienciasemfronteiras.gov.br/" target="_blank">
@@ -77,7 +80,7 @@
 	  </div>
 	  <div class="clear"></div>
 	  <h1 id="title">{% trans '<span class="italic">Ciências sem Fronteiras</span> en francophonie' %}</h1>
-	  <p class="subtitle">{% trans 'Portail d’information et d’autoformation en français pour les étudiants brésiliens du programme Ciências sem Fronteiras' %}</p>
+	  <p class="subtitle"><b>{% trans 'Portail d’information et d’autoformation en français pour les étudiants brésiliens du programme <span class="italic">Ciências sem Fronteiras</span>' %}</b></p>
 	</div>
       </header>
       
@@ -96,9 +99,9 @@
     <!-- </div> -->
     <footer class="container">
       <div class="row">
-	<div class="span12">
-	  <p>&copy; {% trans 'AUF 2013 Tous droits réservés' %}</p>
-	</div>
+	      <div class="span12">
+	        <p>&copy; {% trans 'AUF 2013 Tous droits réservés' %}</p>
+	      </div>
       </div>
     </footer>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

@@ -84,7 +84,8 @@ msgstr "Falta de tradução."
 #: templates/base.html:77
 msgid ""
 "Portail d’information et d’autoformation en français pour les étudiants "
-"brésiliens du programme Ciências sem Fronteiras"
+"brésiliens du programme <span "
+"class=\"italic\">Ciências sem Fronteiras</span>"
 msgstr "Falta de tradução."
 
 #: templates/base.html:97

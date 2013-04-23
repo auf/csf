@@ -1035,7 +1035,7 @@ h3{font-size:18px;}
 h4{font-size:14px;}
 h5{font-size:12px;}
 h6{font-size:10px;}
-p,ul li,div,span,a,b,strong,i{line-height:15px;font-size:12px;}
+p,ul li,div,span,a,b,strong,i{line-height:1.5em;font-size:14px;}
 p{text-align:justify;text-justify:inter-word;}
 .italic{font-style:italic;}
 .clear{clear:both;}
@@ -1054,4 +1054,4 @@ footer.container p{padding-top:15px;color:#A3A4A7;font-size:0.8em;}
 #language-switcher ul li{display:inline;}
 #logo-wrapper img{padding-top:5px;margin-left:-22px;}
 #title{margin-top:5px;margin-bottom:5px;}
-.subtitle{font-size:14px;}
+.subtitle{font-size:14px;font-weight:bold;}

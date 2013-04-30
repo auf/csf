@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<form method="POST" action="{% url form_url etablissement.id %}">
+  {% csrf_token %}
+  <div id="offre-formulaire">
+
+    <div class="row-fluid">
+      <h2>{% trans 'Brouillon' %}</h2>
+    </div>
+
+    <!-- Formulaires URL -->
+
+    <div class="row-fluid">
+      <div class="span2">
+	{% trans 'Type' %}
+      </div>
+      <div class="span4">
+	{% trans 'URL' %}
+      </div>
+    </div>
+
+    {{ due.management_form }}
+    {% for form in due %}
+    {{ form.type }}
+    {{ form.etablissement }}
+    {{ form.id }}
+    <div class="row-fluid">
+      <div class="span2">
+	{{ form.instance.type.display_name }}
+      </div>
+      <div class="span4">
+	{{ form.url }}
+      </div>
+    </div>
+    {% endfor %}
+    <hr />
+
+    <!-- Formulaires Disciplines -->
+
+    <div class="row-fluid">
+      <div class="span2">
+	Discipline
+      </div>
+      {% for niveau in niveaux %}
+      <div class="span1">
+	{{ niveau.display_name }}
+      </div>
+      {% endfor %}
+    </div>
+
+    {{ dof.management_form }}
+    {% for form in dof %}
+    {% with forloop.counter0|divisibleby:dof_column_count as start_row%}
+    {% with forloop.counter|divisibleby:dof_column_count as end_row %}
+    {{ form.discipline }}
+    {{ form.etablissement }}
+    {{ form.niveau }}
+    {{ form.id }}
+    {% if start_row %}
+    <div class="row-fluid">
+      <div class="span2">
+	{{ form.instance.discipline.display_name }}
+      </div>
+      {% endif %}
+      <div class="span1">
+	{{ form.offert }}
+      </div>
+      {% if end_row %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    {% endwith %}
+    {% endfor %}
+
+    <input class="btn btn-primary" type="submit" value="{% trans 'Soumettre' %}" />
+  </div>
+</form>
+{% endblock %}
+

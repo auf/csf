@@ -31,6 +31,20 @@ class DraftURLEtablissementPublicForm(forms.ModelForm):
         self.fields['etablissement'].widget = HiddenInput()
         self.fields['type'].widget = HiddenInput()
 
+
+class OffreFormationForm(DraftOffreFormationPublicForm):
+    def __init__(self, *a, **kw):
+        super(OffreFormationForm,  self).__init__(*a, **kw)
+        for f in self.fields.values():
+            f.widget.attrs['readonly'] = 'readonly'
+
+
+class URLEtablissementForm(DraftURLEtablissementPublicForm):
+    def __init__(self, *a, **kw):
+        super(URLEtablissementForm,  self).__init__(*a, **kw)
+        for f in self.fields.values():
+            f.widget.attrs['readonly'] = 'readonly'
+    
     
 class DraftURLEtablissementFormSet(BaseModelFormSet):
     def __init__(self, *a, **kw):

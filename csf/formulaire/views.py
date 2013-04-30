@@ -12,6 +12,8 @@ from .models import (
     TypeUrls,
     DraftURLEtablissement,
     DraftOffreFormation,
+    URLEtablissement,
+    OffreFormation,
     EtablissementEligible,
     )
 from .forms import (
@@ -19,6 +21,8 @@ from .forms import (
     DraftURLEtablissementPublicForm,
     DraftOffreFormationFormSet,
     DraftURLEtablissementFormSet,
+    OffreFormationForm,
+    URLEtablissementForm,
     )
 
 
@@ -61,6 +65,13 @@ def offre_form(request, id):
         extra=0,
         )
 
+    # Create published data formset
+    p_due_fs = modelformset_factory(
+        model=URLEtablissement,
+        form=URLEtablissementForm,
+        extra=0,
+        )
+
     ### Prepare offre formset
 
     dof_qs = DraftOffreFormation.objects.filter(
@@ -94,9 +105,42 @@ def offre_form(request, id):
         extra=0,
         )
 
+    # Create published data formset
+    p_dof_fs = modelformset_factory(
+        model=OffreFormation,
+        form=OffreFormationForm,
+        extra=0,
+        )
+
     if request.method == 'GET':
         due = due_fs(queryset=due_qs)
         dof = dof_fs(queryset=dof_qs)
+    elif ('publish' in request.POST and
+          request.POST.get('publish') == 'doit'):
+
+        for draft_offre in dof_qs:
+            offre, _ = OffreFormation.objects.get_or_create(
+                etablissement=etablissement,
+                niveau=draft_offre.niveau,
+                discipline=draft_offre.discipline,
+                )
+            offre.offert = draft_offre.offert
+            offre.save()
+
+        for draft_url in due_qs:
+            url, _ = DraftURLEtablissement.objects.get_or_create(
+                etablissement=etablissement,
+                type=draft_url.type,
+                )
+            url.url = draft_url.url
+            url.save()
+
+        etablissement.participant = True
+        etablissement.save()
+
+        due = due_fs(queryset=due_qs)
+        dof = dof_fs(queryset=dof_qs)
+
     elif request.method == 'POST':
         due = due_fs(request.POST)
         dof = dof_fs(request.POST)
@@ -105,10 +149,15 @@ def offre_form(request, id):
             due.save()
             dof.save()
 
-            
+
     ctx = {
         'due': due,
         'dof': dof,
+        'p_due': p_due_fs(
+            queryset=etablissement.urls.all()),
+        'p_dof': p_dof_fs(
+            queryset=etablissement.offres_formation.all()),
+        'typeurls': TypeUrls.objects.all(),
         'niveaux': niveaux,
         'dof_column_count': niveaux.count(),
         'etablissement': etablissement,

@@ -167,29 +167,31 @@ footer.container p {
     width: 80px;
 }
 
-#messages-container div {
-    border: 1px solid;
-    border-radius: 5px;
+#messages-wrapper {
+    border-left: @mainBorderWidth solid #E9E9EA;
+    border-right: @mainBorderWidth solid #E9E9EA;
+    width: @gridRowWidth + 2 * @mainPadding;
+    margin: 0 auto;
+}
+
+#messages-wrapper div.message {
+    padding: @mainPadding;
     &.success {
 	background-color: @successBackground;
-	border-color: @successText;
     }
     &.error {
 	background-color: @errorBackground;
-	border-color: @errorText;
     }
     &.warning {
 	background-color: @warningBackground;
-	border-color: @warningText;
     }
     &.info {
 	background-color: @infoBackground;
-	border-color: @infoText;
     }
 }
 
-#messages-container div p {
-    margin: 20px;
+#messages-wrapper div.message p {
+    margin: 0;
 }
 
 .formError {

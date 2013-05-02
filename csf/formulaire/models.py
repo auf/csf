@@ -62,7 +62,10 @@ Modèles abstraits.
 """
 
 class BaseURLEtablissement(models.Model):
-    url = models.URLField()
+    url = models.URLField(
+        blank=True,
+        null=True,
+        )
     type = models.ForeignKey(TypeUrls)
 
     class Meta:

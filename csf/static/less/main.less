@@ -167,3 +167,31 @@ footer.container p {
     width: 80px;
 }
 
+#messages-container div {
+    border: 1px solid;
+    border-radius: 5px;
+    &.success {
+	background-color: @successBackground;
+	border-color: @successText;
+    }
+    &.error {
+	background-color: @errorBackground;
+	border-color: @errorText;
+    }
+    &.warning {
+	background-color: @warningBackground;
+	border-color: @warningText;
+    }
+    &.info {
+	background-color: @infoBackground;
+	border-color: @infoText;
+    }
+}
+
+#messages-container div p {
+    margin: 20px;
+}
+
+.formError {
+    font-size: @smallFont;
+}

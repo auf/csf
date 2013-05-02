@@ -4,7 +4,7 @@
 {% block content %}
 <div id="wrapper" class="row">
   <div id="offre-formulaire" class="span6">
-    <form method="POST" action="{% url form_url etablissement.id %}">
+    <form id="draft-form" method="POST" action="{% url form_url etablissement.id %}">
       {% csrf_token %}
 
       <div class="row">
@@ -34,6 +34,11 @@
 	  {{ form.instance.type.display_name }}
 	</div>
 	<div class="span4">
+	  {% if form.url.errors %}
+	  {% for error in form.url.errors %}
+	  <div class="formError text-error">{{ error }}</div>
+	  {% endfor %}
+	  {% endif %}
 	  {{ form.url }}
 	</div>
       </div>
@@ -76,12 +81,6 @@
       {% endwith %}
       {% endwith %}
       {% endfor %}
-
-      <div class="row">
-	<div class="span2 offset2">
-	  <input class="btn btn-primary" type="submit" value="{% trans 'Enregistrer le brouillon' %}" />
-	</div>
-      </div>
     </form>
   </div>
   <div id="publication" class="span6">
@@ -90,6 +89,8 @@
 	<h2>{% trans 'Information publiée' %}</h2>
       </div>
     </div>
+
+    {% if etablissement.participant %}
 
     <div class="row">
       <div class="span2">
@@ -148,12 +149,30 @@
     {% endwith %}
     {% endfor %}
 
+    {% else %}
+
+    <p class="text-error">{% trans 'Aucune information n&#39;est publiée.' %}</p>
+
+    {% endif %}
+
+  </div>
+  <div id="actions" class="span12">
     <div class="row">
-      <div class="span2 offset2">
+      <div class="span3">
+	<input onclick="$('#draft-form').submit();" class="btn btn-primary" type="button" value="{% trans 'Enregistrer le brouillon' %}" />
+      </div>
+      <div class="span3">
 	<form method="POST" action="{% url form_url etablissement.id %}">
 	  {% csrf_token %}
 	  <input type="hidden" name="publish" value="doit" />
 	  <input class="btn btn-success" type="submit" value="{% trans 'Publier le brouillon' %}" />
+	</form>
+      </div>
+      <div class="span3">
+	<form method="POST" action="{% url form_url etablissement.id %}">
+	  {% csrf_token %}
+	  <input type="hidden" name="take-down" value="doit" />
+	  <input class="btn btn-danger" type="submit" value="{% trans 'Enlever la publication' %}" />
 	</form>
       </div>
     </div>

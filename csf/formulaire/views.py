@@ -1,5 +1,8 @@
+# -*- encoding: utf-8 -*-
+
 import itertools
 from django.template import RequestContext
+from django.contrib import messages
 from django.forms.models import (
     inlineformset_factory,
     modelformset_factory,
@@ -24,6 +27,7 @@ from .forms import (
     OffreFormationForm,
     URLEtablissementForm,
     )
+from django.utils.translation import ugettext as _
 
 
 def offre_form(request, id):
@@ -36,18 +40,23 @@ def offre_form(request, id):
     disciplines = Discipline.objects.all()
 
 
-    ### Prepare URL formset
+    ### Create default content if it doesn't exist for this user:
 
-    # Get existing urls
+    # First create default URLS
+
     due_qs = DraftURLEtablissement.objects.filter(
         etablissement=etablissement)
+    p_due_qs = URLEtablissement.objects.filter(
+        etablissement=etablissement)
 
-    # Check for missing
     missing = TypeUrls.objects.exclude(
         id__in=due_qs.values_list(
             'type__id', flat=True))
+    p_missing = TypeUrls.objects.exclude(
+        id__in=due_qs.values_list(
+            'type__id', flat=True))
 
-    # Create missing
+
     new_urls = [
         DraftURLEtablissement(
             type=x,
@@ -57,35 +66,31 @@ def offre_form(request, id):
         ]
     DraftURLEtablissement.objects.bulk_create(new_urls)
 
-    # Create formset
-    due_fs = modelformset_factory(
-        model=DraftURLEtablissement,
-        form=DraftURLEtablissementPublicForm,
-        formset=DraftURLEtablissementFormSet,
-        extra=0,
-        )
-
-    # Create published data formset
-    p_due_fs = modelformset_factory(
-        model=URLEtablissement,
-        form=URLEtablissementForm,
-        extra=0,
-        )
-
-    ### Prepare offre formset
+    new_p_urls = [
+        URLEtablissement(
+            type=x,
+            etablissement=etablissement,
+            )
+        for x in p_missing
+        ]
+    URLEtablissement.objects.bulk_create(new_urls)
+    
+    # Then create default Offres
 
     dof_qs = DraftOffreFormation.objects.filter(
         etablissement=etablissement)
+    p_dof_qs = DraftOffreFormation.objects.filter(
+        etablissement=etablissement)
 
-    # Check for missing
     rows = set(itertools.product(
         Discipline.objects.all().values_list('id', flat=True),
         Niveau.objects.all().values_list('id', flat=True),
         ))
     current_products = set(dof_qs.values_list('discipline', 'niveau'))
     missing = rows.difference(current_products)
+    p_current_products = set(p_dof_qs.values_list('discipline', 'niveau'))
+    p_missing = rows.difference(p_current_products)
 
-    # Create missing
     new_offres = [
         DraftOffreFormation(
             discipline_id=x[0],
@@ -95,8 +100,31 @@ def offre_form(request, id):
         for x in missing
         ]
     DraftOffreFormation.objects.bulk_create(new_offres)
+    p_new_offres = [
+        OffreFormation(
+            discipline_id=x[0],
+            niveau_id=x[1],
+            etablissement_id=etablissement.id,
+            )
+        for x in p_missing
+        ]
+    OffreFormation.objects.bulk_create(p_new_offres)
 
-    # Create formset
+
+    ### Create formsets
+
+    due_fs = modelformset_factory(
+        model=DraftURLEtablissement,
+        form=DraftURLEtablissementPublicForm,
+        formset=DraftURLEtablissementFormSet,
+        extra=0,
+        )
+
+    p_due_fs = modelformset_factory(
+        model=URLEtablissement,
+        form=URLEtablissementForm,
+        extra=0,
+        )
 
     dof_fs = modelformset_factory(
         model=DraftOffreFormation,
@@ -105,21 +133,22 @@ def offre_form(request, id):
         extra=0,
         )
 
-    # Create published data formset
     p_dof_fs = modelformset_factory(
         model=OffreFormation,
         form=OffreFormationForm,
         extra=0,
         )
 
+
+    ### Get / Post logic here.
+
     if request.method == 'GET':
         due = due_fs(queryset=due_qs)
         dof = dof_fs(queryset=dof_qs)
-    elif ('publish' in request.POST and
-          request.POST.get('publish') == 'doit'):
+    elif (request.POST.get('publish', '') == 'doit'):
 
         for draft_offre in dof_qs:
-            offre, _ = OffreFormation.objects.get_or_create(
+            offre, nothing = OffreFormation.objects.get_or_create(
                 etablissement=etablissement,
                 niveau=draft_offre.niveau,
                 discipline=draft_offre.discipline,
@@ -128,7 +157,7 @@ def offre_form(request, id):
             offre.save()
 
         for draft_url in due_qs:
-            url, _ = DraftURLEtablissement.objects.get_or_create(
+            url, nothing = URLEtablissement.objects.get_or_create(
                 etablissement=etablissement,
                 type=draft_url.type,
                 )
@@ -138,6 +167,24 @@ def offre_form(request, id):
         etablissement.participant = True
         etablissement.save()
 
+        msg = _(u'Vos informations ont été publiées.')
+        messages.success(
+            request,
+            msg,
+            )
+
+        due = due_fs(queryset=due_qs)
+        dof = dof_fs(queryset=dof_qs)
+
+    elif (request.POST.get('take-down', '') == 'doit'):
+        etablissement.participant = False
+        etablissement.save()
+
+        msg = _(u'Votre publication a été enlevée.')
+        messages.warning(
+            request,
+            msg,
+            )
         due = due_fs(queryset=due_qs)
         dof = dof_fs(queryset=dof_qs)
 
@@ -145,11 +192,22 @@ def offre_form(request, id):
         due = due_fs(request.POST)
         dof = dof_fs(request.POST)
     
-        if due.is_valid and dof.is_valid:
+        if due.is_valid() and dof.is_valid():
             due.save()
             dof.save()
-
-
+            msg = _(u'Vos changements ont été sauvegardés.')
+            messages.success(
+                request,
+                msg,
+                )
+        else:
+            msg = _(u'Des erreurs se sont produites, veuillez vérifier'
+                    ' les erreurs ci-dessous.')
+            messages.error(
+                request,
+                msg,
+                )
+               
     ctx = {
         'due': due,
         'dof': dof,

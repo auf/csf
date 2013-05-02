@@ -45,7 +45,7 @@
         <![endif]-->
 
     <div id="main" class="container">
-      <header class="row-fluid">
+      <header class="row">
 	<div class="span5" id="logo-wrapper">
 	  <a href="/">
 	    <img src="{{ STATIC_URL }}img/Logo_Auf_FR.png" height="125" width="174"/>
@@ -81,6 +81,17 @@
 	</div>
       </header>
       
+      <div id="messages-container" class="row">
+	{% if messages %}
+	{% for message in messages %}
+	<div class="span12{% if message.tags %} {{ message.tags }}{% endif %}">
+	  <p class="{% if message.tags %} text-{{ message.tags }}{% endif %}">
+	  {{ message }}
+	</p>
+	</div>
+	{% endfor %}
+	{% endif %}	
+      </div>
       {% block content %}
       {% endblock %}
     </div>

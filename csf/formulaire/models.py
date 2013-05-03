@@ -14,6 +14,7 @@ from django.utils.translation import ugettext_lazy as _
 class OrderedModel(models.Model):
     ordering = models.IntegerField(
         default=0,
+        verbose_name="Ordre d'affichage",
         )
 
     class Meta:
@@ -24,6 +25,7 @@ class OrderedModel(models.Model):
 class Discipline(OrderedModel):
     display_name = models.CharField(
         max_length=255,
+        verbose_name="Nom d'affichage",
         )
     def __unicode__(self):
         return self.display_name
@@ -32,6 +34,7 @@ class Discipline(OrderedModel):
 class Niveau(OrderedModel):
     display_name = models.CharField(
         max_length=255,
+        verbose_name="Nom d'affichage",
         )
 
     def __unicode__(self):
@@ -39,20 +42,23 @@ class Niveau(OrderedModel):
 
     class Meta:
         ordering = ['ordering']
-        verbose_name_plural = _(u'Niveaux')
+        verbose_name = _(u'Niveau universitaire')
+        verbose_name_plural = _(u'Niveaux universitaires')
 
 
 class TypeUrls(OrderedModel):
     required = models.BooleanField(
-        default=False
+        default=False,
+        verbose_name="Obligatoire",
         )
     display_name = models.CharField(
         max_length=255,
+        verbose_name="Nom d'affichage",
         )
 
     class Meta:
         ordering = ['ordering']
-        verbose_name_plural = _(u'Type d\'URL')
+        verbose_name = _(u'Type d\'URL')
         verbose_name_plural = _(u'Types d\'URL')
 
     def __unicode__(self):
@@ -63,13 +69,20 @@ class EtablissementEligible(models.Model):
     user = models.OneToOneField(
         User,
         related_name='etablissement_eligible',
+        verbose_name="Utilisateur",
         )
     etablissement = models.OneToOneField(
         ref.Etablissement,
-        related_name='etablissement_eligible')
+        related_name='etablissement_eligible',
+        verbose_name="Établissement",)
     participant = models.BooleanField(
         default=False,
+        verbose_name="Participe au programme CSF",
         )
+    
+    class Meta:
+        verbose_name = "Établissement"
+        verbose_name_plural = "Établissements"
     
     def __unicode__(self):
         return self.etablissement.nom

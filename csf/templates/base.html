@@ -67,7 +67,7 @@
 	      {% block language-links %}
 	      {% for lang in LANGUAGES %}
 	      {% if lang.0 == LANGUAGE_CODE %}
-              <li class="selected">{% if not forloop.first %}|{% endif %} {{ lang.1 }}</li>
+              <li class="selected">{% if forloop.first %}{% endif %}{% if not forloop.first %}|{% endif %} {{ lang.1 }}</li>
 	      {% else %}
               <li><a href="{{ request.path|chlocale:lang.0 }}">{% if not forloop.first %}|{% endif %} {{ lang.1 }}</a></li>
 	      {% endif %}
@@ -75,6 +75,13 @@
 	      {% endblock %}
 	    </ul>
 	  </div>
+	  {% if request.user.is_authenticated %}
+	  <div id="logout">
+	    <a href="{% url django.contrib.auth.views.logout %}">
+	      {% trans 'Se déconnecter' %}
+	    </a>
+	  </div>
+	  {% endif %}
 	  <div class="clear"></div>
 	  <h1 id="title">{% trans '<span class="italic">Ciências sem Fronteiras</span> en francophonie' %}</h1>
 	  <p class="subtitle">{% trans 'Portail d’information et d’autoformation en français pour les étudiants brésiliens du programme <span class="italic">Ciências sem Fronteiras</span>' %}</p>

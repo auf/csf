@@ -1049,7 +1049,7 @@ footer.container p{padding-top:15px;color:#A3A4A7;font-size:0.8em;}
 .rainbow .vert{background-color:#79b00b;}
 .rainbow .mauve{background-color:#55006a;}
 .rainbow .rouge{background-color:#e30000;}
-#language-switcher{float:right;}
+#language-switcher,#logout{float:right;}
 #language-switcher ul{list-style-type:none;}
 #language-switcher ul li{display:inline;}
 #logo-wrapper img{padding-top:5px;margin-left:-22px;}

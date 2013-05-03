@@ -60,10 +60,13 @@ class TypeUrls(OrderedModel):
 
 
 class EtablissementEligible(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(
+        User,
+        related_name='etablissement_eligible',
+        )
     etablissement = models.OneToOneField(
         ref.Etablissement,
-        related_name='etablissements_eligibles')
+        related_name='etablissement_eligible')
     participant = models.BooleanField(
         default=False,
         )

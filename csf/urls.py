@@ -20,6 +20,8 @@ urlpatterns = patterns(
         'csf.formulaire.views.offre_form',
         name='form_url'),
     (r'^admin/', include(admin.site.urls)),
+    (r'^accounts/login', 'django.contrib.auth.views.login'),
+    (r'^accounts/logout', 'django.contrib.auth.views.logout'),
 )
 
 if settings.DEBUG:

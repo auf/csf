@@ -3,11 +3,13 @@
 import itertools
 from django.template import RequestContext
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.forms.models import (
     inlineformset_factory,
     modelformset_factory,
     )
 from django.shortcuts import render_to_response, get_object_or_404
+from django.core.exceptions import PermissionDenied
 from auf.django.references import models as ref
 from .models import (
     Discipline,
@@ -30,11 +32,26 @@ from .forms import (
 from django.utils.translation import ugettext as _
 
 
+
+@login_required
 def offre_form(request, id):
+
     etablissement = get_object_or_404(
         EtablissementEligible,
         id=id,
         )
+
+    # Quick permission check.
+    if not request.user.is_staff:
+        try:
+            etab_eligible = request.user.etablissement_eligible
+        except EtablissementEligible.DoesNotExist:
+            raise PermissionDenied()
+        else:
+            if (etab_eligible.etablissement.id !=
+                etablissement.etablissement.id):
+                raise PermissionDenied()
+
 
     niveaux = Niveau.objects.all()
     disciplines = Discipline.objects.all()

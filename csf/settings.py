@@ -56,10 +56,12 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'auf.django.auth_token',
     'south',
     'raven.contrib.django',
-    # AUF
+    'auf.django.references',
     'csf.splash',
+    'csf.formulaire',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -84,11 +86,15 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'auf.django.auth_token.middleware.TokenAuthentification',
     'django.contrib.messages.middleware.MessageMiddleware',
     'auf.django.piwik.middleware.TrackMiddleware',
 )
 
-AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'auf.django.auth_token.backends.TokenAuthBackend',
+    )
 
 TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(__file__), "templates"),

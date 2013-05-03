@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div id="wrapper" class="row">
+  <div id="offre-formulaire" class="span6">
+    <form id="draft-form" method="POST" action="{% url form_url etablissement.id %}">
+      {% csrf_token %}
+
+      <div class="row">
+	<div class="span6">
+	  <h2>{% trans 'Brouillon' %}</h2>
+	</div>
+      </div>
+
+      <!-- Formulaires URL -->
+
+      <h3>URLs</h3>
+      {{ due.management_form }}
+      {% for form in due %}
+      {{ form.type }}
+      {{ form.etablissement }}
+      {{ form.id }}
+      <div class="row">
+	<div class="span6">
+	  {% if form.url.errors %}
+	  {% for error in form.url.errors %}
+	  <div class="formError text-error">{{ error }}</div>
+	  {% endfor %}
+	  {% endif %}
+	  <label>{{ form.instance.type.display_name }}</label>
+	  <input class="input-xlarge" type="text" placeholder="{{ form.instance.type.display_name }}" maxlength="{{form.url.max_length}}" id="id-{{ form.prefix }}-url" name="{{ form.prefix }}-url" value="{{ form.url.value }}"/>
+	</div>
+      </div>
+      {% endfor %}
+      <hr />
+
+      <!-- Formulaires Disciplines -->
+
+      <div class="row">
+	<div class="span2">
+	  Discipline
+	</div>
+	{% for niveau in niveaux %}
+	<div class="span1">
+	  {{ niveau.display_name }}
+	</div>
+	{% endfor %}
+      </div>
+
+      {{ dof.management_form }}
+      {% for form in dof %}
+      {% with forloop.counter0|divisibleby:dof_column_count as start_row%}
+      {% with forloop.counter|divisibleby:dof_column_count as end_row %}
+      {{ form.discipline }}
+      {{ form.etablissement }}
+      {{ form.niveau }}
+      {{ form.id }}
+      {% if start_row %}
+      <div class="row">
+	<div class="span2">
+	  {{ form.instance.discipline.display_name }}
+	</div>
+	{% endif %}
+	<div class="span1">
+	  {{ form.offert }}
+	</div>
+	{% if end_row %}
+      </div>
+      {% endif %}
+      {% endwith %}
+      {% endwith %}
+      {% endfor %}
+    </form>
+  </div>
+  <div id="publication" class="span6">
+    <div class="row">
+      <div class="span6">
+	<h2>{% trans 'Information publiée' %}</h2>
+      </div>
+    </div>
+
+    {% if etablissement.participant %}
+
+    <h3>URLs</h3>
+    {% for form in p_due %}
+    <div class="row">
+      <div class="span6">
+	{% if form.url.errors %}
+	{% for error in form.url.errors %}
+	<small class="text-error">{{ error }}</small>
+	{% endfor %}
+	{% endif %}
+	<label>{{ form.instance.type.display_name }}</label>
+	<input readonly class="input-xlarge" type="text" placeholder="{{ form.instance.type.display_name }}" maxlength="{{form.url.max_length}}" id="id-{{ form.prefix }}-url" name="{{ form.prefix }}-url" value="{{ form.url.value }}"/>
+      </div>
+    </div>
+    {% endfor %}
+    <hr />
+
+    <!-- Formulaires Disciplines -->
+    
+    <div class="row">
+      <div class="span2">
+	Discipline
+      </div>
+      {% for niveau in niveaux %}
+      <div class="span1">
+	{{ niveau.display_name }}
+      </div>
+      {% endfor %}
+    </div>
+
+    {% for form in p_dof %}
+    {% with forloop.counter0|divisibleby:dof_column_count as start_row%}
+    {% with forloop.counter|divisibleby:dof_column_count as end_row %}
+    {{ form.discipline }}
+    {{ form.etablissement }}
+    {{ form.niveau }}
+    {{ form.id }}
+    {% if start_row %}
+    <div class="row">
+      <div class="span2">
+	{{ form.instance.discipline.display_name }}
+      </div>
+      {% endif %}
+      <div class="span1">
+	{{ form.offert }}
+      </div>
+      {% if end_row %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    {% endwith %}
+    {% endfor %}
+
+    {% else %}
+
+    <p class="text-error">{% trans 'Aucune information n&#39;est publiée.' %}</p>
+
+    {% endif %}
+
+  </div>
+  <div id="actions" class="span12">
+    <div class="row">
+      <div class="span3">
+	<input onclick="$('#draft-form').submit();" class="btn btn-primary" type="button" value="{% trans 'Enregistrer le brouillon' %}" />
+      </div>
+      <div class="span3">
+	<form method="POST" action="{% url form_url etablissement.id %}">
+	  {% csrf_token %}
+	  <input type="hidden" name="publish" value="doit" />
+	  <input class="btn btn-success" type="submit" value="{% trans 'Publier le brouillon' %}" />
+	</form>
+      </div>
+      <div class="span3">
+	<form method="POST" action="{% url form_url etablissement.id %}">
+	  {% csrf_token %}
+	  <input type="hidden" name="take-down" value="doit" />
+	  <input class="btn btn-danger" type="submit" value="{% trans 'Enlever la publication' %}" />
+	</form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

@@ -159,3 +159,39 @@ footer.container p {
     font-size: @mediumFont;
     font-weight: bold;
 }
+
+/* FORMULAIRE D'OFFRE */
+
+#publication label,
+#offre-formulaire label {
+    float: left;
+    width: 80px;
+    margin-right: @mainPadding;
+}
+
+#messages-wrapper {
+    border-left: @mainBorderWidth solid #E9E9EA;
+    border-right: @mainBorderWidth solid #E9E9EA;
+    width: @gridRowWidth + 2 * @mainPadding;
+    margin: 0 auto;
+}
+
+#messages-wrapper div.message {
+    padding: @mainPadding;
+    &.success {
+	background-color: @successBackground;
+    }
+    &.error {
+	background-color: @errorBackground;
+    }
+    &.warning {
+	background-color: @warningBackground;
+    }
+    &.info {
+	background-color: @infoBackground;
+    }
+}
+
+#messages-wrapper div.message p {
+    margin: 0;
+}

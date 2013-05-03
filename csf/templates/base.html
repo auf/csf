@@ -44,7 +44,7 @@
         <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
 
-    <div id="main" class="container">
+    <div id="header-wrapper" class="container">
       <header class="row">
 	<div class="span5" id="logo-wrapper">
 	  <a href="/">
@@ -80,12 +80,28 @@
 	  <p class="subtitle">{% trans 'Portail d’information et d’autoformation en français pour les étudiants brésiliens du programme <span class="italic">Ciências sem Fronteiras</span>' %}</p>
 	</div>
       </header>
-      
+    </div>
+
+    <!-- Messages -->
+    <div id="messages-wrapper">
+      {% if messages %}
+      {% for message in messages %}
+      <div class="message{% if message.tags %} {{ message.tags }}{% endif %}">
+      	<p class="{% if message.tags %} text-{{ message.tags }}{% endif %}">
+      	  {{ message }}
+      	</p>
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+
+    <!-- Contenu principal -->
+    <div id="main-wrapper" class="container">
       {% block content %}
       {% endblock %}
     </div>
-    <!-- <div class="footer-divider container"> -->
-    <!--   <div class="row"> -->
+
+    <!-- Arc-en-ciel -->
     <div id="rainbow-sep" class="rainbow">
       <span class="elem bleu"></span>
       <span class="elem jaune"></span>
@@ -93,7 +109,8 @@
       <span class="elem mauve"></span>
       <span class="elem rouge"></span>
     </div>
-    <!-- </div> -->
+
+    <!-- Footer -->
     <footer class="container">
       <div class="row">
 	<div class="span12">

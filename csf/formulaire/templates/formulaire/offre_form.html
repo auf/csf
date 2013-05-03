@@ -15,31 +15,21 @@
 
       <!-- Formulaires URL -->
 
-      <div class="row">
-	<div class="span2">
-	  {% trans 'Type' %}
-	</div>
-	<div class="span4">
-	  {% trans 'URL' %}
-	</div>
-      </div>
-
+      <h3>URLs</h3>
       {{ due.management_form }}
       {% for form in due %}
       {{ form.type }}
       {{ form.etablissement }}
       {{ form.id }}
       <div class="row">
-	<div class="span2">
-	  {{ form.instance.type.display_name }}
-	</div>
-	<div class="span4">
+	<div class="span6">
 	  {% if form.url.errors %}
 	  {% for error in form.url.errors %}
 	  <div class="formError text-error">{{ error }}</div>
 	  {% endfor %}
 	  {% endif %}
-	  {{ form.url }}
+	  <label>{{ form.instance.type.display_name }}</label>
+	  <input class="input-xlarge" type="text" placeholder="{{ form.instance.type.display_name }}" maxlength="{{form.url.max_length}}" id="id-{{ form.prefix }}-url" name="{{ form.prefix }}-url" value="{{ form.url.value }}"/>
 	</div>
       </div>
       {% endfor %}
@@ -92,22 +82,17 @@
 
     {% if etablissement.participant %}
 
-    <div class="row">
-      <div class="span2">
-	{% trans 'Type' %}
-      </div>
-      <div class="span4">
-	{% trans 'URL' %}
-      </div>
-    </div>
-    
+    <h3>URLs</h3>
     {% for form in p_due %}
     <div class="row">
-      <div class="span2">
-	{{ form.instance.type.display_name }}
-      </div>
-      <div class="span4">
-	{{ form.url }}
+      <div class="span6">
+	{% if form.url.errors %}
+	{% for error in form.url.errors %}
+	<small class="text-error">{{ error }}</small>
+	{% endfor %}
+	{% endif %}
+	<label>{{ form.instance.type.display_name }}</label>
+	<input readonly class="input-xlarge" type="text" placeholder="{{ form.instance.type.display_name }}" maxlength="{{form.url.max_length}}" id="id-{{ form.prefix }}-url" name="{{ form.prefix }}-url" value="{{ form.url.value }}"/>
       </div>
     </div>
     {% endfor %}

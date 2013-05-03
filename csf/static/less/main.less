@@ -163,12 +163,20 @@ footer.container p {
 
 /* FORMULAIRE D'OFFRE */
 
+#participant-form label,
 #publication label,
 #offre-formulaire label {
-    float: left;
-    /* width: 80px; */
-    margin-right: @mainPadding;
+    /* float: left; */
+}
+
+#publication label,
+#offre-formulaire label {
     font-size: @smallFont;
+    margin-right: @mainPadding;
+}
+
+#participant-form label {
+    margin-right: @mainPadding/2;
 }
 
 #messages-wrapper {
@@ -196,4 +204,11 @@ footer.container p {
 
 #messages-wrapper div.message p {
     margin: 0;
+}
+
+.offre-formation-row {
+    height: 65px;
+}
+.offre-formation-row:nth-child(odd) {
+    background-color: #eee;
 }

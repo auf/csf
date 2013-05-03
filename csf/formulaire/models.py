@@ -6,11 +6,6 @@ from auf.django.references import models as ref
 from django.utils.translation import ugettext_lazy as _
 
 
-# class OrderedManager(models.Manager):
-#     def get_queryset(self):
-#         return super(OrderedManager, self).get_queryset().order_by('ordering')
-
-
 class OrderedModel(models.Model):
     ordering = models.IntegerField(
         default=0,
@@ -75,7 +70,7 @@ class EtablissementEligible(models.Model):
         ref.Etablissement,
         related_name='etablissement_eligible',
         verbose_name="Établissement",)
-    participant = models.BooleanField(
+    participant = models.NullBooleanField(
         default=False,
         verbose_name="Participe au programme CSF",
         )

@@ -9,13 +9,28 @@
   </div>
 </div>
 
+<form method="POST" action="{% url form_url etablissement.id %}">
+  {% csrf_token %}
+<div id="participant-form" class="row">
+  <p class="span10">
+    {% trans 'Mon établissement souhaite apparaître sur le portail CSF en francophonie' %}
+  </p>
+  <div class="span1">
+    <label>Oui</label><input {% if etablissement.participant %}checked {% endif %}type="radio" name="participant" value="false" />
+  </div>
+  <div class="span1">
+    <label>Non</label><input {% if not etablissement.participant %}checked {% endif %}type="radio" name="participant" value="true" />
+  </div>
+</div>
+</form>
+
 <div id="wrapper" class="row">
-  <div id="offre-formulaire" class="span6">
+  <div id="offre-formulaire" class="span8">
     <form id="draft-form" method="POST" action="{% url form_url etablissement.id %}">
       {% csrf_token %}
 
       <div class="row">
-	<div class="span6">
+	<div class="span8">
 	  <h2>{% trans 'Brouillon' %}</h2>
 	</div>
       </div>
@@ -29,7 +44,7 @@
       {{ form.etablissement }}
       {{ form.id }}
       <div class="row">
-	<div class="span2">
+	<div class="span4">
 	  <label>{{ form.instance.type.display_name }}</label>
 	</div>
 	<div class="span4">
@@ -48,7 +63,7 @@
 
       <h3>Offres de formations</h3>
       <div class="row">
-	<div class="span2">
+	<div class="span4">
 	  <label>Discipline</label>
 	</div>
 	{% for niveau in niveaux %}
@@ -59,19 +74,20 @@
       </div>
 
       {{ dof.management_form }}
+      <div>
       {% for form in dof %}
       {% with forloop.counter0|divisibleby:dof_column_count as start_row%}
       {% with forloop.counter|divisibleby:dof_column_count as end_row %}
-      {{ form.discipline }}
-      {{ form.etablissement }}
-      {{ form.niveau }}
-      {{ form.id }}
       {% if start_row %}
-      <div class="row">
-	<div class="span2">
+      <div class="row offre-formation-row">
+	<div class="span4">
 	  <label>{{ form.instance.discipline.display_name }}</label>
 	</div>
 	{% endif %}
+	{{ form.discipline }}
+	{{ form.etablissement }}
+	{{ form.niveau }}
+	{{ form.id }}
 	<div class="span1">
 	  {{ form.offert }}
 	</div>
@@ -81,11 +97,12 @@
       {% endwith %}
       {% endwith %}
       {% endfor %}
+      </div>
     </form>
   </div>
-  <div id="publication" class="span6">
+  <div id="publication" class="span4">
     <div class="row">
-      <div class="span6">
+      <div class="span4">
 	<h2>{% trans 'Information publiée' %}</h2>
       </div>
     </div>
@@ -95,9 +112,6 @@
     <h3>URLs</h3>
     {% for form in p_due %}
     <div class="row">
-      <div class="span2">
-	<label>{{ form.instance.type.display_name }}</label>
-      </div>
       <div class="span4">
 	{% if form.url.errors %}
 	{% for error in form.url.errors %}
@@ -114,9 +128,6 @@
     
     <h3>Offres de formations</h3>
     <div class="row">
-      <div class="span2">
-	<label>Discipline</label>
-      </div>
       {% for niveau in niveaux %}
       <div class="span1">
 	<label>{{ niveau.display_name }}</label>
@@ -124,19 +135,17 @@
       {% endfor %}
     </div>
 
+    <div>
     {% for form in p_dof %}
     {% with forloop.counter0|divisibleby:dof_column_count as start_row%}
     {% with forloop.counter|divisibleby:dof_column_count as end_row %}
-    {{ form.discipline }}
-    {{ form.etablissement }}
-    {{ form.niveau }}
-    {{ form.id }}
     {% if start_row %}
-    <div class="row">
-      <div class="span2">
-	<label>{{ form.instance.discipline.display_name }}</label>
-      </div>
+    <div class="row offre-formation-row">
       {% endif %}
+      {{ form.discipline }}
+      {{ form.etablissement }}
+      {{ form.niveau }}
+      {{ form.id }}
       <div class="span1">
 	{{ form.offert }}
       </div>
@@ -146,6 +155,7 @@
     {% endwith %}
     {% endwith %}
     {% endfor %}
+    </div>
 
     {% else %}
 

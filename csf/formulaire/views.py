@@ -53,6 +53,10 @@ def offre_form(request, id):
                 raise PermissionDenied()
 
 
+    if etablissement.participant == None:
+        etablissement.participant == True
+        etablissement.save()
+
     niveaux = Niveau.objects.all()
     disciplines = Discipline.objects.all()
 

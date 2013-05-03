@@ -2,6 +2,13 @@
 {% load i18n %}
 
 {% block content %}
+
+<div class="row">
+  <div class="span12">
+    <h1>{{ etablissement.etablissement.nom }}</h1>
+  </div>
+</div>
+
 <div id="wrapper" class="row">
   <div id="offre-formulaire" class="span6">
     <form id="draft-form" method="POST" action="{% url form_url etablissement.id %}">

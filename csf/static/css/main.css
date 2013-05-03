@@ -1055,7 +1055,7 @@ footer.container p{padding-top:15px;color:#A3A4A7;font-size:0.8em;}
 #logo-wrapper img{padding-top:5px;margin-left:-22px;}
 #title{margin-top:5px;margin-bottom:5px;}
 .subtitle{font-size:14px;font-weight:bold;}
-#publication label,#offre-formulaire label{float:left;width:80px;margin-right:22px;}
+#publication label,#offre-formulaire label{float:left;margin-right:22px;font-size:10px;}
 #messages-wrapper{border-left:8px solid #e9e9ea;border-right:8px solid #e9e9ea;width:962px;margin:0 auto;}
 #messages-wrapper div.message{padding:22px;}#messages-wrapper div.message.success{background-color:#dff0d8;}
 #messages-wrapper div.message.error{background-color:#f2dede;}

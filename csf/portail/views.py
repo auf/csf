@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404
 
 import auf.django.references.models as ref
 
-from csf.formulaire.models import Discipline, Niveau
+from csf.formulaire.models import Discipline, Niveau, OffreFormation
 
 @login_required
 def home(request):
@@ -18,22 +18,34 @@ def home(request):
 
 @login_required
 def pays_detail(request, id):
+    pays = get_object_or_404(ref.Pays, id=id,)
+    offres = OffreFormation.objects.filter(etablissement__etablissement__pays__id=id)  \
+        .order_by('discipline')
     c = {
-        'pays': get_object_or_404(ref.Pays, id=id,),
+        'pays': pays,
+        'offres': offres,
     }
     return render(request, 'portail/pays_detail.html', c)
 
 @login_required
 def niveau_detail(request, id):
+    niveau = get_object_or_404(Niveau, id=id,)
+    offres = OffreFormation.objects.filter(niveau=id)  \
+        .order_by('discipline')
     c = {
-        'niveau': get_object_or_404(Niveau, id=id,),
+        'niveau': niveau,
+        'offres': offres,
     }
     return render(request, 'portail/niveau_detail.html', c)
     
 @login_required
 def discipline_detail(request, id):
+    discipline = get_object_or_404(Discipline, id=id,)
+    offres = OffreFormation.objects.filter(discipline=id)  \
+        .order_by('niveau')
     c = {
-        'discipline': get_object_or_404(Discipline, id=id,),
+        'discipline': discipline,
+        'offres': offres,
     }
     return render(request, 'portail/discipline_detail.html', c)
 

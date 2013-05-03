@@ -158,3 +158,5 @@ class OffreFormation(BaseOffreFormation):
         Niveau,
         related_name='offres_formation')
     
+    def __unicode__(self):
+        return "%s" % (self.etablissement, )

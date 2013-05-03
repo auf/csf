@@ -4,6 +4,12 @@
 
 <h2>{{ niveau }}</h2>
 
-<h3>Discipline</h3>
+<p>À grouper par discipline</p>
+
+<ul>
+{% for o in offres %}
+    <li>{{ o.discipline }} - {{ o.etablissement }}</li>
+{% endfor %}
+</ul>
 
 {% endblock %}

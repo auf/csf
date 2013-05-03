@@ -17,7 +17,7 @@ urlpatterns = patterns(
     url(r'^$', include('csf.splash.urls')),
     url(r'^demo/', include('csf.portail.urls')),
     url(r'^admin_tools/', include('admin_tools.urls')),
-    url(r'^form/(?P<id>\d+)/$',
+    url(r'^espace/membre/(?P<id>\d+)/$',
         'csf.formulaire.views.offre_form',
         name='form_url'),
     (r'^admin/', include(admin.site.urls)),

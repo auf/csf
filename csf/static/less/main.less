@@ -201,6 +201,15 @@ footer.container p {
     }
 }
 
+#participant-form-inner {
+    &.success {
+	background-color: @successBackground;
+    }
+    &.error {
+	background-color: @errorBackground;
+    }
+}
+
 #messages-wrapper div.message p {
     margin: 0;
 }
@@ -216,12 +225,8 @@ footer.container p {
     float: left;
 }
 
-#participant-form {
-    background-color: @successBackground;
-}
-
-#participant-form .ouinon,
-#participant-form p {
+#participant-form-inner .ouinon,
+#participant-form-inner p {
     margin-top: @mainPadding;
     margin-bottom: @mainPadding;
 }

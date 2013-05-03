@@ -35,11 +35,14 @@ class EtablissementEligibleInline(admin.StackedInline):
 
 class UserAdmin(TokenUserAdmin):
     inlines = TokenUserAdmin.inlines + [EtablissementEligibleInline]
-    
+
+
+class OrderedAdmin(admin.ModelAdmin):
+    list_display = ['display_name', 'ordering']
 
 
 admin.site.unregister(User)
-admin.site.register(Discipline)
-admin.site.register(Niveau)
-admin.site.register(TypeUrls)
+admin.site.register(Discipline, OrderedAdmin)
+admin.site.register(Niveau, OrderedAdmin)
+admin.site.register(TypeUrls, OrderedAdmin)
 admin.site.register(User, UserAdmin)

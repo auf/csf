@@ -3,42 +3,57 @@
 from django.db import models
 from django.contrib.auth.models import User
 from auf.django.references import models as ref
+from django.utils.translation import ugettext_lazy as _
 
 
-class Discipline(models.Model):
+# class OrderedManager(models.Manager):
+#     def get_queryset(self):
+#         return super(OrderedManager, self).get_queryset().order_by('ordering')
+
+
+class OrderedModel(models.Model):
+    ordering = models.IntegerField(
+        default=0,
+        )
+
+    class Meta:
+        abstract = True
+        ordering = ['ordering']
+
+
+class Discipline(OrderedModel):
     display_name = models.CharField(
         max_length=255,
         )
-    ordering = models.IntegerField(
-        default=0,
+    def __unicode__(self):
+        return self.display_name
+
+
+class Niveau(OrderedModel):
+    display_name = models.CharField(
+        max_length=255,
         )
 
     def __unicode__(self):
         return self.display_name
 
-
-class Niveau(models.Model):
-    ordering = models.IntegerField(
-        default=0,
-        )
-    display_name = models.CharField(
-        max_length=255,
-        )
-
-    def __unicode__(self):
-        return self.display_name
+    class Meta:
+        ordering = ['ordering']
+        verbose_name_plural = _(u'Niveaux')
 
 
-class TypeUrls(models.Model):
+class TypeUrls(OrderedModel):
     required = models.BooleanField(
         default=False
         )
-    ordering = models.IntegerField(
-        default=0,
-        )
     display_name = models.CharField(
         max_length=255,
         )
+
+    class Meta:
+        ordering = ['ordering']
+        verbose_name_plural = _(u'Type d\'URL')
+        verbose_name_plural = _(u'Types d\'URL')
 
     def __unicode__(self):
         return self.display_name

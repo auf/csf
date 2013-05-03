@@ -1,0 +1,232 @@
+[
+  {
+    "pk": 18,
+    "model": "formulaire.discipline",
+    "fields": {
+      "ordering": 0,
+      "display_name": "G\u00e9nie et autres domaines techniques"
+    }
+  },
+  {
+    "pk": 17,
+    "model": "formulaire.discipline",
+    "fields": {
+      "ordering": 1,
+      "display_name": "Sciences pures et sciences naturelles (math\u00e9matiques, physique, chimie, etc.)"
+    }
+  },
+  {
+    "pk": 16,
+    "model": "formulaire.discipline",
+    "fields": {
+      "ordering": 2,
+      "display_name": "Sciences de la sant\u00e9 et sciences biom\u00e9dicales"
+    }
+  },
+  {
+    "pk": 15,
+    "model": "formulaire.discipline",
+    "fields": {
+      "ordering": 3,
+      "display_name": "Technologies de l\u2019information et des communications"
+    }
+  },
+  {
+    "pk": 14,
+    "model": "formulaire.discipline",
+    "fields": {
+      "ordering": 4,
+      "display_name": "A\u00e9rospatiale"
+    }
+  },
+  {
+    "pk": 13,
+    "model": "formulaire.discipline",
+    "fields": {
+      "ordering": 5,
+      "display_name": "Produits pharmaceutiques"
+    }
+  },
+  {
+    "pk": 12,
+    "model": "formulaire.discipline",
+    "fields": {
+      "ordering": 6,
+      "display_name": "Production agricole viable"
+    }
+  },
+  {
+    "pk": 11,
+    "model": "formulaire.discipline",
+    "fields": {
+      "ordering": 7,
+      "display_name": "P\u00e9trole, gaz naturel et charbon"
+    }
+  },
+  {
+    "pk": 10,
+    "model": "formulaire.discipline",
+    "fields": {
+      "ordering": 8,
+      "display_name": "\u00c9nergies renouvelables"
+    }
+  },
+  {
+    "pk": 9,
+    "model": "formulaire.discipline",
+    "fields": {
+      "ordering": 9,
+      "display_name": "Min\u00e9raux"
+    }
+  },
+  {
+    "pk": 8,
+    "model": "formulaire.discipline",
+    "fields": {
+      "ordering": 10,
+      "display_name": "Biotechnologie"
+    }
+  },
+  {
+    "pk": 7,
+    "model": "formulaire.discipline",
+    "fields": {
+      "ordering": 11,
+      "display_name": "Nanotechnologie et nouveaux mat\u00e9riaux"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "formulaire.discipline",
+    "fields": {
+      "ordering": 12,
+      "display_name": "Mesures de pr\u00e9vention des catastrophes naturelles et d\u2019att\u00e9nuation des d\u00e9g\u00e2ts"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "formulaire.discipline",
+    "fields": {
+      "ordering": 13,
+      "display_name": "Biodiversit\u00e9 et bioprospection"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "formulaire.discipline",
+    "fields": {
+      "ordering": 14,
+      "display_name": "Sciences de la mer"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "formulaire.discipline",
+    "fields": {
+      "ordering": 15,
+      "display_name": "Industrie culturelle (architecture, design, logiciel, jeux vid\u00e9o, publication \u00e9lectronique, publicit\u00e9, film, vid\u00e9o, photographie, musique, th\u00e9\u00e2tre, t\u00e9l\u00e9vision, radio, \u00e9dition)"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "formulaire.discipline",
+    "fields": {
+      "ordering": 16,
+      "display_name": "Nouvelles technologies en construction"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "formulaire.discipline",
+    "fields": {
+      "ordering": 17,
+      "display_name": "Formation du personnel technique"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "formulaire.niveau",
+    "fields": {
+      "ordering": 0,
+      "display_name": "Premier cycle"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "formulaire.niveau",
+    "fields": {
+      "ordering": 1,
+      "display_name": "Troisi\u00e8me cycle"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "formulaire.niveau",
+    "fields": {
+      "ordering": 2,
+      "display_name": "Doctorat \"sandwich\" l'ensemble de vos programmes de formation\" "
+    }
+  },
+  {
+    "pk": 4,
+    "model": "formulaire.niveau",
+    "fields": {
+      "ordering": 3,
+      "display_name": "Post-doctorat"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "formulaire.typeurls",
+    "fields": {
+      "ordering": 0,
+      "required": false,
+      "display_name": "Page d'accueil"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "formulaire.typeurls",
+    "fields": {
+      "ordering": 1,
+      "required": false,
+      "display_name": "Page CSF"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "formulaire.typeurls",
+    "fields": {
+      "ordering": 2,
+      "required": false,
+      "display_name": "Page des programmes"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "formulaire.typeurls",
+    "fields": {
+      "ordering": 3,
+      "required": false,
+      "display_name": "Page des programmes de 1er cycle"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "formulaire.typeurls",
+    "fields": {
+      "ordering": 4,
+      "required": false,
+      "display_name": "Page des programmes de 3e cycle"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "formulaire.typeurls",
+    "fields": {
+      "ordering": 5,
+      "required": false,
+      "display_name": "Page des programmes de post-doctorat"
+    }
+  }
+]

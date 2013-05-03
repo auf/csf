@@ -3,25 +3,33 @@
 
 {% block content %}
 
+{% block extra-js %}
+<script src="{{ STATIC_URL }}js/form.js"></script>
+{% endblock %}
+
 <div class="row">
   <div class="span12">
     <h1>{{ etablissement.etablissement.nom }}</h1>
   </div>
 </div>
 
-<form method="POST" action="{% url form_url etablissement.id %}">
+<form id="participate-form" method="POST" action="{% url form_url etablissement.id %}">
   {% csrf_token %}
-<div id="participant-form" class="row">
-  <p class="span10">
-    {% trans 'Mon établissement souhaite apparaître sur le portail CSF en francophonie' %}
-  </p>
-  <div class="span1">
-    <label>Oui</label><input {% if etablissement.participant %}checked {% endif %}type="radio" name="participant" value="false" />
+  <div id="participant-form" class="row">
+    <p class="span10">
+      {% trans 'Mon établissement souhaite apparaître sur le portail CSF en francophonie' %}
+    </p>
+    <div class="span1">
+      <div class="ouinon">
+	<label>Oui</label><input onchange="participate()" {% if etablissement.participant %}checked {% endif %}type="radio" name="change-participate" value="true" />
+      </div>
+    </div>
+    <div class="span1">
+      <div class="ouinon">
+	<label>Non</label><input onchange="participate()" {% if not etablissement.participant %}checked {% endif %}type="radio" name="change-participate" value="false" />
+      </div>
+    </div>
   </div>
-  <div class="span1">
-    <label>Non</label><input {% if not etablissement.participant %}checked {% endif %}type="radio" name="participant" value="true" />
-  </div>
-</div>
 </form>
 
 <div id="wrapper" class="row">
@@ -62,41 +70,43 @@
       <!-- Formulaires Disciplines -->
 
       <h3>Offres de formations</h3>
-      <div class="row">
-	<div class="span4">
-	  <label>Discipline</label>
+      <div class="offres-wrapper">
+	<div class="row">
+	  <div class="span4">
+	    <label>Discipline</label>
+	  </div>
+	  {% for niveau in niveaux %}
+	  <div class="span1">
+	    <label>{{ niveau.display_name }}</label>
+	  </div>
+	  {% endfor %}
 	</div>
-	{% for niveau in niveaux %}
-	<div class="span1">
-	  <label>{{ niveau.display_name }}</label>
-	</div>
-	{% endfor %}
-      </div>
 
-      {{ dof.management_form }}
-      <div>
-      {% for form in dof %}
-      {% with forloop.counter0|divisibleby:dof_column_count as start_row%}
-      {% with forloop.counter|divisibleby:dof_column_count as end_row %}
-      {% if start_row %}
-      <div class="row offre-formation-row">
-	<div class="span4">
-	  <label>{{ form.instance.discipline.display_name }}</label>
+	{{ dof.management_form }}
+	<div>
+	  {% for form in dof %}
+	  {% with forloop.counter0|divisibleby:dof_column_count as start_row%}
+	  {% with forloop.counter|divisibleby:dof_column_count as end_row %}
+	  {% if start_row %}
+	  <div class="row offre-formation-row">
+	    <div class="span4">
+	      <label>{{ form.instance.discipline.display_name }}</label>
+	    </div>
+	    {% endif %}
+	    {{ form.discipline }}
+	    {{ form.etablissement }}
+	    {{ form.niveau }}
+	    {{ form.id }}
+	    <div class="span1">
+	      {{ form.offert }}
+	    </div>
+	    {% if end_row %}
+	  </div>
+	  {% endif %}
+	  {% endwith %}
+	  {% endwith %}
+	  {% endfor %}
 	</div>
-	{% endif %}
-	{{ form.discipline }}
-	{{ form.etablissement }}
-	{{ form.niveau }}
-	{{ form.id }}
-	<div class="span1">
-	  {{ form.offert }}
-	</div>
-	{% if end_row %}
-      </div>
-      {% endif %}
-      {% endwith %}
-      {% endwith %}
-      {% endfor %}
       </div>
     </form>
   </div>
@@ -126,35 +136,37 @@
 
     <!-- Formulaires Disciplines -->
     
-    <h3>Offres de formations</h3>
-    <div class="row">
-      {% for niveau in niveaux %}
-      <div class="span1">
-	<label>{{ niveau.display_name }}</label>
+    <div class="offres-wrapper">
+      <h3>Offres de formations</h3>
+      <div class="row">
+	{% for niveau in niveaux %}
+	<div class="span1">
+	  <label>{{ niveau.display_name }}</label>
+	</div>
+	{% endfor %}
       </div>
-      {% endfor %}
-    </div>
 
-    <div>
-    {% for form in p_dof %}
-    {% with forloop.counter0|divisibleby:dof_column_count as start_row%}
-    {% with forloop.counter|divisibleby:dof_column_count as end_row %}
-    {% if start_row %}
-    <div class="row offre-formation-row">
-      {% endif %}
-      {{ form.discipline }}
-      {{ form.etablissement }}
-      {{ form.niveau }}
-      {{ form.id }}
-      <div class="span1">
-	{{ form.offert }}
+      <div>
+	{% for form in p_dof %}
+	{% with forloop.counter0|divisibleby:dof_column_count as start_row%}
+	{% with forloop.counter|divisibleby:dof_column_count as end_row %}
+	{% if start_row %}
+	<div class="row offre-formation-row">
+	  {% endif %}
+	  {{ form.discipline }}
+	  {{ form.etablissement }}
+	  {{ form.niveau }}
+	  {{ form.id }}
+	  <div class="span1">
+	    {{ form.offert }}
+	  </div>
+	  {% if end_row %}
+	</div>
+	{% endif %}
+	{% endwith %}
+	{% endwith %}
+	{% endfor %}
       </div>
-      {% if end_row %}
-    </div>
-    {% endif %}
-    {% endwith %}
-    {% endwith %}
-    {% endfor %}
     </div>
 
     {% else %}
@@ -176,6 +188,7 @@
 	  <input class="btn btn-success" type="submit" value="{% trans 'Publier le brouillon' %}" />
 	</form>
       </div>
+      {% if etablissement.participant %}
       <div class="span3">
 	<form method="POST" action="{% url form_url etablissement.id %}">
 	  {% csrf_token %}
@@ -183,6 +196,7 @@
 	  <input class="btn btn-danger" type="submit" value="{% trans 'Enlever la publication' %}" />
 	</form>
       </div>
+      {% endif %}
     </div>
   </div>
 </div>

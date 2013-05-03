@@ -163,9 +163,17 @@ def offre_form(request, id):
 
     ### Get / Post logic here.
 
-    if request.method == 'GET':
-        due = due_fs(queryset=due_qs)
-        dof = dof_fs(queryset=dof_qs)
+    due = due_fs(queryset=due_qs)
+    dof = dof_fs(queryset=dof_qs)
+
+    if (request.POST.get('change-participate', '') in
+          ('true', 'false')):
+        chp = request.POST.get('change-participate')
+        new_val = True if chp == 'true' else False
+        if etablissement.participant != new_val:
+            etablissement.participant = new_val
+            etablissement.save()
+
     elif (request.POST.get('publish', '') == 'doit'):
 
         for draft_offre in dof_qs:
@@ -194,9 +202,6 @@ def offre_form(request, id):
             msg,
             )
 
-        due = due_fs(queryset=due_qs)
-        dof = dof_fs(queryset=dof_qs)
-
     elif (request.POST.get('take-down', '') == 'doit'):
         etablissement.participant = False
         etablissement.save()
@@ -206,8 +211,6 @@ def offre_form(request, id):
             request,
             msg,
             )
-        due = due_fs(queryset=due_qs)
-        dof = dof_fs(queryset=dof_qs)
 
     elif request.method == 'POST':
         due = due_fs(request.POST)

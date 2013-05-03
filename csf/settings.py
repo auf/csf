@@ -62,6 +62,7 @@ INSTALLED_APPS = (
     'auf.django.references',
     'csf.splash',
     'csf.formulaire',
+    'csf.portail',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

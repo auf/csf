@@ -71,7 +71,7 @@ class EtablissementEligible(models.Model):
         related_name='etablissement_eligible',
         verbose_name="Établissement",)
     participant = models.NullBooleanField(
-        default=False,
+        default=None,
         verbose_name="Participe au programme CSF",
         )
     

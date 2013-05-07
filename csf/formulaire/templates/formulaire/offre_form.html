@@ -22,7 +22,7 @@
 
 <form id="participate-form" method="POST" action="{% url form_url etablissement.id %}">
   {% csrf_token %}
-  <div id="participant-form-inner" class="row{% if etablissement.participant %} success{% else %} error {% endif %}">
+  <div id="participant-form-inner" class="row{% if etablissement.participant %} success{% elif etablissement.participant == None %} warning{% else %} error {% endif %}">
     <p class="span10">
       {% trans 'Mon établissement souhaite apparaître sur le portail CSF en francophonie' %}
     </p>
@@ -33,7 +33,7 @@
     </div>
     <div class="span1">
       <div class="ouinon">
-	<label>Non</label><input onchange="participate()" {% if not etablissement.participant %}checked {% endif %}type="radio" name="change-participate" value="false" />
+	<label>Non</label><input onchange="participate()" {% if not etablissement.participant and etablissement.participant != None %}checked {% endif %}type="radio" name="change-participate" value="false" />
       </div>
     </div>
   </div>
@@ -181,7 +181,7 @@
 	    {{ form.niveau }}
 	    {{ form.id }}
 	    <div class="span1">
-	      {{ form.offert }}
+	      {% if form.instance.offert %}X{% else %}-{% endif %}
 	    </div>
 	    {% if end_row %}
 	  </div>

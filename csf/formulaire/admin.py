@@ -7,6 +7,8 @@ from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
 from django.contrib.admin import SimpleListFilter
 from auf.django.auth_token.admin import TokenUserAdmin
+from django.conf import settings
+from auf.django.auth_token.models import ALLOW_UNSECURED_TOKEN_AUTH
 from django.core.urlresolvers import reverse
 from .models import (
     Discipline,
@@ -41,7 +43,10 @@ class EtablissementEligibleInline(admin.StackedInline):
 
 
 def show_link(obj):
-    link = 'http://%s%s?auth_token=%s' % (
+    link = 'http%s://%s%s?auth_token=%s' % (
+        (''
+         if (settings.DEBUG and ALLOW_UNSECURED_TOKEN_AUTH)
+         else 's'),
         Site.objects.get_current().domain,
         reverse('csf.formulaire.views.offre_form',
                 kwargs={'id': obj.etablissement_eligible.id,},

@@ -61,7 +61,7 @@ class Command(BaseCommand):
             if etab_qs.count() == 0:
                 u, created = User.objects.get_or_create(
                     username='%s_%s' % (
-                        slugify(etab.nom)[:27],
+                        slugify(etab.nom)[:26],
                         etab.pk,
                         ),
                     email=etab.responsable_courriel or '',)

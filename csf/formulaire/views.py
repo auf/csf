@@ -141,12 +141,6 @@ def offre_form(request, id):
         extra=0,
         )
 
-    p_due_fs = modelformset_factory(
-        model=URLEtablissement,
-        form=URLEtablissementForm,
-        extra=0,
-        )
-
     dof_fs = modelformset_factory(
         model=DraftOffreFormation,
         form=DraftOffreFormationPublicForm,
@@ -235,8 +229,7 @@ def offre_form(request, id):
     ctx = {
         'due': due,
         'dof': dof,
-        'p_due': p_due_fs(
-            queryset=etablissement.urls.all()),
+        'p_due_qs': p_due_qs,
         'p_dof': p_dof_fs(
             queryset=etablissement.offres_formation.all()),
         'typeurls': TypeUrls.objects.all(),

@@ -80,22 +80,16 @@
     </div>
     <div class="span4">
       {% if etablissement.participant %}
-      {% for form in p_due %}
+      {% for item in p_due_qs %}
       <div class="row">
 	<div class="span4">
-	  {% if form.url.errors %}
-	  {% for error in form.url.errors %}
-	  <small class="text-error">{{ error }}</small>
-	  {% endfor %}
-	  {% endif %}
-	  <input readonly class="input-xlarge" type="text" placeholder="{{ form.instance.type.display_name }}" maxlength="{{form.url.max_length}}" id="id-{{ form.prefix }}-url" name="{{ form.prefix }}-url" {% if form.url.value %} value="{{ form.url.value }}"{%endif %} />
+	  <input readonly class="input-xlarge" type="text" placeholder="{{ item.type.display_name }}" {% if item.url %} value="{{ item.url }}"{%endif %} />
 	</div>
       </div>
       {% endfor %}
       <hr />
       {% else %}
       <p class="text-error">{% trans 'Aucune information n&#39;est publiée.' %}</p>
-      
       {% endif %}
     </div>
   </div>

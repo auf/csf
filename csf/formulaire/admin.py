@@ -45,7 +45,7 @@ class EtablissementEligibleInline(admin.StackedInline):
 def show_link(obj):
     link = 'http%s://%s%s?auth_token=%s' % (
         (''
-         if (settings.DEBUG and ALLOW_UNSECURED_TOKEN_AUTH)
+         if ALLOW_UNSECURED_TOKEN_AUTH
          else 's'),
         Site.objects.get_current().domain,
         reverse('csf.formulaire.views.offre_form',

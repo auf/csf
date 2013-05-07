@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
 from django.contrib.admin import SimpleListFilter
+from django.contrib.auth.admin import UserAdmin
 from auf.django.auth_token.admin import TokenUserAdmin
 from django.conf import settings
 from auf.django.auth_token.models import ALLOW_UNSECURED_TOKEN_AUTH
@@ -87,7 +88,7 @@ class IsEtablissementFilter(SimpleListFilter):
 
 class UserAdmin(TokenUserAdmin):
 
-    list_display = TokenUserAdmin.list_display + [show_link]
+    list_display = list(UserAdmin.list_display) + [show_link]
     inlines = TokenUserAdmin.inlines + [EtablissementEligibleInline]
     list_filter = list(TokenUserAdmin.list_filter) + [IsEtablissementFilter]
 

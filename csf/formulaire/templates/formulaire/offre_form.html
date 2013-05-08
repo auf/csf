@@ -40,6 +40,7 @@
 </form>
 
 <form id="draft-form" method="POST" action="{% url form_url etablissement.id %}">
+  <input id="publish_draft" type="hidden" name="publish_draft" value="false" />
   <div class="row">
     <div id="offre-formulaire" class="span12">
       {% csrf_token %}
@@ -202,11 +203,7 @@
 	<input onclick="$('#draft-form').submit();" class="btn btn-primary" type="button" value="{% trans 'Enregistrer le brouillon' %}" />
       </div>
       <div class="span4">
-	<form method="POST" action="{% url form_url etablissement.id %}">
-	  {% csrf_token %}
-	  <input type="hidden" name="publish" value="doit" />
-	  <input class="btn btn-success" type="submit" value="{% trans 'Publier le brouillon' %}" />
-	</form>
+	<input onclick="$('#publish_draft').val('true');$('#draft-form').submit();" class="btn btn-success" type="button" value="{% trans 'Publier le brouillon' %}" />
       </div>
       {% if etablissement.participant %}
       <div class="span4">

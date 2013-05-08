@@ -168,34 +168,6 @@ def offre_form(request, id):
             etablissement.participant = new_val
             etablissement.save()
 
-    elif (request.POST.get('publish', '') == 'doit'):
-
-        for draft_offre in dof_qs:
-            offre, nothing = OffreFormation.objects.get_or_create(
-                etablissement=etablissement,
-                niveau=draft_offre.niveau,
-                discipline=draft_offre.discipline,
-                )
-            offre.offert = draft_offre.offert
-            offre.save()
-
-        for draft_url in due_qs:
-            url, nothing = URLEtablissement.objects.get_or_create(
-                etablissement=etablissement,
-                type=draft_url.type,
-                )
-            url.url = draft_url.url
-            url.save()
-
-        etablissement.participant = True
-        etablissement.save()
-
-        msg = _(u'Vos informations ont été publiées.')
-        messages.success(
-            request,
-            msg,
-            )
-
     elif (request.POST.get('take-down', '') == 'doit'):
         etablissement.participant = False
         etablissement.save()
@@ -218,6 +190,33 @@ def offre_form(request, id):
                 request,
                 msg,
                 )
+            if request.POST.get('publish_draft', None) == 'true':
+
+                for draft_offre in dof_qs:
+                    offre, nothing = OffreFormation.objects.get_or_create(
+                        etablissement=etablissement,
+                        niveau=draft_offre.niveau,
+                        discipline=draft_offre.discipline,
+                        )
+                    offre.offert = draft_offre.offert
+                    offre.save()
+
+                for draft_url in due_qs:
+                    url, nothing = URLEtablissement.objects.get_or_create(
+                        etablissement=etablissement,
+                        type=draft_url.type,
+                        )
+                    url.url = draft_url.url
+                    url.save()
+
+                etablissement.participant = True
+                etablissement.save()
+
+                msg = _(u'Vos informations ont été publiées.')
+                messages.success(
+                    request,
+                    msg,
+                    )
         else:
             msg = _(u'Des erreurs se sont produites, veuillez vérifier'
                     ' les erreurs ci-dessous.')

@@ -1066,8 +1066,12 @@ footer.container p{padding-top:15px;color:#A3A4A7;font-size:0.8em;}
 #participant-form-inner.success{background-color:#dff0d8;}
 #participant-form-inner.error{background-color:#f2dede;}
 #participant-form-inner.warning{background-color:#fcf8e3;}
+.row.success,.row-fluid.success{background-color:#dff0d8;}
+.row.error,.row-fluid.error{background-color:#f2dede;}
+.row.warning,.row-fluid.warning{background-color:#fcf8e3;}
 #messages-wrapper div.message p{margin:0;}
 .offre-formation-row{height:65px;}
 .offre-formation-row:nth-child(odd){background-color:#eee;}
 #participant-form label{float:left;}
 #participant-form-inner .ouinon,#participant-form-inner p{margin-top:22px;margin-bottom:22px;}
+#particip_p{padding-left:22px;}

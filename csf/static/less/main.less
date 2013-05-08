@@ -213,6 +213,18 @@ footer.container p {
     }
 }
 
+.row, .row-fluid {
+    &.success {
+	background-color: @successBackground;
+    }
+    &.error {
+	background-color: @errorBackground;
+    }
+    &.warning {
+	background-color: @warningBackground;
+    }
+}
+
 #messages-wrapper div.message p {
     margin: 0;
 }
@@ -232,4 +244,7 @@ footer.container p {
 #participant-form-inner p {
     margin-top: @mainPadding;
     margin-bottom: @mainPadding;
+}
+#particip_p {
+    padding-left: @mainPadding;
 }

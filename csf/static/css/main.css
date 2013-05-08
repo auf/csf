@@ -1065,6 +1065,7 @@ footer.container p{padding-top:15px;color:#A3A4A7;font-size:0.8em;}
 #messages-wrapper div.message.info{background-color:#d9edf7;}
 #participant-form-inner.success{background-color:#dff0d8;}
 #participant-form-inner.error{background-color:#f2dede;}
+#participant-form-inner.warning{background-color:#fcf8e3;}
 #messages-wrapper div.message p{margin:0;}
 .offre-formation-row{height:65px;}
 .offre-formation-row:nth-child(odd){background-color:#eee;}

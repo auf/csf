@@ -54,7 +54,7 @@ def offre_form(request, id):
 
 
     if etablissement.participant == None:
-        etablissement.participant == True
+        etablissement.participant = True
         etablissement.save()
 
     niveaux = Niveau.objects.all()

@@ -97,8 +97,12 @@ class OrderedAdmin(admin.ModelAdmin):
     list_display = ['display_name', 'ordering']
 
 
+class TypeUrlsAdmin(OrderedAdmin):
+    exclude = ('required',)
+
+
 admin.site.unregister(User)
 admin.site.register(Discipline, OrderedAdmin)
 admin.site.register(Niveau, OrderedAdmin)
-admin.site.register(TypeUrls, OrderedAdmin)
+admin.site.register(TypeUrls, TypeUrlsAdmin)
 admin.site.register(User, UserAdmin)

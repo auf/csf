@@ -74,9 +74,8 @@ def offre_form(request, id):
         id__in=due_qs.values_list(
             'type__id', flat=True))
     p_missing = TypeUrls.objects.exclude(
-        id__in=due_qs.values_list(
+        id__in=p_due_qs.values_list(
             'type__id', flat=True))
-
 
     new_urls = [
         DraftURLEtablissement(
@@ -94,7 +93,7 @@ def offre_form(request, id):
             )
         for x in p_missing
         ]
-    URLEtablissement.objects.bulk_create(new_urls)
+    URLEtablissement.objects.bulk_create(new_p_urls)
     
     # Then create default Offres
 

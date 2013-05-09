@@ -19,8 +19,11 @@ def home(request):
 @login_required
 def pays_detail(request, id):
     pays = get_object_or_404(ref.Pays, id=id,)
-    offres = OffreFormation.objects.filter(etablissement__etablissement__pays__id=id)  \
-        .order_by('discipline')
+    offres = OffreFormation.objects.filter(
+        etablissement__etablissement__pays__id=id,
+        etablissement__participant=True,
+        offert=True,
+    ).order_by('discipline')
     c = {
         'pays': pays,
         'offres': offres,
@@ -30,8 +33,11 @@ def pays_detail(request, id):
 @login_required
 def niveau_detail(request, id):
     niveau = get_object_or_404(Niveau, id=id,)
-    offres = OffreFormation.objects.filter(niveau=id)  \
-        .order_by('discipline')
+    offres = OffreFormation.objects.filter(
+        niveau=id,
+        etablissement__participant=True,
+        offert=True,
+    ).order_by('discipline')
     c = {
         'niveau': niveau,
         'offres': offres,
@@ -41,12 +47,13 @@ def niveau_detail(request, id):
 @login_required
 def discipline_detail(request, id):
     discipline = get_object_or_404(Discipline, id=id,)
-    offres = OffreFormation.objects.filter(discipline=id)  \
-        .order_by('niveau')
+    offres = OffreFormation.objects.filter(
+        discipline=id,
+        etablissement__participant=True,
+        offert=True,
+    ).order_by('niveau')
     c = {
         'discipline': discipline,
         'offres': offres,
     }
     return render(request, 'portail/discipline_detail.html', c)
-
-

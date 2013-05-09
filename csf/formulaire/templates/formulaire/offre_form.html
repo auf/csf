@@ -21,18 +21,22 @@
 </div>
 <form id="participate-form" method="POST" action="{% url form_url etablissement.id %}">
   {% csrf_token %}
-  <div id="participant-form-inner" class="row{% if etablissement.participant %} success{% elif etablissement.participant == None %} warning{% else %} error {% endif %}">
-    <p class="span10">
-      {% trans 'Mon établissement souhaite apparaître sur le portail CSF en francophonie' %}
-    </p>
-    <div class="span1">
-      <div class="ouinon">
-        <label>Oui</label><input onchange="participate()" {% if etablissement.participant %}checked {% endif %}type="radio" name="change-participate" value="true" />
-      </div>
-    </div>
-    <div class="span1">
-      <div class="ouinon">
-        <label>Non</label><input onchange="participate()" {% if not etablissement.participant and etablissement.participant != None %}checked {% endif %}type="radio" name="change-participate" value="false" />
+  <div id="participant-form-inner" class="row">
+    <div class="span12">
+      <div class="row-fluid{% if etablissement.participant %} success{% elif etablissement.participant == None %} warning{% else %} error {% endif %}">
+	<p class="span10" id="particip_p">
+	{% trans 'Mon établissement souhaite apparaître sur le portail CSF en francophonie' %}
+	</p>
+	<div class="span1">
+	  <div class="ouinon">
+            <label>Oui</label><input onchange="participate()" {% if etablissement.participant %}checked {% endif %}type="radio" name="change-participate" value="true" />
+	  </div>
+	</div>
+	<div class="span1">
+	  <div class="ouinon">
+            <label>Non</label><input onchange="participate()" {% if not etablissement.participant and etablissement.participant != None %}checked {% endif %}type="radio" name="change-participate" value="false" />
+	  </div>
+	</div>
       </div>
     </div>
   </div>

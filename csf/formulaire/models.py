@@ -105,6 +105,7 @@ class BaseOffreFormation(models.Model):
     offert = models.BooleanField(default=False)
 
     class Meta:
+        ordering=('discipline__ordering',)
         abstract = True
 
 

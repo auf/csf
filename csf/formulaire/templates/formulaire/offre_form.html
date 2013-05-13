@@ -2,166 +2,222 @@
 {% load i18n %}
 
 {% block content %}
-<div id="wrapper" class="row">
-  <div id="offre-formulaire" class="span6">
-    <form id="draft-form" method="POST" action="{% url form_url etablissement.id %}">
-      {% csrf_token %}
 
-      <div class="row">
-	<div class="span6">
-	  <h2>{% trans 'Brouillon' %}</h2>
+{% block extra-js %}
+<script src="{{ STATIC_URL }}js/form.js"></script>
+{% endblock %}
+
+<div class="row">
+  <div class="span12">
+    <h1>{{ etablissement.etablissement.nom }}</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12">
+    <h2>{% trans 'Participation' %}</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </div>
+</div>
+<form id="participate-form" method="POST" action="{% url form_url etablissement.id %}">
+  {% csrf_token %}
+  <div id="participant-form-inner" class="row">
+    <div class="span12">
+      <div class="row-fluid{% if etablissement.participant %} success{% elif etablissement.participant == None %} warning{% else %} error {% endif %}">
+	<p class="span10" id="particip_p">
+	{% trans 'Mon établissement souhaite apparaître sur le portail CSF en francophonie' %}
+	</p>
+	<div class="span1">
+	  <div class="ouinon">
+            <label>Oui</label><input onchange="participate()" {% if etablissement.participant %}checked {% endif %}type="radio" name="change-participate" value="true" />
+	  </div>
+	</div>
+	<div class="span1">
+	  <div class="ouinon">
+            <label>Non</label><input onchange="participate()" {% if not etablissement.participant and etablissement.participant != None %}checked {% endif %}type="radio" name="change-participate" value="false" />
+	  </div>
 	</div>
       </div>
+    </div>
+  </div>
+</form>
+<hr />
 
-      <!-- Formulaires URL -->
-
-      <h3>URLs</h3>
+<form id="draft-form" method="POST" action="{% url form_url etablissement.id %}">
+  <input id="publish_draft" type="hidden" name="publish_draft" value="false" />
+  <div class="row">
+    <div id="offre-formulaire" class="span12">
+      {% csrf_token %}
+      <h2>URLs</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <div class="row">
+        <div class="span4"></div>
+        <div class="span4">
+          <h3>{% trans 'Brouillon' %}</h3>
+        </div>
+        <div class="span4">
+          <h3>{% trans 'Information publiée' %}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span8">
       {{ due.management_form }}
       {% for form in due %}
-      {{ form.type }}
-      {{ form.etablissement }}
-      {{ form.id }}
       <div class="row">
-	<div class="span6">
-	  {% if form.url.errors %}
-	  {% for error in form.url.errors %}
-	  <div class="formError text-error">{{ error }}</div>
-	  {% endfor %}
-	  {% endif %}
-	  <label>{{ form.instance.type.display_name }}</label>
-	  <input class="input-xlarge" type="text" placeholder="{{ form.instance.type.display_name }}" maxlength="{{form.url.max_length}}" id="id-{{ form.prefix }}-url" name="{{ form.prefix }}-url" value="{{ form.url.value }}"/>
-	</div>
+        {{ form.type }}
+        {{ form.etablissement }}
+        {{ form.id }}
+        <div class="span4">
+          <label>{{ form.instance.type.display_name }}</label>
+        </div>
+        <div class="span4">
+          {% if form.url.errors %}
+          {% for error in form.url.errors %}
+          <div class="formError text-error">{{ error }}</div>
+          {% endfor %}
+          {% endif %}
+          <input class="input-xlarge" type="text" placeholder="{{ form.instance.type.display_name }}" maxlength="{{form.url.max_length}}" id="id-{{ form.prefix }}-url" name="{{ form.prefix }}-url"{% if form.url.value %} value="{{ form.url.value }}"{%endif %} />
+        </div>
       </div>
       {% endfor %}
       <hr />
-
+    </div>
+    <div class="span4">
+      {% if etablissement.participant %}
+      {% for item in p_due_qs %}
+      <div class="row">
+        <div class="span4">
+          <input readonly class="input-xlarge" type="text" placeholder="{{ item.type.display_name }}" {% if item.url %} value="{{ item.url }}"{%endif %} />
+        </div>
+      </div>
+      {% endfor %}
+      <hr />
+      {% else %}
+      <p class="text-error">{% trans 'Aucune information n&#39;est publiée.' %}</p>
+      {% endif %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="span12">
+      <h2>Offres de formation</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span4"></div>
+    <div class="span4">
+      <h3>{% trans 'Brouillon' %}</h3>
+    </div>
+    <div class="span4">
+      <h3>{% trans 'Information publiée' %}</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span8">
       <!-- Formulaires Disciplines -->
 
-      <div class="row">
-	<div class="span2">
-	  Discipline
-	</div>
-	{% for niveau in niveaux %}
-	<div class="span1">
-	  {{ niveau.display_name }}
-	</div>
-	{% endfor %}
-      </div>
+      <div class="offres-wrapper">
+        <div class="row">
+          <div class="span4">
+            <label><strong>Disciplines</strong></label>
+          </div>
+          {% for niveau in niveaux %}
+          <div class="span1">
+            <label>{{ niveau.display_name }}</label>
+          </div>
+          {% endfor %}
+        </div>
 
-      {{ dof.management_form }}
-      {% for form in dof %}
-      {% with forloop.counter0|divisibleby:dof_column_count as start_row%}
-      {% with forloop.counter|divisibleby:dof_column_count as end_row %}
-      {{ form.discipline }}
-      {{ form.etablissement }}
-      {{ form.niveau }}
-      {{ form.id }}
-      {% if start_row %}
-      <div class="row">
-	<div class="span2">
-	  {{ form.instance.discipline.display_name }}
-	</div>
-	{% endif %}
-	<div class="span1">
-	  {{ form.offert }}
-	</div>
-	{% if end_row %}
+        {{ dof.management_form }}
+        <div>
+          {% for form in dof %}
+          {% with forloop.counter0|divisibleby:dof_column_count as start_row%}
+          {% with forloop.counter|divisibleby:dof_column_count as end_row %}
+          {% if start_row %}
+          <div class="row offre-formation-row">
+            <div class="span4">
+              <label>{{ form.instance.discipline.display_name }}</label>
+            </div>
+            {% endif %}
+            {{ form.discipline }}
+            {{ form.etablissement }}
+            {{ form.niveau }}
+            {{ form.id }}
+            <div class="span1">
+              {{ form.offert }}
+            </div>
+            {% if end_row %}
+          </div>
+          {% endif %}
+          {% endwith %}
+          {% endwith %}
+          {% endfor %}
+        </div>
       </div>
+    </div>
+    <div id="publication" class="span4">
+      {% if etablissement.participant %}
+        <!-- Formulaires Disciplines -->
+        
+        <div class="offres-wrapper">
+          <div class="row">
+            {% for niveau in niveaux %}
+            <div class="span1">
+              <label>{{ niveau.display_name }}</label>
+            </div>
+            {% endfor %}
+          </div>
+
+          <div>
+            {% for form in p_dof %}
+            {% with forloop.counter0|divisibleby:dof_column_count as start_row%}
+            {% with forloop.counter|divisibleby:dof_column_count as end_row %}
+            {% if start_row %}
+            <div class="row offre-formation-row">
+              {% endif %}
+              {{ form.discipline }}
+              {{ form.etablissement }}
+              {{ form.niveau }}
+              {{ form.id }}
+              <div class="span1">
+                {% if form.instance.offert %}X{% else %}-{% endif %}
+              </div>
+              {% if end_row %}
+            </div>
+            {% endif %}
+            {% endwith %}
+            {% endwith %}
+            {% endfor %}
+          </div>
+        </div>
+      {% else %}
+        <p class="text-error">{% trans 'Aucune information n&#39;est publiée.' %}</p>
       {% endif %}
-      {% endwith %}
-      {% endwith %}
-      {% endfor %}
-    </form>
+    </div>
   </div>
-  <div id="publication" class="span6">
-    <div class="row">
-      <div class="span6">
-	<h2>{% trans 'Information publiée' %}</h2>
-      </div>
-    </div>
-
-    {% if etablissement.participant %}
-
-    <h3>URLs</h3>
-    {% for form in p_due %}
-    <div class="row">
-      <div class="span6">
-	{% if form.url.errors %}
-	{% for error in form.url.errors %}
-	<small class="text-error">{{ error }}</small>
-	{% endfor %}
-	{% endif %}
-	<label>{{ form.instance.type.display_name }}</label>
-	<input readonly class="input-xlarge" type="text" placeholder="{{ form.instance.type.display_name }}" maxlength="{{form.url.max_length}}" id="id-{{ form.prefix }}-url" name="{{ form.prefix }}-url" value="{{ form.url.value }}"/>
-      </div>
-    </div>
-    {% endfor %}
-    <hr />
-
-    <!-- Formulaires Disciplines -->
-    
-    <div class="row">
-      <div class="span2">
-	Discipline
-      </div>
-      {% for niveau in niveaux %}
-      <div class="span1">
-	{{ niveau.display_name }}
-      </div>
-      {% endfor %}
-    </div>
-
-    {% for form in p_dof %}
-    {% with forloop.counter0|divisibleby:dof_column_count as start_row%}
-    {% with forloop.counter|divisibleby:dof_column_count as end_row %}
-    {{ form.discipline }}
-    {{ form.etablissement }}
-    {{ form.niveau }}
-    {{ form.id }}
-    {% if start_row %}
-    <div class="row">
-      <div class="span2">
-	{{ form.instance.discipline.display_name }}
-      </div>
-      {% endif %}
-      <div class="span1">
-	{{ form.offert }}
-      </div>
-      {% if end_row %}
-    </div>
-    {% endif %}
-    {% endwith %}
-    {% endwith %}
-    {% endfor %}
-
-    {% else %}
-
-    <p class="text-error">{% trans 'Aucune information n&#39;est publiée.' %}</p>
-
-    {% endif %}
-
-  </div>
+</form>
+<hr />
+<div class="row">
   <div id="actions" class="span12">
     <div class="row">
-      <div class="span3">
-	<input onclick="$('#draft-form').submit();" class="btn btn-primary" type="button" value="{% trans 'Enregistrer le brouillon' %}" />
+      <div class="span4">
+        <input onclick="$('#draft-form').submit();" class="btn btn-warning" type="button" value="{% trans 'Enregistrer le brouillon' %}" />
       </div>
-      <div class="span3">
-	<form method="POST" action="{% url form_url etablissement.id %}">
-	  {% csrf_token %}
-	  <input type="hidden" name="publish" value="doit" />
-	  <input class="btn btn-success" type="submit" value="{% trans 'Publier le brouillon' %}" />
-	</form>
+      <div class="span4">
+        <input onclick="$('#publish_draft').val('true');$('#draft-form').submit();" class="btn btn-success" type="button" value="{% trans 'Publier' %}" />
       </div>
-      <div class="span3">
-	<form method="POST" action="{% url form_url etablissement.id %}">
-	  {% csrf_token %}
-	  <input type="hidden" name="take-down" value="doit" />
-	  <input class="btn btn-danger" type="submit" value="{% trans 'Enlever la publication' %}" />
-	</form>
+      <div class="span4">
+        {% if etablissement.participant %}
+          <form id="take-down-form" method="POST" action="{% url form_url etablissement.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="take-down" value="doit" />
+            <input class="btn btn-danger" type="submit" value="{% trans 'Enlever la publication' %}" />
+          </form>
+        {% endif %}
       </div>
     </div>
   </div>
 </div>
 {% endblock %}
-

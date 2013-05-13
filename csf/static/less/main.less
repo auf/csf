@@ -133,7 +133,8 @@ footer.container p {
     background-color:#e30000;
 }
 
-#language-switcher {
+#language-switcher,
+#logout {
     float: right;
 }
 
@@ -162,11 +163,19 @@ footer.container p {
 
 /* FORMULAIRE D'OFFRE */
 
+#participant-form label,
 #publication label,
 #offre-formulaire label {
-    float: left;
-    width: 80px;
+    /* float: left; */
+}
+
+.offres-wrapper label {
+    font-size: @smallFont;
     margin-right: @mainPadding;
+}
+
+#participant-form label {
+    margin-right: @mainPadding/2;
 }
 
 #messages-wrapper {
@@ -192,6 +201,56 @@ footer.container p {
     }
 }
 
+#participant-form-inner {
+    &.success {
+	background-color: @successBackground;
+    }
+    &.error {
+	background-color: @errorBackground;
+    }
+    &.warning {
+	background-color: @warningBackground;
+    }
+}
+
+.row, .row-fluid {
+    &.success {
+	background-color: @successBackground;
+    }
+    &.error {
+	background-color: @errorBackground;
+    }
+    &.warning {
+	background-color: @warningBackground;
+    }
+}
+
 #messages-wrapper div.message p {
     margin: 0;
+}
+
+.offre-formation-row {
+    height: 65px;
+}
+.offre-formation-row:nth-child(odd) {
+    background-color: #eee;
+}
+
+#participant-form label {
+    float: left;
+}
+
+#participant-form-inner .ouinon,
+#participant-form-inner p {
+    margin-top: @mainPadding;
+    margin-bottom: @mainPadding;
+}
+#particip_p {
+    padding-left: @mainPadding;
+}
+#actions {
+    margin-bottom: @mainPadding;
+}
+#take-down-form {
+    margin-bottom: 0 !important;
 }

@@ -3,55 +3,81 @@
 from django.db import models
 from django.contrib.auth.models import User
 from auf.django.references import models as ref
+from django.utils.translation import ugettext_lazy as _
 
 
-class Discipline(models.Model):
-    display_name = models.CharField(
-        max_length=255,
-        )
+class OrderedModel(models.Model):
     ordering = models.IntegerField(
         default=0,
+        verbose_name="Ordre d'affichage",
+        )
+
+    class Meta:
+        abstract = True
+        ordering = ['ordering']
+
+
+class Discipline(OrderedModel):
+    display_name = models.CharField(
+        max_length=255,
+        verbose_name="Nom d'affichage",
+        )
+    def __unicode__(self):
+        return self.display_name
+
+
+class Niveau(OrderedModel):
+    display_name = models.CharField(
+        max_length=255,
+        verbose_name="Nom d'affichage",
         )
 
     def __unicode__(self):
         return self.display_name
 
-
-class Niveau(models.Model):
-    ordering = models.IntegerField(
-        default=0,
-        )
-    display_name = models.CharField(
-        max_length=255,
-        )
-
-    def __unicode__(self):
-        return self.display_name
+    class Meta:
+        ordering = ['ordering']
+        verbose_name = _(u'Niveau universitaire')
+        verbose_name_plural = _(u'Niveaux universitaires')
 
 
-class TypeUrls(models.Model):
+class TypeUrls(OrderedModel):
     required = models.BooleanField(
-        default=False
-        )
-    ordering = models.IntegerField(
-        default=0,
+        default=False,
+        verbose_name="Obligatoire",
         )
     display_name = models.CharField(
         max_length=255,
+        verbose_name="Nom d'affichage",
         )
+
+    class Meta:
+        ordering = ['ordering']
+        verbose_name = _(u'Type d\'URL')
+        verbose_name_plural = _(u'Types d\'URL')
 
     def __unicode__(self):
         return self.display_name
 
 
 class EtablissementEligible(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(
+        User,
+        related_name='etablissement_eligible',
+        verbose_name="Utilisateur",
+        )
     etablissement = models.OneToOneField(
         ref.Etablissement,
-        related_name='etablissements_eligibles')
-    participant = models.BooleanField(
-        default=False,
+        related_name='etablissement_eligible',
+        verbose_name="Établissement",)
+    participant = models.NullBooleanField(
+        default=None,
+        verbose_name="Participe au programme CSF",
         )
+    
+    class Meta:
+        verbose_name = "Établissement"
+        verbose_name_plural = "Établissements"
     
     def __unicode__(self):
         return self.etablissement.nom
@@ -79,6 +105,7 @@ class BaseOffreFormation(models.Model):
     offert = models.BooleanField(default=False)
 
     class Meta:
+        ordering=('discipline__ordering',)
         abstract = True
 
 
@@ -132,3 +159,5 @@ class OffreFormation(BaseOffreFormation):
         Niveau,
         related_name='offres_formation')
     
+    def __unicode__(self):
+        return "%s" % (self.etablissement, )

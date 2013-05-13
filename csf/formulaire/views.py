@@ -3,11 +3,13 @@
 import itertools
 from django.template import RequestContext
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.forms.models import (
     inlineformset_factory,
     modelformset_factory,
     )
 from django.shortcuts import render_to_response, get_object_or_404
+from django.core.exceptions import PermissionDenied
 from auf.django.references import models as ref
 from .models import (
     Discipline,
@@ -30,11 +32,30 @@ from .forms import (
 from django.utils.translation import ugettext as _
 
 
+
+@login_required
 def offre_form(request, id):
+
     etablissement = get_object_or_404(
         EtablissementEligible,
         id=id,
         )
+
+    # Quick permission check.
+    if not request.user.is_staff:
+        try:
+            etab_eligible = request.user.etablissement_eligible
+        except EtablissementEligible.DoesNotExist:
+            raise PermissionDenied()
+        else:
+            if (etab_eligible.etablissement.id !=
+                etablissement.etablissement.id):
+                raise PermissionDenied()
+
+
+    if etablissement.participant == None:
+        etablissement.participant = True
+        etablissement.save()
 
     niveaux = Niveau.objects.all()
     disciplines = Discipline.objects.all()
@@ -53,9 +74,8 @@ def offre_form(request, id):
         id__in=due_qs.values_list(
             'type__id', flat=True))
     p_missing = TypeUrls.objects.exclude(
-        id__in=due_qs.values_list(
+        id__in=p_due_qs.values_list(
             'type__id', flat=True))
-
 
     new_urls = [
         DraftURLEtablissement(
@@ -73,7 +93,7 @@ def offre_form(request, id):
             )
         for x in p_missing
         ]
-    URLEtablissement.objects.bulk_create(new_urls)
+    URLEtablissement.objects.bulk_create(new_p_urls)
     
     # Then create default Offres
 
@@ -120,12 +140,6 @@ def offre_form(request, id):
         extra=0,
         )
 
-    p_due_fs = modelformset_factory(
-        model=URLEtablissement,
-        form=URLEtablissementForm,
-        extra=0,
-        )
-
     dof_fs = modelformset_factory(
         model=DraftOffreFormation,
         form=DraftOffreFormationPublicForm,
@@ -142,39 +156,16 @@ def offre_form(request, id):
 
     ### Get / Post logic here.
 
-    if request.method == 'GET':
-        due = due_fs(queryset=due_qs)
-        dof = dof_fs(queryset=dof_qs)
-    elif (request.POST.get('publish', '') == 'doit'):
+    due = due_fs(queryset=due_qs)
+    dof = dof_fs(queryset=dof_qs)
 
-        for draft_offre in dof_qs:
-            offre, nothing = OffreFormation.objects.get_or_create(
-                etablissement=etablissement,
-                niveau=draft_offre.niveau,
-                discipline=draft_offre.discipline,
-                )
-            offre.offert = draft_offre.offert
-            offre.save()
-
-        for draft_url in due_qs:
-            url, nothing = URLEtablissement.objects.get_or_create(
-                etablissement=etablissement,
-                type=draft_url.type,
-                )
-            url.url = draft_url.url
-            url.save()
-
-        etablissement.participant = True
-        etablissement.save()
-
-        msg = _(u'Vos informations ont été publiées.')
-        messages.success(
-            request,
-            msg,
-            )
-
-        due = due_fs(queryset=due_qs)
-        dof = dof_fs(queryset=dof_qs)
+    if (request.POST.get('change-participate', '') in
+          ('true', 'false')):
+        chp = request.POST.get('change-participate')
+        new_val = True if chp == 'true' else False
+        if etablissement.participant != new_val:
+            etablissement.participant = new_val
+            etablissement.save()
 
     elif (request.POST.get('take-down', '') == 'doit'):
         etablissement.participant = False
@@ -185,8 +176,6 @@ def offre_form(request, id):
             request,
             msg,
             )
-        due = due_fs(queryset=due_qs)
-        dof = dof_fs(queryset=dof_qs)
 
     elif request.method == 'POST':
         due = due_fs(request.POST)
@@ -200,6 +189,33 @@ def offre_form(request, id):
                 request,
                 msg,
                 )
+            if request.POST.get('publish_draft', None) == 'true':
+
+                for draft_offre in dof_qs:
+                    offre, nothing = OffreFormation.objects.get_or_create(
+                        etablissement=etablissement,
+                        niveau=draft_offre.niveau,
+                        discipline=draft_offre.discipline,
+                        )
+                    offre.offert = draft_offre.offert
+                    offre.save()
+
+                for draft_url in due_qs:
+                    url, nothing = URLEtablissement.objects.get_or_create(
+                        etablissement=etablissement,
+                        type=draft_url.type,
+                        )
+                    url.url = draft_url.url
+                    url.save()
+
+                etablissement.participant = True
+                etablissement.save()
+
+                msg = _(u'Vos informations ont été publiées.')
+                messages.success(
+                    request,
+                    msg,
+                    )
         else:
             msg = _(u'Des erreurs se sont produites, veuillez vérifier'
                     ' les erreurs ci-dessous.')
@@ -211,8 +227,7 @@ def offre_form(request, id):
     ctx = {
         'due': due,
         'dof': dof,
-        'p_due': p_due_fs(
-            queryset=etablissement.urls.all()),
+        'p_due_qs': p_due_qs,
         'p_dof': p_dof_fs(
             queryset=etablissement.offres_formation.all()),
         'typeurls': TypeUrls.objects.all(),

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Pays</h2>
+
+<ul>
+{% for p in pays %}
+    <li><a href="{% url portail_pays_detail p.id %}">{{ p }}</a></li>
+{% endfor %}
+</ul>
+
+<h2>Niveaux universitaires</h2>
+
+<ul>
+{% for n in niveaux %}
+    <li><a href="{% url portail_niveau_detail n.id %}">{{ n }}</a></li>
+{% endfor %}
+</ul>
+
+<h2>Disciplines</h2>
+
+<ul>
+{% for d in disciplines %}
+    <li><a href="{% url portail_discipline_detail d.id %}">{{ d }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}

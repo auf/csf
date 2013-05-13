@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>{{ pays }}</h2>
+
+<p>À grouper par discipline</p>
+
+<ul>
+{% for o in offres %}
+    <li>{{ o.discipline }} - {{ o.niveau }} - {{ o.etablissement }}</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

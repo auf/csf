@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 
+import itertools
 from django.db import models
 from django.contrib.auth.models import User
 from auf.django.references import models as ref
@@ -100,6 +101,25 @@ class BaseURLEtablissement(models.Model):
             ('etablissement', 'type'),
             )
 
+    @classmethod
+    def create_missing(cls, etablissement):
+        qs = cls.objects.filter(etablissement=etablissement)
+
+        missing = TypeUrls.objects.exclude(
+            id__in=qs.values_list(
+                'type__id', flat=True)
+            )
+        
+        new_urls = [
+            cls(
+                type=x,
+                etablissement=etablissement,
+                )
+            for x in missing
+            ]
+        cls.objects.bulk_create(new_urls)
+        
+
 
 class BaseOffreFormation(models.Model):
     offert = models.BooleanField(default=False)
@@ -108,6 +128,28 @@ class BaseOffreFormation(models.Model):
         ordering=('discipline__ordering',)
         abstract = True
 
+    @classmethod
+    def create_missing(cls, etablissement):
+        qs = cls.objects.filter(etablissement=etablissement)
+
+        rows = set(itertools.product(
+                Discipline.objects.all().values_list('id', flat=True),
+                Niveau.objects.all().values_list('id', flat=True),
+                ))
+        current_products = set(
+            qs.values_list('discipline', 'niveau'))
+
+        missing = rows.difference(current_products)
+        
+        new_offres = [
+            cls(
+                discipline_id=x[0],
+                niveau_id=x[1],
+                etablissement_id=etablissement.id,
+                )
+            for x in missing
+            ]
+        cls.objects.bulk_create(new_offres)
 
 """
 Classes pour entrées en préparation

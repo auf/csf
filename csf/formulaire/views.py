@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 
-import itertools
 from django.template import RequestContext
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -33,25 +32,43 @@ from django.utils.translation import ugettext as _
 
 
 
-@login_required
-def offre_form(request, id):
+def check_etablissement(fun):
+    def inner(request, id):
+        etablissement = get_object_or_404(
+            EtablissementEligible,
+            id=id,
+            )
 
-    etablissement = get_object_or_404(
-        EtablissementEligible,
-        id=id,
-        )
-
-    # Quick permission check.
-    if not request.user.is_staff:
-        try:
-            etab_eligible = request.user.etablissement_eligible
-        except EtablissementEligible.DoesNotExist:
-            raise PermissionDenied()
-        else:
-            if (etab_eligible.etablissement.id !=
-                etablissement.etablissement.id):
+        # Quick permission check.
+        if not request.user.is_staff:
+            try:
+                etab_eligible = request.user.etablissement_eligible
+            except EtablissementEligible.DoesNotExist:
                 raise PermissionDenied()
+            else:
+                if (etab_eligible.etablissement.id !=
+                    etablissement.etablissement.id):
+                    raise PermissionDenied()
 
+        ### Create default URLs and Offres if any are missing.
+        DraftURLEtablissement.create_missing(etablissement)
+        URLEtablissement.create_missing(etablissement)
+        DraftOffreFormation.create_missing(etablissement)
+        OffreFormation.create_missing(etablissement)
+
+        return fun(request, etablissement)
+    return inner
+
+
+@check_etablissement
+@login_required
+def preview(request, etablissement):
+    pass
+
+
+@check_etablissement
+@login_required
+def offre_form(request, etablissement):
 
     if etablissement.participant == None:
         etablissement.participant = True
@@ -60,99 +77,25 @@ def offre_form(request, id):
     niveaux = Niveau.objects.all()
     disciplines = Discipline.objects.all()
 
-
-    ### Create default content if it doesn't exist for this user:
-
-    # First create default URLS
-
+    ### Get Querysets
     due_qs = DraftURLEtablissement.objects.filter(
         etablissement=etablissement)
-    p_due_qs = URLEtablissement.objects.filter(
-        etablissement=etablissement)
-
-    missing = TypeUrls.objects.exclude(
-        id__in=due_qs.values_list(
-            'type__id', flat=True))
-    p_missing = TypeUrls.objects.exclude(
-        id__in=p_due_qs.values_list(
-            'type__id', flat=True))
-
-    new_urls = [
-        DraftURLEtablissement(
-            type=x,
-            etablissement=etablissement,
-            )
-        for x in missing
-        ]
-    DraftURLEtablissement.objects.bulk_create(new_urls)
-
-    new_p_urls = [
-        URLEtablissement(
-            type=x,
-            etablissement=etablissement,
-            )
-        for x in p_missing
-        ]
-    URLEtablissement.objects.bulk_create(new_p_urls)
-    
-    # Then create default Offres
-
     dof_qs = DraftOffreFormation.objects.filter(
         etablissement=etablissement)
-    p_dof_qs = DraftOffreFormation.objects.filter(
-        etablissement=etablissement)
-
-    rows = set(itertools.product(
-        Discipline.objects.all().values_list('id', flat=True),
-        Niveau.objects.all().values_list('id', flat=True),
-        ))
-    current_products = set(dof_qs.values_list('discipline', 'niveau'))
-    missing = rows.difference(current_products)
-    p_current_products = set(p_dof_qs.values_list('discipline', 'niveau'))
-    p_missing = rows.difference(p_current_products)
-
-    new_offres = [
-        DraftOffreFormation(
-            discipline_id=x[0],
-            niveau_id=x[1],
-            etablissement_id=etablissement.id,
-            )
-        for x in missing
-        ]
-    DraftOffreFormation.objects.bulk_create(new_offres)
-    p_new_offres = [
-        OffreFormation(
-            discipline_id=x[0],
-            niveau_id=x[1],
-            etablissement_id=etablissement.id,
-            )
-        for x in p_missing
-        ]
-    OffreFormation.objects.bulk_create(p_new_offres)
-
 
     ### Create formsets
-
     due_fs = modelformset_factory(
         model=DraftURLEtablissement,
         form=DraftURLEtablissementPublicForm,
         formset=DraftURLEtablissementFormSet,
         extra=0,
         )
-
     dof_fs = modelformset_factory(
         model=DraftOffreFormation,
         form=DraftOffreFormationPublicForm,
         formset=DraftOffreFormationFormSet,
         extra=0,
         )
-
-    p_dof_fs = modelformset_factory(
-        model=OffreFormation,
-        form=OffreFormationForm,
-        extra=0,
-        )
-
 
     ### Get / Post logic here.
 
@@ -227,9 +170,6 @@ def offre_form(request, id):
     ctx = {
         'due': due,
         'dof': dof,
-        'p_due_qs': p_due_qs,
-        'p_dof': p_dof_fs(
-            queryset=etablissement.offres_formation.all()),
         'typeurls': TypeUrls.objects.all(),
         'niveaux': niveaux,
         'dof_column_count': niveaux.count(),

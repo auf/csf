@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.template import RequestContext
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -12,6 +13,7 @@ from django.core.exceptions import PermissionDenied
 from auf.django.references import models as ref
 from .models import (
     Discipline,
+    ContactInfo,
     Niveau,
     TypeUrls,
     DraftURLEtablissement,
@@ -21,6 +23,8 @@ from .models import (
     EtablissementEligible,
     )
 from .forms import (
+    EtabEligibleForm,
+    ContactInfoForm,
     DraftOffreFormationPublicForm,
     DraftURLEtablissementPublicForm,
     DraftOffreFormationFormSet,
@@ -55,6 +59,7 @@ def check_etablissement(fun):
         URLEtablissement.create_missing(etablissement)
         DraftOffreFormation.create_missing(etablissement)
         OffreFormation.create_missing(etablissement)
+        ContactInfo.objects.get_or_create(etablissement=etablissement)
 
         return fun(request, etablissement)
     return inner
@@ -69,7 +74,6 @@ def preview(request, etablissement):
 @check_etablissement
 @login_required
 def offre_form(request, etablissement):
-
     if etablissement.participant == None:
         etablissement.participant = True
         etablissement.save()
@@ -83,7 +87,10 @@ def offre_form(request, etablissement):
     dof_qs = DraftOffreFormation.objects.filter(
         etablissement=etablissement)
 
-    ### Create formsets
+    ### Create formsets and forms
+    etab_f = EtabEligibleForm(instance=etablissement)
+
+    contact_f = ContactInfoForm(instance=etablissement.contact_info)
     due_fs = modelformset_factory(
         model=DraftURLEtablissement,
         form=DraftURLEtablissementPublicForm,
@@ -98,7 +105,6 @@ def offre_form(request, etablissement):
         )
 
     ### Get / Post logic here.
-
     due = due_fs(queryset=due_qs)
     dof = dof_fs(queryset=dof_qs)
 
@@ -123,10 +129,24 @@ def offre_form(request, etablissement):
     elif request.method == 'POST':
         due = due_fs(request.POST)
         dof = dof_fs(request.POST)
+        contact_f = ContactInfoForm(
+            request.POST,
+            instance=etablissement.contact_info,
+            )
+        etab_f = EtabEligibleForm(
+            request.POST,
+            request.FILES,
+            instance=etablissement,
+            )
     
-        if due.is_valid() and dof.is_valid():
+        if (due.is_valid()
+            and dof.is_valid()
+            and etab_f.is_valid()
+            and contact_f.is_valid()):
             due.save()
             dof.save()
+            etab_f = EtabEligibleForm(instance=etab_f.save())
+            contact_f.is_valid()
             msg = _(u'Vos changements ont été sauvegardés.')
             messages.success(
                 request,
@@ -174,6 +194,8 @@ def offre_form(request, etablissement):
         'niveaux': niveaux,
         'dof_column_count': niveaux.count(),
         'etablissement': etablissement,
+        'etab_form': etab_f,
+        'contact_form': contact_f,
         }
 
     return render_to_response(

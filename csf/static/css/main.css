@@ -1056,7 +1056,7 @@ footer.container p{padding-top:15px;color:#A3A4A7;font-size:0.8em;}
 #title{margin-top:5px;margin-bottom:5px;}
 .subtitle{font-size:14px;font-weight:bold;}
 #participant-form label,#publication label,#offre-formulaire label{}
-.offres-wrapper label{font-size:10px;margin-right:22px;}
+.offres-wrapper label{font-size:14px;margin-right:22px;}
 #participant-form label{margin-right:11px;}
 #messages-wrapper{border-left:8px solid #e9e9ea;border-right:8px solid #e9e9ea;width:962px;margin:0 auto;}
 #messages-wrapper div.message{padding:22px;}#messages-wrapper div.message.success{background-color:#dff0d8;}
@@ -1070,10 +1070,12 @@ footer.container p{padding-top:15px;color:#A3A4A7;font-size:0.8em;}
 .row.error,.row-fluid.error{background-color:#f2dede;}
 .row.warning,.row-fluid.warning{background-color:#fcf8e3;}
 #messages-wrapper div.message p{margin:0;}
-.offre-formation-row{height:65px;}
 .offre-formation-row:nth-child(odd){background-color:#eee;}
 #participant-form label{float:left;}
 #participant-form-inner .ouinon,#participant-form-inner p{margin-top:22px;margin-bottom:22px;}
 #particip_p{padding-left:22px;}
 #actions{margin-bottom:22px;}
 #take-down-form{margin-bottom:0 !important;}
+#actions div input.btn{width:150px;}
+#draft-form .delete_label{display:inline;}
+.control-group.error .control-label{font-size:10px;}

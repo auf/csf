@@ -75,7 +75,17 @@ class EtablissementEligible(models.Model):
         default=None,
         verbose_name="Participe au programme CSF",
         )
-    
+    logo = models.ImageField(
+        upload_to='logos',
+        blank=True,
+        null=True,
+        )
+    photo = models.ImageField(
+        upload_to='etab_photos',
+        blank=True,
+        null=True,
+        )
+
     class Meta:
         verbose_name = "Établissement"
         verbose_name_plural = "Établissements"
@@ -83,6 +93,37 @@ class EtablissementEligible(models.Model):
     def __unicode__(self):
         return self.etablissement.nom
 
+
+class ContactInfo(models.Model):
+    etablissement = models.OneToOneField(
+        EtablissementEligible,
+        related_name='contact_info',
+        verbose_name='Établissement',
+        )
+    prenom = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        )
+    nom = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        )
+    courriel = models.EmailField(
+        blank=True,
+        null=True,
+        )
+    telephone = models.CharField(
+        max_length=32,
+        blank=True,
+        null=True,
+        )
+    page_personnelle = models.URLField(
+        blank=True,
+        null=True,
+        )
+    
 
 """
 Modèles abstraits.

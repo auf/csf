@@ -5,6 +5,10 @@ import socket
 from django.conf import *
 
 
+# App Formulaire
+FORMULAIRE_IMAGE_MAX_SIZE = 5000 * 1024
+
+
 # Rapports d'erreurs
 SERVER_EMAIL = 'ne-pas-repondre@auf.org'
 EMAIL_SUBJECT_PREFIX = '[csf - %s] ' % socket.gethostname()
@@ -148,3 +152,4 @@ LOGGING = {
 ADMIN_TOOLS_INDEX_DASHBOARD = 'csf.dashboard.CustomIndexDashboard'
 
 from conf import *
+

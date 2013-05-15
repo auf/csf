@@ -37,7 +37,7 @@ FORMULAIRE_IMAGE_SIZE_ERROR = getattr(
 class EtabEligibleForm(forms.ModelForm):
     def _clean_img(self, field):
         img = self.cleaned_data.get(field, None)
-        if img.size > FORMULAIRE_IMAGE_MAX_SIZE:
+        if img and img.size > FORMULAIRE_IMAGE_MAX_SIZE:
             raise forms.ValidationError(FORMULAIRE_IMAGE_SIZE_ERROR)
         return img
 

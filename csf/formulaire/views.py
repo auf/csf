@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.http import Http404
 from django.template import RequestContext
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -44,6 +45,7 @@ def check_etablissement(fun):
             )
 
         # Quick permission check.
+        request.can_edit_etablissement = False
         if not request.user.is_staff:
             try:
                 etab_eligible = request.user.etablissement_eligible
@@ -53,6 +55,10 @@ def check_etablissement(fun):
                 if (etab_eligible.etablissement.id !=
                     etablissement.etablissement.id):
                     raise PermissionDenied()
+                else:
+                    request.can_edit_etablissement = True
+        else:
+            request.can_edit_etablissement = True
 
         ### Create default URLs and Offres if any are missing.
         DraftURLEtablissement.create_missing(etablissement)
@@ -68,7 +74,22 @@ def check_etablissement(fun):
 @check_etablissement
 @login_required
 def preview(request, etablissement):
-    pass
+    if etablissement.participant in (None, False):
+        raise Http404()
+
+    niveaux = Niveau.objects.all()
+
+    ctx = {
+        'etablissement': etablissement,
+        'niveaux': niveaux,
+        'offre_column_count': niveaux.count(),
+        }
+
+    return render_to_response(
+        'formulaire/offre_preview.html',
+        ctx,
+        context_instance=RequestContext(request, {}),
+        )
 
 
 @check_etablissement

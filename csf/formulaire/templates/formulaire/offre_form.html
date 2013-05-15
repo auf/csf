@@ -170,7 +170,7 @@
 	    {% if form.url.errors %}
 	    <label class="control-label" for="id-{{ form.prefix }}-url">{{ form.url.errors|join:', ' }}</label>
 	    {% endif %}
-            <input class="input-xxlarge" type="text" maxlength="{{form.url.max_length}}" id="id-{{ form.prefix }}-url" name="{{ form.prefix }}-url"{% if form.url.value %} value="{{ form.url.value }}"{%endif %} />
+            <input class="input-xxlarge" type="text" maxlength="{{form.url.max_length}}" id="id-{{ form.prefix }}-url" name="{{ form.prefix }}-url"{% if form.url.value %} value="{{ form.url.value }}"{%endif %} />{% if form.instance.type.help_text %}<span class="help-block">{{ form.instance.type.help_text }}</span>{% endif %}
           </div>
         </div>
       </div>

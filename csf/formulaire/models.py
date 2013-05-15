@@ -51,6 +51,11 @@ class TypeUrls(OrderedModel):
         max_length=255,
         verbose_name="Nom d'affichage",
         )
+    help_text = models.CharField(
+        max_length=2048,
+        blank=True,
+        null=True,
+        )
 
     class Meta:
         ordering = ['ordering']

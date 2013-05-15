@@ -1040,6 +1040,7 @@ p{text-align:justify;text-justify:inter-word;}
 .italic{font-style:italic;}
 .clear{clear:both;}
 .container{border-left:8px solid #e9e9ea;border-right:8px solid #e9e9ea;padding:0 22px;}
+.help-block{font-size:12px;color:#999;}
 body{padding:0px;background-color:white;font-family:Arial,Helvetica,Sans-serif;color:#616161;}
 footer.container p{padding-top:15px;color:#A3A4A7;font-size:0.8em;}
 #rainbow-sep{width:962px;margin:0 auto;}

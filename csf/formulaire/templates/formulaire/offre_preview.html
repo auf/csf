@@ -50,33 +50,15 @@
   <div class="row">
     <div class="span6">
       <h4>{% trans 'Logo' %}</h4>
-      {% if etab_form.instance.logo %}
-      Actuellement:
-      <a href="{{ etab_form.instance.logo.url }}">{{ etab_form.instance.logo.name }}</a>
-      <input id="logo-clear_id" type="checkbox" name="logo-clear">
-      <label class="delete_label" for="logo-clear_id">Effacer</label>
+      {% if etablissement.logo %}
+      <img src="{{ etablissement.logo.url }}" />
       {% endif %}
-      <div class="control-group{% if etab_form.errors.logo %} error{% endif %}">
-	{% if etab_form.errors.logo %}
-	<label class="control-label" for="id_prenom">{{ etab_form.errors.logo|join:', ' }}</label>
-	{% endif %}
-	<input id="id_logo" type="file" name="logo">
-      </div>
     </div>
     <div class="span6">
       <h4>{% trans 'Photo' %}</h4>
-      {% if etab_form.instance.photo %}
-      Actuellement:
-      <a href="{{ etab_form.instance.photo.url }}">{{ etab_form.instance.photo.name }}</a>
-      <input id="photo-clear_id" type="checkbox" name="photo-clear">
-      <label class="delete_label" for="photo-clear_id">Effacer</label>
+      {% if etablissement.photo %}
+      <img src="{{ etablissement.photo.url }}" />
       {% endif %}
-      <div class="control-group{% if etab_form.errors.photo %} error{% endif %}">
-	{% if etab_form.errors.photo %}
-	<label class="control-label" for="id_prenom">{{ etab_form.errors.photo|join:', ' }}</label>
-	{% endif %}
-	<input id="id_photo" type="file" name="photo">
-      </div>
     </div>
   </div>
   <div class="row">
@@ -89,23 +71,13 @@
       {% trans 'Prénom' %}
     </div>
     <div class="span4">
-      <div class="control-group{% if contact_form.errors.prenom %} error{% endif %}">
-	{% if contact_form.errors.prenom %}
-	<label class="control-label" for="id_prenom">{{ contact_form.errors.prenom|join:', ' }}</label>
-	{% endif %}
-	{{ contact_form.prenom }}
-      </div>
+      <span>{{ etablissement.contact_info.prenom|default:'Aucun' }}</span>
     </div>
     <div class="span2">
       {% trans 'Nom' %}
     </div>
     <div class="span4">
-      <div class="control-group{% if contact_form.errors.nom %} error{% endif %}">
-	{% if contact_form.errors.nom %}
-	<label class="control-label" for="id_nom">{{ contact_form.errors.nom|join:', ' }}</label>
-	{% endif %}
-	{{ contact_form.nom }}
-      </div>
+      <span>{{ etablissement.contact_info.nom|default:'Aucun' }}</span>
     </div>
   </div>
   <div class="row">
@@ -113,23 +85,13 @@
       {% trans 'Courriel' %}
     </div>
     <div class="span4">
-      <div class="control-group{% if contact_form.errors.courriel %} error{% endif %}">
-	{% if contact_form.errors.courriel %}
-	<label class="control-label" for="id_courriel">{{ contact_form.errors.courriel|join:', ' }}</label>
-	{% endif %}
-	{{ contact_form.courriel }}
-      </div>
+      <span>{{ etablissement.contact_info.courriel|default:'Aucun' }}</span>
     </div>
     <div class="span2">
       {% trans 'Téléphone' %}
     </div>
     <div class="span4">
-      <div class="control-group{% if contact_form.errors.telephone %} error{% endif %}">
-	{% if contact_form.errors.telephone %}
-	<label class="control-label" for="id_telephone">{{ contact_form.errors.telephone|join:', ' }}</label>
-	{% endif %}
-	{{ contact_form.telephone }}
-      </div>
+      <span>{{ etablissement.contact_info.telephone|default:'Aucun' }}</span>
     </div>
   </div>
   <div class="row">
@@ -137,12 +99,13 @@
       {% trans 'Page personnelle' %}
     </div>
     <div class="span4">
-      <div class="control-group{% if contact_form.errors.page_personnelle %} error{% endif %}">
-	{% if contact_form.errors.page_personnelle %}
-	<label class="control-label" for="id_page_personnelle">{{ contact_form.errors.page_personnelle|join:', ' }}</label>
-	{% endif %}
-	{{ contact_form.page_personnelle }}
-      </div>
+      {% if etablissement.contact_info.page_personnelle %}
+      <a href="{{ etablissement.contact_info.page_personnelle }}">
+	{{ etablissement.contact_info.page_personnelle }}
+      </a>
+      {% else %}
+      Aucun
+      {% endif %}
     </div>
   </div>
   <input id="publish_draft" type="hidden" name="publish_draft" value="false" />
@@ -156,22 +119,19 @@
   <div class="row">
     <div class="span12">
       {{ due.management_form }}
-      {% for form in due %}
+      {% for url in etablissement.urls.all %}
       <div class="row">
-        {{ form.type }}
-        {{ form.etablissement }}
-        {{ form.id }}
         <div class="span4">
-          <label>{{ form.instance.type.display_name }}</label>
+          <label>{{ url.type.display_name }}</label>
         </div>
         <div class="span8">
-
-	  <div class="control-group{% if form.url.errors %} error{% endif %}">
-	    {% if form.url.errors %}
-	    <label class="control-label" for="id-{{ form.prefix }}-url">{{ form.url.errors|join:', ' }}</label>
-	    {% endif %}
-            <input class="input-xxlarge" type="text" maxlength="{{form.url.max_length}}" id="id-{{ form.prefix }}-url" name="{{ form.prefix }}-url"{% if form.url.value %} value="{{ form.url.value }}"{%endif %} />{% if form.instance.type.help_text %}<span class="help-block">{{ form.instance.type.help_text }}</span>{% endif %}
-          </div>
+	  {% if url.url %}
+	  <a href="{{ url.url }}">
+	    {{ url.url }}
+	  </a>
+	  {% else %}
+	  Aucun
+	  {% endif %}
         </div>
       </div>
       {% endfor %}
@@ -198,24 +158,18 @@
           </div>
           {% endfor %}
         </div>
-
-        {{ dof.management_form }}
         <div>
-          {% for form in dof %}
-          {% with forloop.counter0|divisibleby:dof_column_count as start_row%}
-          {% with forloop.counter|divisibleby:dof_column_count as end_row %}
+          {% for offre in etablissement.offres_formation.all %}
+          {% with forloop.counter0|divisibleby:offre_column_count as start_row%}
+          {% with forloop.counter|divisibleby:offre_column_count as end_row %}
           {% if start_row %}
           <div class="row offre-formation-row">
             <div class="span8">
-              <label>{{ form.instance.discipline.display_name }}</label>
+              <label>{{ offre.discipline.display_name }}</label>
             </div>
             {% endif %}
-            {{ form.discipline }}
-            {{ form.etablissement }}
-            {{ form.niveau }}
-            {{ form.id }}
             <div class="span1">
-              {{ form.offert }}
+	      {% if offre.offert %}X{% else %}-{% endif %}
             </div>
             {% if end_row %}
           </div>
@@ -231,12 +185,7 @@
 <div class="row">
   <div id="actions" class="span12">
     <div class="row">
-      <div class="span3">
-        <input onclick="$('#publish_draft').val('true');$('#draft-form').submit();" class="btn btn-success" type="button" value="{% trans 'Publier' %}" />
-      </div>
-      <div class="span3">
-        <input onclick="$('#draft-form').submit();" class="btn btn-warning" type="button" value="{% trans 'Enregistrer le brouillon' %}" />
-      </div>
+      {% if request.can_edit_etablissement %}
       {% if etablissement.participant %}
       <div class="span3">
           <form id="take-down-form" method="POST" action="{% url form_url etablissement.id %}">
@@ -245,9 +194,10 @@
             <input class="btn btn-danger" type="submit" value="{% trans 'Enlever la publication' %}" />
           </form>
       </div>
+      {% endif %}
       <div class="span3">
-        <form id="consulter-form" method="GET" action="{% url etab_preview etablissement.id %}">
-	  <input type="submit" class="btn btn-info" value="{% trans 'Consulter' %}" />
+        <form id="consulter-form" method="GET" action="{% url form_url etablissement.id %}">
+	  <input type="submit" class="btn btn-info" value="{% trans 'Modifier' %}" />
         </form>
       </div>
       {% endif %}

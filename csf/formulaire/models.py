@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 
+import itertools
 from django.db import models
 from django.contrib.auth.models import User
 from auf.django.references import models as ref
@@ -50,6 +51,11 @@ class TypeUrls(OrderedModel):
         max_length=255,
         verbose_name="Nom d'affichage",
         )
+    help_text = models.CharField(
+        max_length=2048,
+        blank=True,
+        null=True,
+        )
 
     class Meta:
         ordering = ['ordering']
@@ -74,7 +80,17 @@ class EtablissementEligible(models.Model):
         default=None,
         verbose_name="Participe au programme CSF",
         )
-    
+    logo = models.ImageField(
+        upload_to='logos',
+        blank=True,
+        null=True,
+        )
+    photo = models.ImageField(
+        upload_to='etab_photos',
+        blank=True,
+        null=True,
+        )
+
     class Meta:
         verbose_name = "Établissement"
         verbose_name_plural = "Établissements"
@@ -82,6 +98,37 @@ class EtablissementEligible(models.Model):
     def __unicode__(self):
         return self.etablissement.nom
 
+
+class ContactInfo(models.Model):
+    etablissement = models.OneToOneField(
+        EtablissementEligible,
+        related_name='contact_info',
+        verbose_name='Établissement',
+        )
+    prenom = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        )
+    nom = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        )
+    courriel = models.EmailField(
+        blank=True,
+        null=True,
+        )
+    telephone = models.CharField(
+        max_length=32,
+        blank=True,
+        null=True,
+        )
+    page_personnelle = models.URLField(
+        blank=True,
+        null=True,
+        )
+    
 
 """
 Modèles abstraits.
@@ -100,6 +147,25 @@ class BaseURLEtablissement(models.Model):
             ('etablissement', 'type'),
             )
 
+    @classmethod
+    def create_missing(cls, etablissement):
+        qs = cls.objects.filter(etablissement=etablissement)
+
+        missing = TypeUrls.objects.exclude(
+            id__in=qs.values_list(
+                'type__id', flat=True)
+            )
+        
+        new_urls = [
+            cls(
+                type=x,
+                etablissement=etablissement,
+                )
+            for x in missing
+            ]
+        cls.objects.bulk_create(new_urls)
+        
+
 
 class BaseOffreFormation(models.Model):
     offert = models.BooleanField(default=False)
@@ -108,6 +174,28 @@ class BaseOffreFormation(models.Model):
         ordering=('discipline__ordering',)
         abstract = True
 
+    @classmethod
+    def create_missing(cls, etablissement):
+        qs = cls.objects.filter(etablissement=etablissement)
+
+        rows = set(itertools.product(
+                Discipline.objects.all().values_list('id', flat=True),
+                Niveau.objects.all().values_list('id', flat=True),
+                ))
+        current_products = set(
+            qs.values_list('discipline', 'niveau'))
+
+        missing = rows.difference(current_products)
+        
+        new_offres = [
+            cls(
+                discipline_id=x[0],
+                niveau_id=x[1],
+                etablissement_id=etablissement.id,
+                )
+            for x in missing
+            ]
+        cls.objects.bulk_create(new_offres)
 
 """
 Classes pour entrées en préparation

@@ -186,15 +186,6 @@
   <div id="actions" class="span12">
     <div class="row">
       {% if request.can_edit_etablissement %}
-      {% if etablissement.participant %}
-      <div class="span3">
-          <form id="take-down-form" method="POST" action="{% url form_url etablissement.id %}">
-            {% csrf_token %}
-            <input type="hidden" name="take-down" value="doit" />
-            <input class="btn btn-danger" type="submit" value="{% trans 'Enlever la publication' %}" />
-          </form>
-      </div>
-      {% endif %}
       <div class="span3">
         <form id="consulter-form" method="GET" action="{% url form_url etablissement.id %}">
 	  <input type="submit" class="btn btn-info" value="{% trans 'Modifier' %}" />

@@ -13,107 +13,12 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="span12">
-    <h2>{% trans 'Participation' %}</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  </div>
-</div>
-<form id="participate-form" method="POST" action="{% url form_url etablissement.id %}">
-  {% csrf_token %}
-  <div id="participant-form-inner" class="row">
-    <div class="span12">
-      <div class="row-fluid{% if etablissement.participant %} success{% elif etablissement.participant == None %} warning{% else %} error {% endif %}">
-	<p class="span10" id="particip_p">
-	{% trans 'Mon établissement souhaite apparaître sur le portail CSF en francophonie' %}
-	</p>
-	<div class="span1">
-	  <div class="ouinon">
-            <label>Oui</label><input onchange="participate()" {% if etablissement.participant %}checked {% endif %}type="radio" name="change-participate" value="true" />
-	  </div>
-	</div>
-	<div class="span1">
-	  <div class="ouinon">
-            <label>Non</label><input onchange="participate()" {% if not etablissement.participant and etablissement.participant != None %}checked {% endif %}type="radio" name="change-participate" value="false" />
-	  </div>
-	</div>
-      </div>
-    </div>
-  </div>
-</form>
 <form enctype="multipart/form-data" id="draft-form" method="POST" action="{% url form_url etablissement.id %}">
-  <div class="row">
-    <div class="span12">
-      <h2>{% trans 'Images' %}</h2>
-    </div>
-  </div>
-  <div class="row">
-    <div class="span6">
-      <h4>{% trans 'Logo' %}</h4>
-      {% if etablissement.logo %}
-      <img src="{{ etablissement.logo.url }}" />
-      {% endif %}
-    </div>
-    <div class="span6">
-      <h4>{% trans 'Photo' %}</h4>
-      {% if etablissement.photo %}
-      <img src="{{ etablissement.photo.url }}" />
-      {% endif %}
-    </div>
-  </div>
-  <div class="row">
-    <div class="span12">
-      <h2>{% trans 'Information du représentant' %}</h2>
-    </div>
-  </div>
-  <div class="row">
-    <div class="span2">
-      {% trans 'Prénom' %}
-    </div>
-    <div class="span4">
-      <span>{{ etablissement.contact_info.prenom|default:'Aucun' }}</span>
-    </div>
-    <div class="span2">
-      {% trans 'Nom' %}
-    </div>
-    <div class="span4">
-      <span>{{ etablissement.contact_info.nom|default:'Aucun' }}</span>
-    </div>
-  </div>
-  <div class="row">
-    <div class="span2">
-      {% trans 'Courriel' %}
-    </div>
-    <div class="span4">
-      <span>{{ etablissement.contact_info.courriel|default:'Aucun' }}</span>
-    </div>
-    <div class="span2">
-      {% trans 'Téléphone' %}
-    </div>
-    <div class="span4">
-      <span>{{ etablissement.contact_info.telephone|default:'Aucun' }}</span>
-    </div>
-  </div>
-  <div class="row">
-    <div class="span2">
-      {% trans 'Page personnelle' %}
-    </div>
-    <div class="span4">
-      {% if etablissement.contact_info.page_personnelle %}
-      <a href="{{ etablissement.contact_info.page_personnelle }}">
-	{{ etablissement.contact_info.page_personnelle }}
-      </a>
-      {% else %}
-      Aucun
-      {% endif %}
-    </div>
-  </div>
   <input id="publish_draft" type="hidden" name="publish_draft" value="false" />
   <div class="row">
     <div id="offre-formulaire" class="span12">
       {% csrf_token %}
       <h2>URLs</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </div>
   </div>
   <div class="row">
@@ -140,7 +45,6 @@
   <div class="row">
     <div class="span12">
       <h2>Offres de formation</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </div>
   </div>
   <div class="row">
@@ -181,6 +85,74 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="span12">
+      <h2>{% trans 'Images' %}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span6">
+      <h4>{% trans 'Logo' %}</h4>
+      {% if etablissement.logo %}
+      <img src="{{ etablissement.logo.url }}" />
+      {% endif %}
+    </div>
+    <div class="span6">
+      <h4>{% trans 'Photo' %}</h4>
+      {% if etablissement.photo %}
+      <img src="{{ etablissement.photo.url }}" />
+      {% endif %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="span12">
+      <h2>{% trans 'Contact' %}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span2">
+      {% trans 'Prénom' %}
+    </div>
+    <div class="span4">
+      <span>{{ etablissement.contact_info.prenom|default:'Aucun' }}</span>
+    </div>
+    <div class="span2">
+      {% trans 'Nom' %}
+    </div>
+    <div class="span4">
+      <span>{{ etablissement.contact_info.nom|default:'Aucun' }}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span2">
+      {% trans 'Courriel' %}
+    </div>
+    <div class="span4">
+      <span>{{ etablissement.contact_info.courriel|default:'Aucun' }}</span>
+    </div>
+    <div class="span2">
+      {% trans 'Téléphone' %}
+    </div>
+    <div class="span4">
+      <span>{{ etablissement.contact_info.telephone|default:'Aucun' }}</span>
+    </div>
+  </div>
+  {% comment %}
+  <div class="row">
+    <div class="span2">
+      {% trans 'Page personnelle' %}
+    </div>
+    <div class="span4">
+      {% if etablissement.contact_info.page_personnelle %}
+      <a href="{{ etablissement.contact_info.page_personnelle }}">
+	{{ etablissement.contact_info.page_personnelle }}
+      </a>
+      {% else %}
+      Aucun
+      {% endif %}
+    </div>
+  </div>
+  {% endcomment %}
 </form>
 <div class="row">
   <div id="actions" class="span12">

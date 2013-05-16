@@ -200,6 +200,7 @@ def offre_form(request, etablissement):
                     request,
                     msg,
                     )
+                # redirect
         else:
             msg = _(u'Des erreurs se sont produites, veuillez vérifier'
                     ' les erreurs ci-dessous.')

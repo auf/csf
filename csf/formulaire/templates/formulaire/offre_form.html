@@ -29,13 +29,10 @@ Les informations que vous nous indiquerez seront présentées sur le portail vir
 Vous pourrez vous connecter à n'importe quel moment à cette même adresse pour mettre à jour les informations.
     </p>
     <p> 
-Si vous ne remplissez que partiellement le questionnaire, vous pouvez enregistrer les données en cliquant sur « <strong>Enregistrer</strong> » (bouton jaune au bas du formulaire) pour sauvegarder les informations que vous avez saisies. 
+Si vous ne remplissez que partiellement le questionnaire, vous pouvez enregistrer les données en cliquant sur « <strong>Enregistrer</strong> » (au bas du formulaire) pour sauvegarder les informations que vous avez saisies. 
     </p>
     <p>
-Une fois le questionnaire complété vous devez cliquer sur « <strong>Publier</strong> » (bouton vert) pour sauvegarder et publier les données.
-    </p>
-    <p>
-Si vous souhaitez consulter les informations publiées, cliquez sur « <strong>Consulter</strong> » (bouton bleu). En mode consultation, le bouton « <strong>Modifier</strong> » vous permet de revenir à ce formulaire pour modifier vos données.
+Une fois le questionnaire complété vous devez cliquer sur « <strong>Publier</strong> » pour sauvegarder et publier les données.
     </p>
   </div>
 </div>
@@ -274,16 +271,19 @@ Merci d'indiquer quelles disciplines sont offertes dans votre établissement et 
 <div class="row">
   <div id="actions" class="span12">
     <p>
-Si vous ne remplissez que partiellement le questionnaire, vous pouvez enregistrer les données en cliquant sur « <strong>Enregistrer</strong> » (bouton jaune) pour sauvegarder les informations que vous avez saisies. 
-Une fois le questionnaire complété vous devez cliquer sur « <strong>Publier</strong> » (bouton vert) pour sauvegarder et publier les données. Si vous souhaitez consulter les informations publiées, cliquez sur « <strong>Consulter</strong> » (bouton bleu).
+Si vous ne remplissez que partiellement le questionnaire, vous pouvez enregistrer les données en cliquant sur « <strong>Enregistrer</strong> » pour sauvegarder les informations que vous avez saisies. 
+Une fois le questionnaire complété vous devez cliquer sur « <strong>Publier</strong> » pour sauvegarder et publier les données.
     </p>
     <div class="row">
-      <div class="span4">
+      <div class="span3"></div>
+      <div class="span3">
         <input onclick="$('#draft-form').submit();" class="btn btn-warning" type="button" value="{% trans 'Enregistrer' %}" />
       </div>
-      <div class="span4">
+      <div class="span3">
         <input onclick="$('#publish_draft').val('true');$('#draft-form').submit();" class="btn btn-success" type="button" value="{% trans 'Publier' %}" />
       </div>
+      <div class="span3"></div>
+      {% comment %}
       {% if etablissement.participant %}
       <div class="span4">
         <form id="consulter-form" method="GET" action="{% url etab_preview etablissement.id %}">
@@ -291,6 +291,7 @@ Une fois le questionnaire complété vous devez cliquer sur « <strong>Publier<
         </form>
       </div>
       {% endif %}
+      {% endcomment %}
     </div>
   </div>
 </div>

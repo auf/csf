@@ -67,6 +67,7 @@ INSTALLED_APPS = (
     'csf.splash',
     'csf.formulaire',
     'csf.portail',
+    'csf.gestion',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

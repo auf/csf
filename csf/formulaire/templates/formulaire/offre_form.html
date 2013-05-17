@@ -38,7 +38,6 @@
 </div>
 <form id="participate-form" method="POST" action="{% url form_url etablissement.id %}">
   {% csrf_token %}
-  <h1>Participant: {{etablissement.participant}}</h1>
   <div id="participant-form-inner" class="row">
     <div class="span12">
       <div class="row-fluid{% if etablissement.participant %} success{% elif etablissement.participant == None %} warning{% else %} error {% endif %}">

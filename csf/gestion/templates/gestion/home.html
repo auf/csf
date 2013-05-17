@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Tableau de bord</h2>
+
+<h3>{{ etablissements.count }} établissements membres</h3>
+
+<p>
+Établissements membres actifs de l'AUF, de type "établissements d'enseignement supérieur et de recherche", des pays participants au programme CSF : Belgique, Canada, France.
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pays</th>
+      <th>Nom</th>
+      <th>CSF ?</th>
+      <th>Portail ?</th>
+      <th>URL formulaire</th>
+      <th>URL portail</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in etablissements %}
+      <tr>
+        <td>{{ e.pays }}</td>
+        <td>{{ e.nom }}</td>
+        <td>{{ e.etablissement_eligible|yesno:"oui,non,?" }}</td>
+        <td>
+        {% if e.etablissement_eligible %}
+          {{ e.etablissement_eligible.participant|yesno:"oui,non,?" }}
+        {% endif %}
+        </td>
+        <td>formulaire</td>
+        <td>portail</td>
+        {% comment %}
+        <a href="{% url portail_pays_detail p.id %}">
+        {% endcomment %}
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

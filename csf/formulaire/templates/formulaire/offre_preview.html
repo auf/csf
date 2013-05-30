@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block extra-js %}
+<script src="{{ STATIC_URL }}js/form.js"></script>
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+  <div class="span12">
+    <h1>
+      {{ etablissement.etablissement.nom }} 
+      ({{ etablissement.etablissement.ville }}, {{ etablissement.etablissement.pays }})
+    </h1>
+  </div>
+</div>
+
+<form enctype="multipart/form-data" id="draft-form" method="POST" action="{% url form_url etablissement.id %}">
+  <input id="publish_draft" type="hidden" name="publish_draft" value="false" />
+  <div class="row">
+    <div id="offre-formulaire" class="span12">
+      {% csrf_token %}
+      <h2>URLs</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span12">
+      {{ due.management_form }}
+      {% for url in etablissement.urls.all %}
+      <div class="row">
+        <div class="span4">
+          <label>{{ url.type.display_name }}</label>
+        </div>
+        <div class="span8">
+          {% if url.url %}
+          <a href="{{ url.url }}">
+            {{ url.url }}
+          </a>
+          {% else %}
+          Aucun
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="span12">
+      <h2>Offres de formation</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span12">
+      <!-- Formulaires Disciplines -->
+
+      <div class="offres-wrapper">
+        <div class="row">
+          <div class="span9">
+            <label><strong>Disciplines</strong></label>
+          </div>
+          {% for niveau in niveaux %}
+          <div class="span1">
+            <label>{{ niveau.display_name }}</label>
+          </div>
+          {% endfor %}
+        </div>
+        <div>
+          {% for offre in etablissement.offres_formation.all %}
+          {% with forloop.counter0|divisibleby:offre_column_count as start_row%}
+          {% with forloop.counter|divisibleby:offre_column_count as end_row %}
+          {% if start_row %}
+          <div class="row offre-formation-row">
+            <div class="span9">
+              <label>{{ offre.discipline.display_name }}</label>
+            </div>
+            {% endif %}
+            <div class="span1">
+              {% if offre.offert %}X{% else %}-{% endif %}
+            </div>
+            {% if end_row %}
+          </div>
+          {% endif %}
+          {% endwith %}
+          {% endwith %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span12">
+      <h2>{% trans 'Images' %}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span6">
+      <h4>{% trans 'Logo' %}</h4>
+      {% if etablissement.images.logo %}
+      <img src="{{ etablissement.images.logo.url }}" />
+      {% endif %}
+    </div>
+    <div class="span6">
+      <h4>{% trans 'Photo' %}</h4>
+      {% if etablissement.images.photo %}
+      <img src="{{ etablissement.images.photo.url }}" />
+      {% endif %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="span12">
+      <h2>{% trans 'Contact' %}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span2">
+      {% trans 'Prénom' %}
+    </div>
+    <div class="span4">
+      <span>{{ etablissement.contact_info.prenom|default:'Aucun' }}</span>
+    </div>
+    <div class="span2">
+      {% trans 'Nom' %}
+    </div>
+    <div class="span4">
+      <span>{{ etablissement.contact_info.nom|default:'Aucun' }}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span2">
+      {% trans 'Courriel' %}
+    </div>
+    <div class="span4">
+      <span>{{ etablissement.contact_info.courriel|default:'Aucun' }}</span>
+    </div>
+    <div class="span2">
+      {% trans 'Téléphone' %}
+    </div>
+    <div class="span4">
+      <span>{{ etablissement.contact_info.telephone|default:'Aucun' }}</span>
+    </div>
+  </div>
+  {% comment %}
+  <div class="row">
+    <div class="span2">
+      {% trans 'Page personnelle' %}
+    </div>
+    <div class="span4">
+      {% if etablissement.contact_info.page_personnelle %}
+      <a href="{{ etablissement.contact_info.page_personnelle }}">
+        {{ etablissement.contact_info.page_personnelle }}
+      </a>
+      {% else %}
+      Aucun
+      {% endif %}
+    </div>
+  </div>
+  {% endcomment %}
+</form>
+<div class="row">
+  <div id="actions" class="span12">
+    <div class="row">
+      {% if request.can_edit_etablissement %}
+      <div class="span3">
+        <form id="consulter-form" method="GET" action="{% url form_url etablissement.id %}">
+          <input type="submit" class="btn btn-info" value="{% trans 'Modifier' %}" />
+        </form>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

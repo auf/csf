@@ -43,13 +43,32 @@ class EtablissementEligibleInline(admin.StackedInline):
     model = EtablissementEligible
 
 
-def show_link(obj):
+def show_edit_link(obj):
     link = 'http%s://%s%s?auth_token=%s' % (
         (''
          if ALLOW_UNSECURED_TOKEN_AUTH
          else 's'),
         Site.objects.get_current().domain,
         reverse('csf.formulaire.views.offre_form',
+                kwargs={'id': obj.etablissement_eligible.id,},
+                ),
+        obj.auf_auth_token.value,
+        )
+    return mark_safe('<a href="%(link)s">%(link)s</a>' % {'link': link})
+show_edit_link.short_description = _(u'Lien d\'édition')
+show_edit_link.allow_tags = True
+
+
+def show_link(obj):
+    etab_elig = getattr(obj, 'etablissement_eligible', None)
+    if not etab_elig or etab_elig.participant in (False, None):
+        return None
+    link = 'http%s://%s%s?auth_token=%s' % (
+        (''
+         if ALLOW_UNSECURED_TOKEN_AUTH
+         else 's'),
+        Site.objects.get_current().domain,
+        reverse('csf.formulaire.views.preview',
                 kwargs={'id': obj.etablissement_eligible.id,},
                 ),
         obj.auf_auth_token.value,
@@ -88,7 +107,8 @@ class IsEtablissementFilter(SimpleListFilter):
 
 class UserAdmin(TokenUserAdmin):
 
-    list_display = list(UserAdmin.list_display) + [show_link]
+    list_display = list(UserAdmin.list_display) + [
+        show_edit_link, show_link]
     inlines = TokenUserAdmin.inlines + [EtablissementEligibleInline]
     list_filter = list(TokenUserAdmin.list_filter) + [IsEtablissementFilter]
 

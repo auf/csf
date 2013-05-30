@@ -30,3 +30,6 @@ log
 parts
 tmp
 sitestatic
+
+#media
+csf/media

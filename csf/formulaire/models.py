@@ -80,6 +80,15 @@ class EtablissementEligible(models.Model):
         default=None,
         verbose_name="Participe au programme CSF",
         )
+    class Meta:
+        verbose_name = "Établissement"
+        verbose_name_plural = "Établissements"
+    
+    def __unicode__(self):
+        return self.etablissement.nom
+
+
+class BaseEtablissementImages(models.Model):
     logo = models.ImageField(
         upload_to='logos',
         blank=True,
@@ -92,19 +101,26 @@ class EtablissementEligible(models.Model):
         )
 
     class Meta:
-        verbose_name = "Établissement"
-        verbose_name_plural = "Établissements"
-    
-    def __unicode__(self):
-        return self.etablissement.nom
+        abstract = True
 
 
-class ContactInfo(models.Model):
+class EtablissementImages(BaseEtablissementImages):
     etablissement = models.OneToOneField(
         EtablissementEligible,
-        related_name='contact_info',
+        related_name='images',
         verbose_name='Établissement',
         )
+
+
+class DraftEtablissementImages(BaseEtablissementImages):
+    etablissement = models.OneToOneField(
+        EtablissementEligible,
+        related_name='draft_images',
+        verbose_name='Établissement',
+        )
+
+
+class BaseContactInfo(models.Model):
     prenom = models.CharField(
         max_length=255,
         blank=True,
@@ -128,7 +144,25 @@ class ContactInfo(models.Model):
         blank=True,
         null=True,
         )
+
+    class Meta:
+        abstract = True
     
+
+class ContactInfo(BaseContactInfo):
+    etablissement = models.OneToOneField(
+        EtablissementEligible,
+        related_name='contact_info',
+        verbose_name='Établissement',
+        )
+
+
+class DraftContactInfo(BaseContactInfo):
+    etablissement = models.OneToOneField(
+        EtablissementEligible,
+        related_name='draft_contact_info',
+        verbose_name='Établissement',
+        )
 
 """
 Modèles abstraits.
@@ -248,4 +282,4 @@ class OffreFormation(BaseOffreFormation):
         related_name='offres_formation')
     
     def __unicode__(self):
-        return "%s" % (self.etablissement, )
+        return self.etablissement.__unicode__()

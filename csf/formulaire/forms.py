@@ -12,10 +12,13 @@ from .models import (
     TypeUrls,
     DraftURLEtablissement,
     DraftOffreFormation,
+    DraftEtablissementImages,
+    DraftContactInfo,
     URLEtablissement,
     OffreFormation,
     EtablissementEligible,
     ContactInfo,
+    EtablissementImages,
     )
 
 
@@ -35,6 +38,25 @@ FORMULAIRE_IMAGE_SIZE_ERROR = getattr(
 
 # Formulaires pour interface publique
 class EtabEligibleForm(forms.ModelForm):
+
+    class Meta:
+        exclude = [
+            'user',
+            'etablissement',
+            'participant',
+            ]
+        model = EtablissementEligible
+
+
+class DraftContactInfoForm(forms.ModelForm):
+    class Meta:
+        exclude = [
+            'etablissement',
+            ]
+        model = DraftContactInfo
+
+
+class DraftImagesForm(forms.ModelForm):
     def _clean_img(self, field):
         img = self.cleaned_data.get(field, None)
         if img and img.size > FORMULAIRE_IMAGE_MAX_SIZE:
@@ -48,18 +70,10 @@ class EtabEligibleForm(forms.ModelForm):
         return self._clean_img('logo')
 
     class Meta:
-        fields = [
-            'logo', 'photo',
-            ]
-        model = EtablissementEligible
-
-
-class ContactInfoForm(forms.ModelForm):
-    class Meta:
         exclude = [
             'etablissement',
             ]
-        model = ContactInfo
+        model = DraftEtablissementImages
 
 
 class DraftOffreFormationPublicForm(forms.ModelForm):

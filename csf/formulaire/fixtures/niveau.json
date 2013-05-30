@@ -1,0 +1,26 @@
+[
+  {
+    "pk": 1,
+    "model": "formulaire.niveau",
+    "fields": {
+      "ordering": 0,
+      "display_name": "Premier cycle"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "formulaire.niveau",
+    "fields": {
+      "ordering": 1,
+      "display_name": "Troisi\u00e8me cycle"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "formulaire.niveau",
+    "fields": {
+      "ordering": 3,
+      "display_name": "Postdoctorat"
+    }
+  }
+]

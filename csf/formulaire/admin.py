@@ -7,7 +7,7 @@ from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
 from django.contrib.admin import SimpleListFilter
 from django.contrib.auth.admin import UserAdmin
-from auf.django.auth_token.admin import TokenUserAdmin
+from auf.django.auth_token.admin import TokenUserAdmin, reset_token
 from django.conf import settings
 from auf.django.auth_token.models import ALLOW_UNSECURED_TOKEN_AUTH
 from django.core.urlresolvers import reverse
@@ -111,6 +111,9 @@ class UserAdmin(TokenUserAdmin):
         show_edit_link, show_link]
     inlines = TokenUserAdmin.inlines + [EtablissementEligibleInline]
     list_filter = list(TokenUserAdmin.list_filter) + [IsEtablissementFilter]
+    actions = UserAdmin.actions + [
+        reset_token,
+        ]
 
 
 class OrderedAdmin(admin.ModelAdmin):

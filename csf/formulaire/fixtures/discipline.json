@@ -124,7 +124,7 @@
     "model": "formulaire.discipline",
     "fields": {
       "ordering": 15,
-      "display_name": "Industrie culturelle (architecture, design, logiciel, jeux vid\u00e9o, publication \u00e9lectronique, publicit\u00e9, film, vid\u00e9o, photographie, musique, th\u00e9\u00e2tre, t\u00e9l\u00e9vision, radio, \u00e9dition)"
+      "display_name": "Industrie culturelle"
     }
   },
   {
@@ -141,92 +141,6 @@
     "fields": {
       "ordering": 17,
       "display_name": "Formation du personnel technique"
-    }
-  },
-  {
-    "pk": 1,
-    "model": "formulaire.niveau",
-    "fields": {
-      "ordering": 0,
-      "display_name": "Premier cycle"
-    }
-  },
-  {
-    "pk": 2,
-    "model": "formulaire.niveau",
-    "fields": {
-      "ordering": 1,
-      "display_name": "Troisi\u00e8me cycle"
-    }
-  },
-  {
-    "pk": 3,
-    "model": "formulaire.niveau",
-    "fields": {
-      "ordering": 2,
-      "display_name": "Doctorat \"sandwich\" l'ensemble de vos programmes de formation\" "
-    }
-  },
-  {
-    "pk": 4,
-    "model": "formulaire.niveau",
-    "fields": {
-      "ordering": 3,
-      "display_name": "Post-doctorat"
-    }
-  },
-  {
-    "pk": 1,
-    "model": "formulaire.typeurls",
-    "fields": {
-      "ordering": 0,
-      "required": false,
-      "display_name": "Page d'accueil"
-    }
-  },
-  {
-    "pk": 2,
-    "model": "formulaire.typeurls",
-    "fields": {
-      "ordering": 1,
-      "required": false,
-      "display_name": "Page CSF"
-    }
-  },
-  {
-    "pk": 3,
-    "model": "formulaire.typeurls",
-    "fields": {
-      "ordering": 2,
-      "required": false,
-      "display_name": "Page des programmes"
-    }
-  },
-  {
-    "pk": 4,
-    "model": "formulaire.typeurls",
-    "fields": {
-      "ordering": 3,
-      "required": false,
-      "display_name": "Page des programmes de 1er cycle"
-    }
-  },
-  {
-    "pk": 5,
-    "model": "formulaire.typeurls",
-    "fields": {
-      "ordering": 4,
-      "required": false,
-      "display_name": "Page des programmes de 3e cycle"
-    }
-  },
-  {
-    "pk": 6,
-    "model": "formulaire.typeurls",
-    "fields": {
-      "ordering": 5,
-      "required": false,
-      "display_name": "Page des programmes de post-doctorat"
     }
   }
 ]

@@ -1,16 +1,12 @@
 # -*- encoding: utf-8 -*-
 
 from django.contrib import admin
-from django.contrib.sites.models import Site
 from django.utils.translation import ugettext_lazy as _
-from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
 from django.contrib.admin import SimpleListFilter
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from auf.django.auth_token.admin import TokenUserAdmin, reset_token
 from django.conf import settings
-from auf.django.auth_token.models import ALLOW_UNSECURED_TOKEN_AUTH
-from django.core.urlresolvers import reverse
 from .models import (
     Discipline,
     Niveau,
@@ -20,6 +16,8 @@ from .models import (
     DraftOffreFormation,
     URLEtablissement,
     OffreFormation,
+    show_edit_link,
+    show_link,
     )
     
 
@@ -41,41 +39,6 @@ class OffreFormationInline(admin.StackedInline):
 
 class EtablissementEligibleInline(admin.StackedInline):
     model = EtablissementEligible
-
-
-def show_edit_link(obj):
-    link = 'http%s://%s%s?auth_token=%s' % (
-        (''
-         if ALLOW_UNSECURED_TOKEN_AUTH
-         else 's'),
-        Site.objects.get_current().domain,
-        reverse('csf.formulaire.views.offre_form',
-                kwargs={'id': obj.etablissement_eligible.id,},
-                ),
-        obj.auf_auth_token.value,
-        )
-    return mark_safe('<a href="%(link)s">%(link)s</a>' % {'link': link})
-show_edit_link.short_description = _(u'Lien d\'édition')
-show_edit_link.allow_tags = True
-
-
-def show_link(obj):
-    etab_elig = getattr(obj, 'etablissement_eligible', None)
-    if not etab_elig or etab_elig.participant in (False, None):
-        return None
-    link = 'http%s://%s%s?auth_token=%s' % (
-        (''
-         if ALLOW_UNSECURED_TOKEN_AUTH
-         else 's'),
-        Site.objects.get_current().domain,
-        reverse('csf.formulaire.views.preview',
-                kwargs={'id': obj.etablissement_eligible.id,},
-                ),
-        obj.auf_auth_token.value,
-        )
-    return mark_safe('<a href="%(link)s">%(link)s</a>' % {'link': link})
-show_link.short_description = _(u'Lien')
-show_link.allow_tags = True
 
 
 class IsEtablissementFilter(SimpleListFilter):

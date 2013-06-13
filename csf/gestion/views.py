@@ -16,16 +16,12 @@ def home(request):
     if not request.user.is_superuser :
         raise PermissionDenied()
         
-    etablissements = ref.Etablissement.objects.select_related().filter(
-        actif=True,
-        membre=True,
-        qualite='ESR',
-        pays__code__in=('BE','CA','FR'),
-    ).select_related('etablissement_eligible',
-                     'etablissement_eligible__user',
-                     'etablissement_eligible__offres_formation',
-                     )
-    
+    etablissements = EtablissementEligible.objects.all().select_related(
+        'etablissement',
+        'user',
+        'offres_formation'
+        )
+
     c = {
         'etablissements':etablissements
     }

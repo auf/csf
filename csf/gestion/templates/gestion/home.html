@@ -25,21 +25,18 @@
   <tbody>
     {% for e in etablissements %}
       <tr>
-        <td>{{ e.pays }}</td>
-        <td>{{ e.nom }}</td>
-        <!-- <td>{{ e.etablissement_eligible|yesno:"oui,non,?" }}</td> -->
+        <td>{{ e.etablissement.pays }}</td>
+        <td>{{ e.etablissement.nom }}</td>
         <td>
-        {% if e.etablissement_eligible %}
-          {{ e.etablissement_eligible.participant|yesno:"oui,non,?" }}
-        {% endif %}
+          {{ e.participant|yesno:"oui,non,?" }}
         </td>
 	<td>
-	  {% if e.etablissement_eligible.participant %}
-	  {{ e.etablissement_eligible.has_published_info }}
+	  {% if e.participant %}
+	  {{ e.has_published_info }}
 	  {% endif %}
 	</td>
-        <td><a href="{{ e.etablissement_eligible.edit_link }}">Formulaire</a></td>
-        <td>{% if e.etablissement_eligible.participant %}<a href="{{ e.etablissement_eligible.link }}">Portail</a>{% endif %}</td>
+        <td><a href="{{ e.edit_link }}">Formulaire</a></td>
+        <td>{% if e.participant %}<a href="{{ e.link }}">Portail</a>{% endif %}</td>
         {% comment %}
         <a href="{% url portail_pays_detail p.id %}">
         {% endcomment %}

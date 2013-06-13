@@ -227,15 +227,17 @@ def offre_form(request, etablissement):
                 eimages.photo = di.photo
                 eimages.save()
 
-                etablissement.participant = True
-                etablissement.save()
+                # Ne veulent pas que ça participe automatiquement.
+                # etablissement.participant = True
+                # etablissement.save()
 
                 msg = _(u'Vos informations ont été publiées.')
                 messages.success(
                     request,
                     msg,
                     )
-                return redirect(reverse('etab_preview', kwargs={'id': etablissement.id}))
+                if etablissement.participant:
+                    return redirect(reverse('etab_preview', kwargs={'id': etablissement.id}))
 
         else:
             msg = _(u'Des erreurs se sont produites, veuillez vérifier'

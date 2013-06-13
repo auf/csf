@@ -10,13 +10,14 @@
 Établissements membres actifs de l'AUF, de type "établissements d'enseignement supérieur et de recherche", des pays participants au programme CSF : Belgique, Canada, France.
 </p>
 
-<table>
+<table class="table table-bordered table-hover table-condensed">
   <thead>
     <tr>
       <th>Pays</th>
       <th>Nom</th>
-      <th>CSF ?</th>
-      <th>Portail ?</th>
+      <!-- <th>CSF</th> -->
+      <th>Participant</th>
+      <th>Offre formation</th>
       <th>URL formulaire</th>
       <th>URL portail</th>
     </tr>
@@ -24,16 +25,18 @@
   <tbody>
     {% for e in etablissements %}
       <tr>
-        <td>{{ e.pays }}</td>
-        <td>{{ e.nom }}</td>
-        <td>{{ e.etablissement_eligible|yesno:"oui,non,?" }}</td>
+        <td>{{ e.etablissement.pays }}</td>
+        <td>{{ e.etablissement.nom }}</td>
         <td>
-        {% if e.etablissement_eligible %}
-          {{ e.etablissement_eligible.participant|yesno:"oui,non,?" }}
-        {% endif %}
+          {{ e.participant|yesno:"oui,non,?" }}
         </td>
-        <td>formulaire</td>
-        <td>portail</td>
+	<td>
+	  {% if e.participant %}
+	  {{ e.has_published_info }}
+	  {% endif %}
+	</td>
+        <td><a href="{{ e.edit_link }}">Formulaire</a></td>
+        <td>{% if e.participant %}<a href="{{ e.link }}">Portail</a>{% endif %}</td>
         {% comment %}
         <a href="{% url portail_pays_detail p.id %}">
         {% endcomment %}

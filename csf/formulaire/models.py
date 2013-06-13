@@ -1,9 +1,13 @@
 # -*- encoding: utf-8 -*-
 
 import itertools
+from django.contrib.sites.models import Site
+from django.utils.safestring import mark_safe
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.contrib.auth.models import User
 from auf.django.references import models as ref
+from auf.django.auth_token.models import ALLOW_UNSECURED_TOKEN_AUTH
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -66,6 +70,45 @@ class TypeUrls(OrderedModel):
         return self.display_name
 
 
+def show_edit_link(obj, just_link=False):
+    link = 'http%s://%s%s?auth_token=%s' % (
+        (''
+         if ALLOW_UNSECURED_TOKEN_AUTH
+         else 's'),
+        Site.objects.get_current().domain,
+        reverse('csf.formulaire.views.offre_form',
+                kwargs={'id': obj.etablissement_eligible.id,},
+                ),
+        obj.auf_auth_token.value,
+        )
+    if just_link:
+        return link
+    return mark_safe('<a href="%(link)s">%(link)s</a>' % {'link': link})
+show_edit_link.short_description = _(u'Lien d\'édition')
+show_edit_link.allow_tags = True
+
+
+def show_link(obj, just_link=False):
+    etab_elig = getattr(obj, 'etablissement_eligible', None)
+    if not etab_elig or etab_elig.participant in (False, None):
+        return None
+    link = 'http%s://%s%s?auth_token=%s' % (
+        (''
+         if ALLOW_UNSECURED_TOKEN_AUTH
+         else 's'),
+        Site.objects.get_current().domain,
+        reverse('csf.formulaire.views.preview',
+                kwargs={'id': obj.etablissement_eligible.id,},
+                ),
+        obj.auf_auth_token.value,
+        )
+    if just_link:
+        return link
+    return mark_safe('<a href="%(link)s">%(link)s</a>' % {'link': link})
+show_link.short_description = _(u'Lien')
+show_link.allow_tags = True
+
+
 class EtablissementEligible(models.Model):
     user = models.OneToOneField(
         User,
@@ -84,6 +127,18 @@ class EtablissementEligible(models.Model):
         verbose_name = "Établissement"
         verbose_name_plural = "Établissements"
     
+    @property
+    def edit_link(self):
+        return show_edit_link(self.user, True)
+
+    @property
+    def link(self):
+        return show_link(self.user, True)
+
+    @property
+    def has_published_info(self):
+        return self.offres_formation.filter(offert=True).count()
+        
     def __unicode__(self):
         return self.etablissement.nom
 

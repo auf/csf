@@ -120,7 +120,7 @@ Cité de l'architecture et du patrimoine
 
       <div class="offres-wrapper">
         <div class="row">
-          <div class="span9">
+          <div class="span{{form_first_column_span}}">
             <label><strong>Disciplines</strong></label>
           </div>
           {% for niveau in niveaux %}
@@ -137,7 +137,7 @@ Cité de l'architecture et du patrimoine
           {% with forloop.counter|divisibleby:dof_column_count as end_row %}
           {% if start_row %}
           <div class="row offre-formation-row">
-            <div class="span9">
+            <div class="span{{form_first_column_span}}">
               <label>{{ form.instance.discipline.display_name }}</label>
             </div>
             {% endif %}
@@ -146,6 +146,8 @@ Cité de l'architecture et du patrimoine
             {{ form.niveau }}
             {{ form.id }}
             <div class="span1">
+	      {{ form.instance.discipline }}
+	      {{ form.instance.niveau }}
               {{ form.offert }}
             </div>
             {% if end_row %}

@@ -87,11 +87,13 @@ def preview(request, etablissement):
         raise Http404()
 
     niveaux = Niveau.objects.all()
+    niveaux_count = niveaux.count()
 
     ctx = {
         'etablissement': etablissement,
         'niveaux': niveaux,
-        'offre_column_count': niveaux.count(),
+        'offre_column_count': niveaux_count,
+        'form_first_column_span': 12-niveaux_count,
         }
 
     return render_to_response(
@@ -109,13 +111,14 @@ def offre_form(request, etablissement):
         etablissement.save()
 
     niveaux = Niveau.objects.all()
-    disciplines = Discipline.objects.all()
+    niveaux_count = niveaux.count()
+    disciplines = Discipline.objects.order_by('id')
 
     ### Get Querysets
     due_qs = DraftURLEtablissement.objects.filter(
         etablissement=etablissement)
     dof_qs = DraftOffreFormation.objects.filter(
-        etablissement=etablissement)
+        etablissement=etablissement).order_by('discipline__id', 'niveau__ordering')
 
     ### Create formsets and forms
     etab_f = EtabEligibleForm(instance=etablissement)
@@ -252,7 +255,8 @@ def offre_form(request, etablissement):
         'dof': dof,
         'typeurls': TypeUrls.objects.all(),
         'niveaux': niveaux,
-        'dof_column_count': niveaux.count(),
+        'dof_column_count': niveaux_count,
+        'form_first_column_span': 12-niveaux_count,
         'etablissement': etablissement,
         'etab_form': etab_f,
         'contact_form': contact_f,

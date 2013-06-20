@@ -56,7 +56,7 @@
 
       <div class="offres-wrapper">
         <div class="row">
-          <div class="span9">
+          <div class="span{{form_first_column_span}}">
             <label><strong>Disciplines</strong></label>
           </div>
           {% for niveau in niveaux %}
@@ -71,7 +71,7 @@
           {% with forloop.counter|divisibleby:offre_column_count as end_row %}
           {% if start_row %}
           <div class="row offre-formation-row">
-            <div class="span9">
+            <div class="span{{form_first_column_span}}">
               <label>{{ offre.discipline.display_name }}</label>
             </div>
             {% endif %}

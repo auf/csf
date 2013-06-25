@@ -66,7 +66,7 @@
           {% endfor %}
         </div>
         <div>
-          {% for offre in etablissement.offres_formation.all %}
+          {% for offre in offres %}
           {% with forloop.counter0|divisibleby:offre_column_count as start_row%}
           {% with forloop.counter|divisibleby:offre_column_count as end_row %}
           {% if start_row %}

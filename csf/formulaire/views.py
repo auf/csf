@@ -94,6 +94,7 @@ def preview(request, etablissement, ordering=('-discipline__id', 'niveau__orderi
         'niveaux': niveaux,
         'offre_column_count': niveaux_count,
         'form_first_column_span': 12-niveaux_count,
+        'urls': etablissement.urls.order_by('type__ordering'),
         'offres': etablissement.offres_formation.order_by(
             *ordering)
         }
@@ -118,11 +119,9 @@ def offre_form(request, etablissement, ordering=('-discipline__id', 'niveau__ord
 
     ### Get Querysets
     due_qs = DraftURLEtablissement.objects.filter(
-        etablissement=etablissement)
+        etablissement=etablissement).order_by('type__ordering')
     dof_qs = DraftOffreFormation.objects.filter(
-        etablissement=etablissement)
-    if ordering:
-        dof_qs = dof_qs.order_by(*ordering)
+        etablissement=etablissement).order_by(*ordering)
 
     ### Create formsets and forms
     etab_f = EtabEligibleForm(instance=etablissement)

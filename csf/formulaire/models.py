@@ -286,6 +286,15 @@ class BaseOffreFormation(models.Model):
             ]
         cls.objects.bulk_create(new_offres)
 
+    def __unicode__(self):
+        return '%s, %s, %s: %s' % (
+            self.etablissement.__unicode__(),
+            self.discipline.__unicode__(),
+            self.niveau.__unicode__(),
+            self.offert,
+            )
+
+
 """
 Classes pour entrées en préparation
 """
@@ -336,5 +345,3 @@ class OffreFormation(BaseOffreFormation):
         Niveau,
         related_name='offres_formation')
     
-    def __unicode__(self):
-        return self.etablissement.__unicode__()

@@ -44,7 +44,7 @@ from django.utils.translation import ugettext as _
 
 
 def check_etablissement(fun):
-    def inner(request, id):
+    def inner(request, id, *a, **kw):
         etablissement = get_object_or_404(
             EtablissementEligible,
             id=id,
@@ -76,22 +76,27 @@ def check_etablissement(fun):
         DraftContactInfo.objects.get_or_create(etablissement=etablissement)
         ContactInfo.objects.get_or_create(etablissement=etablissement)
 
-        return fun(request, etablissement)
+        return fun(request, etablissement, *a, **kw)
     return inner
 
 
 @check_etablissement
 @login_required
-def preview(request, etablissement):
+def preview(request, etablissement, ordering=('-discipline__id', 'niveau__ordering')):
     if etablissement.participant in (None, False):
         raise Http404()
 
     niveaux = Niveau.objects.all()
+    niveaux_count = niveaux.count()
 
     ctx = {
         'etablissement': etablissement,
         'niveaux': niveaux,
-        'offre_column_count': niveaux.count(),
+        'offre_column_count': niveaux_count,
+        'form_first_column_span': 12-niveaux_count,
+        'urls': etablissement.urls.order_by('type__ordering'),
+        'offres': etablissement.offres_formation.order_by(
+            *ordering)
         }
 
     return render_to_response(
@@ -103,19 +108,20 @@ def preview(request, etablissement):
 
 @check_etablissement
 @login_required
-def offre_form(request, etablissement):
+def offre_form(request, etablissement, ordering=('-discipline__id', 'niveau__ordering')):
     if etablissement.participant == None:
         etablissement.participant = True
         etablissement.save()
 
     niveaux = Niveau.objects.all()
-    disciplines = Discipline.objects.all()
+    niveaux_count = niveaux.count()
+    disciplines = Discipline.objects.order_by('id')
 
     ### Get Querysets
     due_qs = DraftURLEtablissement.objects.filter(
-        etablissement=etablissement)
+        etablissement=etablissement).order_by('type__ordering')
     dof_qs = DraftOffreFormation.objects.filter(
-        etablissement=etablissement)
+        etablissement=etablissement).order_by(*ordering)
 
     ### Create formsets and forms
     etab_f = EtabEligibleForm(instance=etablissement)
@@ -247,12 +253,15 @@ def offre_form(request, etablissement):
                 msg,
                 )
 
+    niveaux_count = niveaux.count()
     ctx = {
         'due': due,
         'dof': dof,
         'typeurls': TypeUrls.objects.all(),
         'niveaux': niveaux,
-        'dof_column_count': niveaux.count(),
+        'offre_column_count': niveaux_count,
+        'form_first_column_span': 12-niveaux_count,       
+        'dof_column_count': niveaux_count,
         'etablissement': etablissement,
         'etab_form': etab_f,
         'contact_form': contact_f,

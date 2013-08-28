@@ -1,0 +1,26 @@
+{% load i18n %}
+
+  <div class="span4">
+      <h3>{% trans "Par pays" %}</h3>
+      <ul class="list">
+      {% for obj in pays %}
+        <li><a href="../?etablissement__etablissement__pays={{obj.0}}">{{obj.1}}</a></li>
+      {% endfor %}
+      </ul>
+
+      <h3>{% trans "Par cycles" %}</h3>
+      <ul class="list">
+      {% for obj in niveau %}
+        <li><a href="../?niveau={{obj.0}}">{{obj.1}}</a></li>
+      {% endfor %}
+      </ul>
+  </div>
+  <div class="span4">
+      <h3>{% trans "Par disciplines" %}</h3>
+      <ul class="list">
+      {% for obj in discipline %}
+        <li><a href="../?discipline={{obj.0}}">{{obj.1}}</a></li>
+      {% endfor %}
+      </ul>
+  </div>
+

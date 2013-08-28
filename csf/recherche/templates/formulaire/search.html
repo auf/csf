@@ -1,0 +1,45 @@
+{% extends "2col.html" %}
+{% load cms_tags sekizai_tags %}
+{% load i18n %}
+
+{% block container_class %}outdoor outdoor--formation{% endblock %}
+
+{% block left %}
+    {% include "_search.html" %}
+{% endblock %}
+
+{% block right %}
+  <h2>Consultez la liste des établissements</h2>
+  <p class="muted">Sélectionnez un établissement en <br>cherchant par pays.</p>
+
+  <p>
+      <img src="{{ STATIC_URL }}img/page/etablissement-icons.png" alt="" style="margin-left: -25px;">
+  </p>
+{% endblock %}
+
+{% block bottom %}
+  <div class="span4">
+      <h3>{% trans "Par pays" %}</h3>
+      <ul class="list">
+      {% for obj in pays %}
+        <li><a href="../?etablissement__etablissement__pays={{obj.0}}">{{obj.1}}</a></li>
+      {% endfor %}
+      </ul>
+
+      <h3>{% trans "Par cycles" %}</h3>
+      <ul class="list">
+      {% for obj in niveau %}
+        <li><a href="../?niveau={{obj.0}}">{{obj.1}}</a></li>
+      {% endfor %}
+      </ul>
+  </div>
+  <div class="span4">
+      <h3>{% trans "Par disciplines" %}</h3>
+      <ul class="list">
+      {% for obj in discipline %}
+        <li><a href="../?discipline={{obj.0}}">{{obj.1}}</a></li>
+      {% endfor %}
+      </ul>
+  </div>
+{% endblock %}
+

@@ -1,0 +1,18 @@
+{% load sekizai_tags %}
+{% load i18n %}
+
+{% addtoblock "js" %}
+<script type="text/javascript" src="{{STATIC_URL }}js/vendor/jquery-1.9.1.min.js"></script>
+{% endaddtoblock %}
+
+{% addtoblock "js" %}
+{% include 'autocomplete_light/static.html' %}
+{% endaddtoblock %}
+
+
+<form method="GET" action="/recherche/" class="offreform">
+    {{ filter.form.as_p }}
+    <input type="submit" value="{% trans "Rechercher" %}" class="button">
+    {{ form.as_p }}
+</form>
+

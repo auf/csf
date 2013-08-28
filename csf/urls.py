@@ -1,46 +1,21 @@
-# -*- encoding: utf-8 -*
+import glob
+import sys
+import types
 
-from django.conf.urls.defaults import patterns, include, \
-        handler500, handler404, url
-from django.conf import settings
-from django.contrib import admin
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from os.path import abspath, dirname, join
 
-admin.autodiscover()
+PROJECT_DIR = abspath(dirname(__file__))
 
-handler404
-handler500 # Pyflakes
+urlfiles = glob.glob(join(PROJECT_DIR, 'urls', '*.py'))
+urlfiles.sort()
 
-urlpatterns = patterns(
-    '',
-        
-    # interfaces publiques
-    url(r'^$', include('csf.splash.urls')),
-    url(r'^demo/', include('csf.portail.urls')),
-    url(r'^etablissement/(?P<id>\d+)/$',
-        'csf.formulaire.views.preview',
-        name='etab_preview'),
-        
-    # interfaces privées : AUF
-    url(r'^gestion/', include('csf.gestion.urls')),
-    
-    
-    # interfaces privées : membre
-    url(r'^espace/membre/(?P<id>\d+)/$',
-        'csf.formulaire.views.offre_form',
-        name='form_url'),
-        
-    # admin
-    (r'^admin/', include(admin.site.urls)),
-    url(r'^admin_tools/', include('admin_tools.urls')),
-    (r'^accounts/login', 'django.contrib.auth.views.login'),
-    (r'^accounts/logout', 'django.contrib.auth.views.logout'),
-)
+for f in urlfiles:
+    execfile(abspath(f))
 
-if settings.DEBUG:
-    urlpatterns += staticfiles_urlpatterns()
-    urlpatterns += patterns('',
-        url(r'^media/(?P<path>.*)$',
-        'django.views.static.serve', {
-        'document_root': settings.MEDIA_ROOT, }),
-        )
+    # from https://github.com/2general/django-split-settings/blob/master/split_settings/tools.py
+    # add dummy modules to sys.modules to make runserver autoreload work with settings components
+    modulename = '_urls.%s' % f
+    module = types.ModuleType(modulename)
+    module.__file__ = f
+    sys.modules[modulename] = module
+

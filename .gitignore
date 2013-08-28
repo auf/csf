@@ -33,3 +33,12 @@ sitestatic
 
 #media
 csf/media
+
+#settings
+/csf/settings/*-local.py
+/csf/urls/*-local.py
+/csf/settings/10-secret.py
+/csf/settings/20-secret.py
+/csf/settings/*-prod.py
+/csf/urls/*-prod.py
+

@@ -1,25 +1,38 @@
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
+
 TEMPLATE_CONTEXT_PROCESSORS += (
     "django.core.context_processors.request",
+    'django.contrib.messages.context_processors.messages',
     'cms.context_processors.media',
     'sekizai.context_processors.sekizai',
 )
 
 MIDDLEWARE_CLASSES += (
+    'django.contrib.messages.middleware.MessageMiddleware',
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
     'cms.middleware.language.LanguageCookieMiddleware',
 )
 
+INSTALLED_APPS = (
+    "djangocms_admin_style",
+) + INSTALLED_APPS
+
 INSTALLED_APPS += (
     "cms",
+    "cms.stacks",
+    "cms.publisher",
+    'cms.plugins.picture',
+    "cms.plugins.link",
+    "djangocms_text_ckeditor",
+    "cmsplugin_youtube",
+    "cmsplugin_contact",
     "menus",
     "mptt",
-    'cms.plugins.text',
     "sekizai",
-    "south"
+    "south",
 )
 
 gettext = lambda s: s
@@ -27,30 +40,27 @@ gettext = lambda s: s
 CMS_LANGUAGES = {
     1: [
         {
+            'code': 'fr',
+            'name': gettext('French'),
+            'public': True,
+            'fallbacks': ['pt'],
+        },
+        {
             'code': 'pt',
             'name': gettext('Portugues'),
             'public': True,
             'fallbacks': ['fr'],
         },
     ],
-    2: [
-        {
-            'code': 'fr',
-            'name': gettext('Dutch'),
-            'public': True,
-            'fallbacks': ['pt'],
-        },
-    ],
     'default': {
-        'fallbacks': ['pt', 'fr'],
-        'redirect_on_fallback':True,
+        'fallbacks': ['fr', 'pt'], 
+        'redirect_on_fallback':False,
         'public': True,
         'hide_untranslated': False,
     }
 }
 
 CMS_TEMPLATES = (
-    ('simple.html', 'Simple'),
-    ('2col.html', '2col'),
-    ('hero.html', 'hero'),
+    ('1col.html', gettext('homepage')),
+    ('2col.html', gettext('two columns')),
 )

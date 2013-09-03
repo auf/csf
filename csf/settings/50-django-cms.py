@@ -28,7 +28,6 @@ INSTALLED_APPS += (
     "cms.plugins.link",
     "djangocms_text_ckeditor",
     "cmsplugin_youtube",
-    "cmsplugin_contact",
     "menus",
     "mptt",
     "sekizai",

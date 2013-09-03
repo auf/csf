@@ -1,0 +1,56 @@
+{% load i18n %}
+<div class="container" style="padding-top: 50px;">
+    <div class="row">
+        <div class="span3 text-center">
+            <p>{% trans "Ciências Sem Fronteiras" %}</p>
+            <img src="{{ STATIC_URL }}img/footer-logo.png" alt="" />
+        </div>
+
+
+        <div class="span2 offset1">
+            <p class="text-big text-dark">{% trans "Sections" %}</p>
+
+            <ul class="list">
+                <li><a href="#">{% trans "Accueil" %}</a></li>
+                <li><a href="#">{% trans "Formations" %}</a></li>
+                <li><a href="#">{% trans "Établissements" %}</a></li>
+                <li><a href="#">{% trans "Pays" %}</a></li>
+            </ul>
+        </div>
+
+        <div class="span3">
+            <p class="text-big text-bold">&nbsp;</p>
+
+            <ul class="list">
+                <li><a href="#">{% trans "À Propos" %}</a></li>
+                <li><a href="#">{% trans "AUF" %}</a></li>
+                <li><a href="#">{% trans "Partenaires" %}</a></li>
+                <li><a href="#">{% trans "Apprendre le français" %}</a></li>
+            </ul>
+        </div>
+
+
+        <div class="span3">
+            <p class="text-big text-dark">{% trans "Pour plus d'informations" %}</p>
+
+            <ul class="list">
+                <li><a href="#">{% trans "Site de l'AUF" %}</a></li>
+                <li><a href="#">{% trans "Site CSF" %}</a></li>
+                <li><a href="#">{% trans "Contact" %}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="spacer spacer--huge"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="span12 text-center">
+            <a href="#">{% trans "Mentions légales" %}</a>
+            | <a href="http://caravan.coop/">{% trans "Une réalisation de Caravan" %}</a>
+        </div>
+    </div>
+</div>
+
+<div class="spacer spacer--big"></div>

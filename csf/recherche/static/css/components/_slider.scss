@@ -1,0 +1,132 @@
+$slider-height: 680px;
+
+//
+.slider {
+    position: relative;
+
+    background-color: #fff;
+    @include background-image(linear-gradient(bottom, #ecf2f8, #f6f9fa 43%, #fff 59%));
+}
+
+//
+.slider-bulletgroup {
+    list-style: none;
+    padding: 0;
+    //position: absolute;
+    margin: { top: 150px; right: 65px; bottom: 150px; }
+    width: 20px;
+    height: 215px;
+    float: right;
+
+    z-index: 99;
+
+    @media( max-width: 980px ) {
+        visibility: hidden;
+    }
+}
+
+//
+.slider-bullet {
+    width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    background-color: #cbd1d6;
+    margin-bottom: 20px;
+    cursor: pointer;
+
+    &.is-current {
+        background-color: $blue;
+    }
+}
+
+//
+.slide {
+    background-color: #fff;
+    @include box-shadow(0 5px 21px #c2c7cc);
+    @include background-image(linear-gradient(bottom, #ecf2f8, #f6f9fa 43%, #fff 59%));
+}
+
+//
+.slide-main {
+    @include box-shadow(none !important);
+    background: #e5eef7 !important;
+}
+
+//
+.slide-wrapper {
+    position: relative;
+    height: $slider-height;
+
+    width: 940px !important;
+
+    @include box-sizing( border-box );
+    padding-top: 140px;
+
+    z-index: 10;
+}
+
+//
+.slide-circleup {
+    $circle-width: 96px;
+    width: $circle-width;
+    height: $circle-width / 2;
+    cursor: pointer;
+
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: $circle-width / -2;
+
+    border-radius: 0px 0px 48px 48px;
+    background: transparent url(#{$img-dir}/slider/arrow-down.png) center 25px no-repeat;
+
+    @include transition( all 0.4s );
+
+    &:hover {
+        background-position: center 30px;
+    }
+
+}
+
+
+//
+.slide-circlebottom {
+    $circle-width: 96px;
+    width: $circle-width;
+    height: $circle-width / 2;
+    cursor: pointer;
+
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: $circle-width / -2;
+
+    border-radius: 48px 48px 0px 0px;
+    background: #fff url(#{$img-dir}/slider/arrow-up.png) center 25px no-repeat;
+    //border: solid 1px #e3e8ed;
+
+    @include transition( all 0.4s );
+
+    &:hover {
+        background-position: center 20px;
+    }
+}
+
+//
+.slide-title {
+    color: $blue;
+    font-size: 30px;
+    font-weight: 400;
+}
+
+//
+.slide-h1 {
+    font-weight: 400;
+    font-size: 44px;
+}
+
+//
+.slide-h2 {
+    font-weight: 400;
+    font-size: 36px;
+}

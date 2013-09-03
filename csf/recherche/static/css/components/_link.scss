@@ -1,0 +1,23 @@
+$color-dark: #222;
+
+.text-dark {
+    color: $color-dark;
+}
+
+a,
+.link-dark {
+    color: $color-dark;
+
+    &:hover {
+        color: $blue;
+        text-decoration: none;
+    }
+
+    &.muted {
+        color: #999;
+
+        &:hover {
+            color: darken($blue, 0.2);
+        }
+    }
+}

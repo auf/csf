@@ -11,8 +11,24 @@
 
 
 <form method="GET" action="/recherche/" class="offreform">
-    {{ filter.form.as_p }}
-    <input type="submit" value="{% trans "Rechercher" %}" class="button">
-    {{ form.as_p }}
+    {{ filter.form.etablissement__etablissement__pays }}
+    
+    <div class="spacer"></div>
+    
+    {{ filter.form.discipline }}
+    
+    <div class="spacer"></div>
+    
+    {{ filter.form.niveau }}
+
+    <div class="spacer"></div>
+
+    {{ form.search }}
+
+    <div class="spacer spacer--big"></div>
+
+    <button type="submit" class="button">{% trans 'Rechercher' %}</button>
+    
+    <div class="spacer spacer--big"></div>
 </form>
 

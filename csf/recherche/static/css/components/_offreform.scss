@@ -1,0 +1,14 @@
+.offreform {
+    @include box-sizing( border-box );
+    width: 315px;
+    border-radius: 3px;
+    background-color: #fff;
+    padding: 25px;
+
+    text-align: center;
+}
+
+.offreform input {
+    background: #fcfcfc;
+    height: 35px;
+}

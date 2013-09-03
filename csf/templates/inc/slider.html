@@ -1,0 +1,63 @@
+{% load cms_tags %}
+{% load i18n %}
+<div class="slider">
+
+    <ul class="slider-bulletgroup">
+        <li class="slider-bullet is-current" data-bullet="0"></li>
+        <li class="slider-bullet" data-bullet="1"></li>
+        <li class="slider-bullet" data-bullet="2"></li>
+        <li class="slider-bullet" data-bullet="3"></li>
+        <li class="slider-bullet" data-bullet="4"></li>
+    </ul>
+    
+    <div class="slide slide-main" data-slide="0">
+        <div class="slide-wrapper container">
+            
+              {% placeholder slide1 %}
+
+            <div class="slide-circlebottom" data-bullet="0"></div>
+        </div>
+    </div>
+
+
+    <div class="slide" data-slide="1">
+        <div class="slide-wrapper container">
+            
+               {% placeholder slide2 %}
+
+            <div class="slide-circleup" data-bullet="1"></div>
+            <div class="slide-circlebottom" data-bullet="1"></div>
+        </div>
+    </div>
+
+
+    <div class="slide" data-slide="2">
+        <div class="slide-wrapper container">
+              {% placeholder slide3 %}
+
+            <div class="slide-circleup" data-bullet="2"></div>
+            <div class="slide-circlebottom" data-bullet="2"></div>
+        </div>
+    </div>
+
+    <div class="slide" data-slide="3">
+        <div class="slide-wrapper container">
+            
+
+            {% placeholder slide4 %}
+
+            <div class="slide-circleup" data-bullet="3"></div>
+            <div class="slide-circlebottom" data-bullet="3"></div>
+        </div>
+    </div>
+
+    <div class="slide" data-slide="4">
+        <div class="slide-wrapper container">
+            
+            {% placeholder slide5 %}
+
+            <div class="slide-circleup" data-bullet="4"></div>
+        </div>
+    </div>
+
+</div>

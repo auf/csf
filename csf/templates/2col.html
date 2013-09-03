@@ -3,7 +3,7 @@
 
 {% block main %}
   {% page_attribute "slug" as slug %}
-  <div class="{{ slug }}">
+  <div class="outdoor outdoor--{{ slug }}">
     <div class="container">
         <div class="row">
             <div class="span4" style="margin-top: 100px;">
@@ -11,7 +11,7 @@
             {% placeholder gauche %}
             </div>
 
-            <div class="span6 offset1" style="margin-top: 100px;">
+            <div class="span6" style="margin-top: 100px; margin-left: 50px;">
             {% block right %}{% endblock %}
             {% placeholder droite %}
             </div>

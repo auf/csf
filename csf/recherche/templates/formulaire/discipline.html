@@ -3,8 +3,6 @@
 
 {% block main %}
 <div class="content">
-  {% for object in objects_list %}
-  {% endfor %}
 
     <div class="content-nav">
         <div class="content-pagination pull-right">
@@ -16,12 +14,13 @@
             <a href="#" class="content-pagination-item"> &gt; </a>
         </div>
 
-        <h4 class="blue">Troisième cycle, génie et autres domaine technique</h4>
+        <h4 class="blue">{{ object_list.0.discipline }}</h4>
     </div>
 
     <div class="spacer spacer--big"></div>
     <div class="spacer spacer--big"></div>
 
+  {% for object in object_list %}
     <div class="row-fluid">
         <div class="span3">
             
@@ -31,22 +30,22 @@
 
         <div class="span9">
             
-            <h3>Génie et autres domaines techniques</h3>
+            <h3>{{ object.discipline }}</h3>
             
             <div class="separator"></div>
 
             <div class="row-fluid">
                 <div class="span6">
                     
-                    <h4>Belgique</h4>
+                    <h4>{{ object.etablissement.etablissement.pays }}</h4>
                     <p class="muted">
-                        Université libre de Bruxelles <br>
-                        Troisième cycle
+                        {{object.etablissement.etablissement.nom }}<br>
+                        {{object.niveau }}
                     </p>
 
                     <div class="spacer"></div>
 
-                    <a href="#" class="button">Voir l'établissement</a>
+                    <a href="/recherche/?etablissement__etablissement={{object.etablissement.etablissement.pk}}" class="button">Voir l'établissement</a>
                 </div>
 
                 <div class="span6">
@@ -56,25 +55,7 @@
 
             <div class="separator"></div>
 
-            <div class="row-fluid">
-                <div class="span6">        
-                    <h4>Canada</h4>
-                    <p class="muted">
-                        Université de Québec à Montréal <br>
-                        Troisième cycle
-                    </p>
-
-                    <div class="spacer"></div>
-
-                    <a href="#" class="button">Voir l'établissement</a>
-
-                </div>
-
-                <div class="span6">
-                    <img src="//placehold.it/450x350" alt="" class="img-polaroid">
-                </div>
-            </div>
-
+    {% endfor %}
         </div>
     </div>
 </div>

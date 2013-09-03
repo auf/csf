@@ -1,0 +1,14 @@
+{% load i18n %}
+
+{% for p, object_list in pays.items %}
+  <div class="span4">
+      <h3>{{ p }}</h3>
+      <ul class="list">
+        {% for obj in object_list %}
+           <li><a href="/recherche/{{obj.0}}/">{{obj.1}}</a></li>
+      {% endfor %}
+      </ul>
+  </div>
+{% endfor %}
+
+

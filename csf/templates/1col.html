@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load cms_tags sekizai_tags %}
+
+{% block main %}
+
+   <div id="myCarousel" class="carousel slider" style="overflow: visible;">
+    
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <div class="carousel-inner" style="overflow: visible;">
+      <div class="active item" style="text-align: center;">
+        {% placeholder slide1 %}
+      </div>
+      <div class="item" style="text-align: center;">
+        {% placeholder slide2 %}
+      </div>
+      <div class="item" style="text-align: center;">
+        {% placeholder slide3 %}
+      </div>
+      <div class="item" style="text-align: center;">
+        {% placeholder slide4 %}
+      </div>
+      <div class="item" style="text-align: center;">
+        {% placeholder slide5 %}
+      </div>
+    </div>
+
+
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+  </div>
+
+{% addtoblock "js" %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/vendor/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/vendor/bootstrap.min.js"></script>
+{% endaddtoblock %}
+
+{% endblock %}

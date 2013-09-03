@@ -25,7 +25,7 @@ class SearchAutocomplete(autocomplete_light.AutocompleteBase):
 
         choice_html_format = u"""
 <span class="div">
-  <a href="../?etablissement__etablissement__pays=%s&niveau=%s&discipline=%s">
+  <a href="/recherche/?etablissement__etablissement__pays=%s&niveau=%s&discipline=%s">
   %s
   </a>
 </span>"""

@@ -3,24 +3,23 @@
 
 {% block main %}
 <div class="content">
-  {% for object in objects_list %}
-  {% endfor %}
-
-  <div class="row-fluid">
+  {% with object_list.0.etablissement.etablissement.pays as pays%}
+    <div class="row-fluid">
         
         <div class="span2">
             <h3>Destinations</h3>
 
             <ul class="list list--bordered">
-                <li><a href="#">Belgique</a></li>
-                <li><a href="#">Canada</a></li>
-                <li><a href="#">France</a></li>
+		{% for obj in pays_list %}
+	           <li><a href="/recherche/?etablissement__etablissement={{obj.0}}">{{obj.1}}</a></li>
+	        {% endfor %}
             </ul>
+            {% include "formulaire/_search.html" %}
         </div>
 
 
         <div class="span6 offset1">
-            <h3>Canada</h3>
+            <h3>{{ pays.nom }}</h3>
 
             <img src="//placehold.it/450x300" alt="" class="img-polaroid">
 
@@ -71,5 +70,6 @@
         </div>
 
     </div>
+  {% endwith %}
 </div>
 {% endblock %}

@@ -15,13 +15,13 @@ MANAGERS = ADMINS
 ROOT_URLCONF = 'csf.urls'
 
 INSTALLED_APPS += (
-    'localeurl',
     'auf.django.auth_token',
     'south',
     'raven.contrib.django',
     'auf.django.references',
     'csf.splash',
     'csf.formulaire',
+    'csf.recherche',
     'csf.portail',
     'csf.gestion',
 )
@@ -33,7 +33,6 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 
 
 MIDDLEWARE_CLASSES += (
-    'localeurl.middleware.LocaleURLMiddleware',
     'auf.django.auth_token.middleware.TokenAuthentification',
     'auf.django.piwik.middleware.TrackMiddleware',
 )

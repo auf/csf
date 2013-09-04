@@ -20,7 +20,7 @@
                         </div>
 
                         <div class="media-body">
-                            <h1>{{ object_list.0.discipline }}</h1>
+                            <h1>?<h1>
                         </div>
                     </div>
                 </div>
@@ -37,48 +37,52 @@
 
     <div class="content-nav">
         <div class="content-pagination pull-right">
-            {% autopaginate object_list %}
+            {% autopaginate object_list.keys %}
             {% paginate %}
         </div>
 
-        <h4 class="blue">{{ object_list.0.discipline }}</h4>
+        <h4 class="blue">?</h4>
     </div>
 
     <div class="spacer spacer--big"></div>
     <div class="spacer spacer--big"></div>
 
-  {% for object in object_list %}
+  {% for discipline, etablissements in object_list.iteritems %}
     <div class="row-fluid">
         <div class="span3">
             
-            form here
+            {% include "formulaire/_search.html" %}
 
         </div>
 
         <div class="span9">
             
-            <h3>{{ object.discipline }}</h3>
+            <h3>{{ discipline }}</h3>
             
             <div class="separator"></div>
 
-            <div class="row-fluid">
-                <div class="span6">
-                    
-                    <h4>{{ object.etablissement.etablissement.pays }}</h4>
-                    <p class="muted">
-                        {{object.etablissement.etablissement.nom }}<br>
-                        {{object.niveau }}
-                    </p>
+            {% for nom, etabli in etablissements.iteritems %}
+                <div class="row-fluid">
+                    <div class="span6">
+                        
+                        <h4>{{ etabli.object.etablissement.etablissement.pays }}</h4>
+                        <p class="muted">
+                            {{ nom }}<br>
+                            {% for niveau in etabli.niveaux %}
+                                {{ niveau }}
+                            {% endfor %}
+                        </p>
 
-                    <div class="spacer"></div>
+                        <div class="spacer"></div>
 
-                    <a href="/recherche/{{object.etablissement.etablissement.pk}}/" class="button">Voir l'établissement</a>
+                        <a href="/recherche/{{etabli.object.etablissement.etablissement.pk}}/" class="button">Voir l'établissement</a>
+                    </div>
+
+                    <div class="span6">
+                        <img src="//placehold.it/450x350" alt="" class="img-polaroid">
+                    </div>
                 </div>
-
-                <div class="span6">
-                    <img src="//placehold.it/450x350" alt="" class="img-polaroid">
-                </div>
-            </div>
+            {% endfor %}
 
             <div class="separator"></div>
 

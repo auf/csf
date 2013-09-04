@@ -26,6 +26,25 @@ class EtabliListView(ListView):
     def get_template_names(self):
         return 'formulaire/discipline.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(EtabliListView, self).get_context_data(**kwargs)
+
+        context['form'] = SearchForm()
+        context['filter'] = OffreFormationFilter(self.request.GET, queryset=OffreFormation.objects.all())
+
+
+        new_object_list = {}
+        for obj in context['object_list']:
+            etabli = obj.etablissement.etablissement
+            if obj.discipline in new_object_list.keys():
+                new_object_list[obj.discipline].append({etabli.nom: {'object': obj, 'niveaux':[obj.niveau]}})
+            else:
+                new_object_list[obj.discipline] = {etabli.nom: {'object': obj, 'niveaux':[obj.niveau]}}
+
+        context['object_list'] = new_object_list
+
+        return context
+
     def get_queryset(self):
         return OffreFormationFilter(self.request.GET, queryset=OffreFormation.objects.all())
 

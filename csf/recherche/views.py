@@ -39,7 +39,7 @@ class EtabliListView(ListView):
             if obj.discipline in new_object_list.keys():
                 new_object_list[obj.discipline].append({etabli.nom: {'object': obj, 'niveaux':[obj.niveau]}})
             else:
-                new_object_list[obj.discipline] = {etabli.nom: {'object': obj, 'niveaux':[obj.niveau]}}
+                new_object_list[obj.discipline] = [{etabli.nom: {'object': obj, 'niveaux':[obj.niveau]}}]
 
         context['object_list'] = new_object_list
 

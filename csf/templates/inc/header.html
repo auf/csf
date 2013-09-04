@@ -22,7 +22,7 @@
             </ul>
 
             <ul id="mainmenu-trigger" class="mainnav">
-                {% show_menu 0 100 100 100 %}
+                {% show_menu_below_id "accueil" %}
             </ul>
 
 
@@ -31,18 +31,3 @@
 
 </div>
 
-<div id="mainmenu">
-    <div class="container">
-        <div class="row">
-            <div class="span2">
-                <a id="logo-min" href="/"><img src="{{ STATIC_URL }}img/logo-min.png" alt="{% trans 'Agencie Universitaire de la francophonie' %}" /></a>
-            </div>
-
-            <div class="span10">
-                <ul class="mainnav">
-                    {% show_menu 0 100 100 100 %}
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>

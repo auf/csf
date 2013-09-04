@@ -1,17 +1,44 @@
 {% extends "base.html" %}
 {% load cms_tags sekizai_tags %}
+{% load pagination_tags %}
+
 
 {% block main %}
+<div class="outdoor outdoor--formation">
+    <div class="container">
+        
+        <div class="outdoor-spacer"></div>
+
+        <div class="row">
+
+            <div class="span6" style="margin-left: 45px;">
+
+                <div>
+                    <div class="media">
+                        <div class="pull-left" style="margin-right: 30px;">
+                            <img src="{{ STATIC_URL }}img/page/icon-5.png" alt="" class="media-object">
+                        </div>
+
+                        <div class="media-body">
+                            <h1>{{ object_list.0.discipline }}</h1>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
 <div class="content">
 
     <div class="content-nav">
         <div class="content-pagination pull-right">
-            <a href="#" class="content-pagination-item is-selected">1</a>
-            <a href="#" class="content-pagination-item">2</a>
-            <a href="#" class="content-pagination-item">3</a>
-            <a href="#" class="content-pagination-item">4</a>
-
-            <a href="#" class="content-pagination-item"> &gt; </a>
+            {% autopaginate object_list %}
+            {% paginate %}
         </div>
 
         <h4 class="blue">{{ object_list.0.discipline }}</h4>
@@ -45,7 +72,7 @@
 
                     <div class="spacer"></div>
 
-                    <a href="/recherche/?etablissement__etablissement={{object.etablissement.etablissement.pk}}" class="button">Voir l'établissement</a>
+                    <a href="/recherche/{{object.etablissement.etablissement.pk}}/" class="button">Voir l'établissement</a>
                 </div>
 
                 <div class="span6">
@@ -55,8 +82,8 @@
 
             <div class="separator"></div>
 
-    {% endfor %}
         </div>
     </div>
+    {% endfor %}
 </div>
 {% endblock %}

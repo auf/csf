@@ -12,6 +12,10 @@
     border-bottom: solid 1px #ddd;
     padding: 10px 0px;
     margin-bottom: 0px;
+
+    &:last-child {
+        border-bottom: 0;
+    }
 }
 
 .list.list--half li {

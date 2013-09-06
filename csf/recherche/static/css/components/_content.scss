@@ -3,7 +3,7 @@
     position: relative;
 
     @include box-sizing( border-box );
-    @include transform( translateY(-100px) );
+    //@include transform( translateY(-100px) );
     @include border-radius(3px);
     @include box-shadow(0 3px 3px rgba(0,0,0,.1));
     background-color: #fff;
@@ -12,8 +12,8 @@
 }
 
 .content.content--pays {
-    @include transform( translateY(-325px) );
-    margin-bottom: -225px;
+    //@include transform( translateY(-325px) );
+    //margin-bottom: -225px;
 }
 
 .content-nav {

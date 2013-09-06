@@ -12,7 +12,30 @@ body {
 
 #wrapper {
     overflow-x: hidden;
-    min-width: 100%;
+    max-width: 1440px;
+    margin: auto;
+    position: relative;
+
+    padding-bottom: 75px;
+
+    &:before {
+        content: "";
+        display: block;
+
+        position: fixed;
+        top: 0px;
+        right: 0px;
+        left: 0px;
+
+        height: 700px;
+
+        background: #e6eff6;
+        z-index: -1;
+    }
+
+    &.page-scroller:before  {
+        height: 837px;
+    }
 }
 
 
@@ -25,6 +48,7 @@ body {
 
     height: 155px;
     line-height: 155px;
+    position: relative;
 }
 
 #footer {
@@ -107,6 +131,7 @@ h1, h2, h3, h4, h5, h6 {
 @import "components/text.scss";
 @import "components/outdoor.scss";
 @import "components/offreform.scss";
+@import "components/toggleitem.scss";
 
 /** Workaround */
 .chosen-container-single .chosen-single,

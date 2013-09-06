@@ -7,10 +7,29 @@ body {
 /* line 13, style.scss */
 #wrapper {
   overflow-x: hidden;
-  min-width: 100%;
+  max-width: 1440px;
+  margin: auto;
+  position: relative;
+  padding-bottom: 75px;
+}
+/* line 21, style.scss */
+#wrapper:before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  height: 700px;
+  background: #e6eff6;
+  z-index: -1;
+}
+/* line 36, style.scss */
+#wrapper.page-scroller:before {
+  height: 837px;
 }
 
-/* line 20, style.scss */
+/* line 43, style.scss */
 #header {
   background-color: #f4f4f4;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -24,79 +43,80 @@ body {
   background-image: linear-gradient(top, #ffffff, #fcfcfc);
   height: 155px;
   line-height: 155px;
+  position: relative;
 }
 
-/* line 30, style.scss */
+/* line 54, style.scss */
 #footer {
   background-color: #fff;
   border: solid 1px #ddd;
   box-shadow: inset 0 5px 21px #c2c7cc;
 }
 
-/* line 36, style.scss */
+/* line 60, style.scss */
 .footer-div {
   height: 220px;
   padding-top: 50px;
   display: table-cell;
 }
 
-/* line 43, style.scss */
+/* line 67, style.scss */
 .display-table {
   display: table;
 }
 
-/* line 44, style.scss */
+/* line 68, style.scss */
 .display-cell {
   display: table-cell;
 }
 
-/* line 46, style.scss */
+/* line 70, style.scss */
 .blue {
   color: #0197e9;
 }
 
-/* line 48, style.scss */
+/* line 72, style.scss */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
   color: #222;
 }
 
-/* line 53, style.scss */
+/* line 77, style.scss */
 .spacer {
   display: block;
   height: 15px;
   line-height: 15px;
 }
 
-/* line 59, style.scss */
+/* line 83, style.scss */
 .spacer.spacer--big {
   height: 30px;
   line-height: 30px;
 }
 
-/* line 64, style.scss */
+/* line 88, style.scss */
 .spacer.spacer--huge {
   height: 60px;
   line-height: 60px;
 }
 
-/* line 69, style.scss */
+/* line 93, style.scss */
 .hspacer {
   display: inline-block;
   width: 15px;
 }
 
-/* line 74, style.scss */
+/* line 98, style.scss */
 .hspacer.hspacer--big {
   width: 30px;
 }
 
-/* line 78, style.scss */
+/* line 102, style.scss */
 .hspacer.hspacer--huge {
   width: 60px;
 }
 
-/* line 82, style.scss */
+/* line 106, style.scss */
 .separator {
   display: block;
   border-top: solid 1px #ddd;
@@ -104,7 +124,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 30px;
 }
 
-/* line 89, style.scss */
+/* line 113, style.scss */
 .info-data {
   color: #999;
   font-size: 18px;
@@ -1551,11 +1571,6 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-transform: translateY(-100px);
-  -moz-transform: translateY(-100px);
-  -ms-transform: translateY(-100px);
-  -o-transform: translateY(-100px);
-  transform: translateY(-100px);
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
@@ -1567,16 +1582,6 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #fff;
   border: solid 1px #ddd;
   padding: 50px 35px;
-}
-
-/* line 14, components/_content.scss */
-.content.content--pays {
-  -webkit-transform: translateY(-325px);
-  -moz-transform: translateY(-325px);
-  -ms-transform: translateY(-325px);
-  -o-transform: translateY(-325px);
-  transform: translateY(-325px);
-  margin-bottom: -225px;
 }
 
 /* line 19, components/_content.scss */
@@ -1822,8 +1827,12 @@ a.is-active, a:hover {
   padding: 10px 0px;
   margin-bottom: 0px;
 }
+/* line 16, components/_list.scss */
+.list.list--bordered li:last-child {
+  border-bottom: 0;
+}
 
-/* line 17, components/_list.scss */
+/* line 21, components/_list.scss */
 .list.list--half li {
   float: left;
   width: 48%;
@@ -1985,40 +1994,50 @@ a.is-active, a:hover {
   color: #222;
 }
 
-/* line 7, components/_outdoor.scss */
+/* line 8, components/_outdoor.scss */
 .outdoor {
-  background-color: #fff;
-  background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(0%, #e3ebf3), color-stop(100%, #f6f9fa));
-  background-image: -webkit-linear-gradient(bottom, #e3ebf3, #f6f9fa);
-  background-image: -moz-linear-gradient(bottom, #e3ebf3, #f6f9fa);
-  background-image: -o-linear-gradient(bottom, #e3ebf3, #f6f9fa);
-  background-image: linear-gradient(bottom, #e3ebf3, #f6f9fa);
   background-repeat: no-repeat;
   background-position: right bottom;
-  min-height: 690px;
+  min-height: 200px;
+  margin-top: 75px;
+  margin-bottom: 75px;
 }
 
-/* line 15, components/_outdoor.scss */
-.outdoor--formation {
-  background: url(../img/page/formation-bg.jpg) left center no-repeat, url(../img/page/bg.jpg) center center repeat-x;
-}
-
+/** PAGES */
 /* line 19, components/_outdoor.scss */
-.outdoor--etablissements {
-  background: url(../img/page/etablissement-bg.jpg) left center no-repeat, url(../img/page/bg.jpg) center center repeat-x;
+.page,
+.page-formations {
+  background-image: url(../img/page/formation-bg.jpg);
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-attachment: fixed;
 }
 
 /* line 23, components/_outdoor.scss */
-.outdoor--pays {
-  background: url(../img/page/pays-bg.jpg) left center no-repeat, url(../img/page/bg.jpg) center center repeat-x;
+.page-etablissements {
+  background-image: url(../img/page/etablissement-bg.jpg);
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-attachment: fixed;
 }
 
 /* line 27, components/_outdoor.scss */
-.outdoor--partenaires {
-  background: url(../img/page/partenair-bg.jpg) left center no-repeat, url(../img/page/bg.jpg) center center repeat-x;
+.page-pays {
+  background-image: url(../img/page/pays-bg.jpg);
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-attachment: fixed;
 }
 
-/* line 32, components/_outdoor.scss */
+/* line 31, components/_outdoor.scss */
+.page-partenaires {
+  background-image: url(../img/page/partenair-bg.jpg);
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-attachment: fixed;
+}
+
+/* line 35, components/_outdoor.scss */
 .outdoor-spacer {
   margin-top: 100px;
 }
@@ -2041,8 +2060,13 @@ a.is-active, a:hover {
   height: 35px;
 }
 
+/* line 1, components/_toggleitem.scss */
+.toggleitem {
+  display: none;
+}
+
 /** Workaround */
-/* line 113, style.scss */
+/* line 138, style.scss */
 .chosen-container-single .chosen-single,
 .chosen-single {
   background: #fcfcfc !important;

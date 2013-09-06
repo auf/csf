@@ -1,32 +1,22 @@
 {% extends "1col.html" %}
+{% load i18n %}
 {% load cms_tags sekizai_tags %}
 
 {% block main %}
 <div class="outdoor outdoor--formation">
     <div class="container">
+       <div class="outdoor-spacer"></div>
         
-        <div class="outdoor-spacer"></div>
-
         <div class="row">
-
             <div class="span6" style="margin-left: 45px;">
-
                 <div>
                     <div class="media">
                         <div class="pull-left" style="margin-right: 30px;">
                             <img src="{{ STATIC_URL }}img/page/icon-5.png" alt="" class="media-object">
                         </div>
-
-                        <div class="media-body">
-                            <h1>Étudier à l’UQÀM</h1>
-                            <div class="spacer"></div>
-                            <p class="muted">Université du Québec à Montréal</p>
-                        </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
 
 
@@ -35,14 +25,18 @@
 
 <div class="content">
 
-    <div class="row-fuild">
+    <div class="row-fluid">
+        
         <div class="span3">
+           <h4>Offre de formation</h4>
 
-            <h4>Autre établissements</h4>
+	  {% include "formulaire/_search.html" %}
+
+            <h4>Autre établissements du Canada</h4>
 
             <ul class="list">
             {% for obj in object.dans_le_pays %}
-                <li><a href="/recherche/{{obj.pk}}/">{{obj.nom}}</a></li>
+                <li><a href="/recherche/{{obj.0}}/">{{obj.1}}</a></li>
             {% endfor %}
             </ul>
 
@@ -50,7 +44,7 @@
 
 
         <div class="span5">
-            <h3>Établissement</h3>
+            <h3>{{ object.nom }}</h3>
 
             <img src="//placehold.it/450x300" alt="" class="img-polaroid">
 
@@ -65,7 +59,7 @@
 
         <div class="span3 offset1">
             <h3 class="info-title">Pays</h3>
-            <div class="info-data">{{ object.pays.nom  }}</div>
+            <div class="info-data">{{ object.pays.nom }}</div>
             
             <div class="spacer"></div>
 
@@ -74,21 +68,78 @@
 
             <div class="spacer"></div>
 
-            <h3 class="info-title">Liens utiles</h3>
-            <a href="#" class="info-data">uqam.ca</a><br>
-            <a href="#" class="info-data">Inscription</a><br>
-            <a href="#" class="info-data">secrétariat</a><br>
-            <a href="#" class="info-data">CSF</a>
-
-            <div class="spacer"></div>
-
             <h3 class="info-title">Contacts</h3>
             <a href="{{ object.url }}" class="info-data">
-            {{ object.url }}
+              {{ object.url }}
             </a>
         </div>
 
-      </div>
+    </div>
+
+    <div class="spacer spacer--big"></div>
+
+   <div class="row-fluid">
+        <div class="offset3 span9">
+            
+            {% regroup disciplines by discipline as discipline_list %}    
+            <table class="infotable">
+                <colgroup width="45%"></colgroup>
+                <thead>
+                    <tr>
+                        <th class="th--master">Disciplines</th>
+                        <th>1er Cycle</th>
+                        <th>2e Cycle</th>
+                        <th>3e Cycle</th>
+                        <th>Post doctorat</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+		  {% for discipline in discipline_list %}
+                    <tr>
+                        <td>{{discipline.grouper}}</td>
+
+			<td><span>
+			{% for item in discipline.list %}
+			  {% if item.niveau.id == 1 %}
+				x
+			  {% endif %}
+		        {% endfor %}
+			 </span</td>
+
+
+			<td><span>
+			{% for item in discipline.list %}
+			  {% if item.niveau.id == 5 %}
+				x
+			  {% endif %}
+		        {% endfor %}
+			 </span</td>
+
+			<td><span>
+			{% for item in discipline.list %}
+			  {% if item.niveau.id == 2 %}
+				x
+			  {% endif %}
+		        {% endfor %}
+			 </span</td>
+
+
+			<td><span>
+			{% for item in discipline.list %}
+			  {% if item.niveau.id == 4 %}
+				x
+			  {% endif %}
+		        {% endfor %}
+			 </span</td>
+
+
+                    </tr>
+		  {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -80,6 +80,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* line 68, style.scss */
+.hspacer {
+  display: inline-block;
+  width: 15px;
+}
+
+/* line 73, style.scss */
+.hspacer.hspacer--big {
+  width: 30px;
+}
+
+/* line 77, style.scss */
+.hspacer.hspacer--huge {
+  width: 60px;
+}
+
+/* line 81, style.scss */
 .separator {
   display: block;
   border-top: solid 1px #ddd;
@@ -87,7 +103,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 30px;
 }
 
-/* line 75, style.scss */
+/* line 88, style.scss */
 .info-data {
   color: #999;
   font-size: 18px;
@@ -187,7 +203,7 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   width: 12px;
   height: 12px;
-  background: url("/static/img/chosen/chosen-sprite.png") -42px 1px no-repeat;
+  background: url("../img/chosen/chosen-sprite.png") -42px 1px no-repeat;
   font-size: 1px;
 }
 
@@ -216,7 +232,7 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   width: 100%;
   height: 100%;
-  background: url("/static/img/chosen/chosen-sprite.png") no-repeat 2px 12px;
+  background: url("../img/chosen/chosen-sprite.png") no-repeat 2px 12px;
 }
 
 /* line 102, lib/_chosen.scss */
@@ -239,12 +255,12 @@ h1, h2, h3, h4, h5, h6 {
   height: auto;
   outline: 0;
   border: 1px solid #aaa;
-  background: white url("/static/img/chosen/chosen-sprite.png") no-repeat 100% -20px;
-  background: url("/static/img/chosen/chosen-sprite.png") no-repeat 100% -20px, -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(1%, #eeeeee), color-stop(15%, white));
-  background: url("/static/img/chosen/chosen-sprite.png") no-repeat 100% -20px, -webkit-linear-gradient(#eeeeee 1%, white 15%);
-  background: url("/static/img/chosen/chosen-sprite.png") no-repeat 100% -20px, -moz-linear-gradient(#eeeeee 1%, white 15%);
-  background: url("/static/img/chosen/chosen-sprite.png") no-repeat 100% -20px, -o-linear-gradient(#eeeeee 1%, white 15%);
-  background: url("/static/img/chosen/chosen-sprite.png") no-repeat 100% -20px, linear-gradient(#eeeeee 1%, #ffffff 15%);
+  background: white url("../img/chosen/chosen-sprite.png") no-repeat 100% -20px;
+  background: url("../img/chosen/chosen-sprite.png") no-repeat 100% -20px, -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(1%, #eeeeee), color-stop(15%, white));
+  background: url("../img/chosen/chosen-sprite.png") no-repeat 100% -20px, -webkit-linear-gradient(#eeeeee 1%, white 15%);
+  background: url("../img/chosen/chosen-sprite.png") no-repeat 100% -20px, -moz-linear-gradient(#eeeeee 1%, white 15%);
+  background: url("../img/chosen/chosen-sprite.png") no-repeat 100% -20px, -o-linear-gradient(#eeeeee 1%, white 15%);
+  background: url("../img/chosen/chosen-sprite.png") no-repeat 100% -20px, linear-gradient(#eeeeee 1%, #ffffff 15%);
   font-size: 1em;
   font-family: sans-serif;
   line-height: normal;
@@ -420,7 +436,7 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   width: 12px;
   height: 12px;
-  background: url("/static/img/chosen/chosen-sprite.png") -42px 1px no-repeat;
+  background: url("../img/chosen/chosen-sprite.png") -42px 1px no-repeat;
   font-size: 1px;
 }
 
@@ -613,12 +629,12 @@ h1, h2, h3, h4, h5, h6 {
 /* line 400, lib/_chosen.scss */
 .chosen-rtl .chosen-search input[type="text"] {
   padding: 4px 5px 4px 20px;
-  background: white url("/static/img/chosen/chosen-sprite.png") no-repeat -30px -20px;
-  background: url("/static/img/chosen/chosen-sprite.png") no-repeat -30px -20px, -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(1%, #eeeeee), color-stop(15%, white));
-  background: url("/static/img/chosen/chosen-sprite.png") no-repeat -30px -20px, -webkit-linear-gradient(#eeeeee 1%, white 15%);
-  background: url("/static/img/chosen/chosen-sprite.png") no-repeat -30px -20px, -moz-linear-gradient(#eeeeee 1%, white 15%);
-  background: url("/static/img/chosen/chosen-sprite.png") no-repeat -30px -20px, -o-linear-gradient(#eeeeee 1%, white 15%);
-  background: url("/static/img/chosen/chosen-sprite.png") no-repeat -30px -20px, linear-gradient(#eeeeee 1%, #ffffff 15%);
+  background: white url("../img/chosen/chosen-sprite.png") no-repeat -30px -20px;
+  background: url("../img/chosen/chosen-sprite.png") no-repeat -30px -20px, -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(1%, #eeeeee), color-stop(15%, white));
+  background: url("../img/chosen/chosen-sprite.png") no-repeat -30px -20px, -webkit-linear-gradient(#eeeeee 1%, white 15%);
+  background: url("../img/chosen/chosen-sprite.png") no-repeat -30px -20px, -moz-linear-gradient(#eeeeee 1%, white 15%);
+  background: url("../img/chosen/chosen-sprite.png") no-repeat -30px -20px, -o-linear-gradient(#eeeeee 1%, white 15%);
+  background: url("../img/chosen/chosen-sprite.png") no-repeat -30px -20px, linear-gradient(#eeeeee 1%, #ffffff 15%);
   direction: rtl;
 }
 
@@ -643,7 +659,7 @@ h1, h2, h3, h4, h5, h6 {
   .chosen-container-multi .chosen-choices .search-choice .search-choice-close,
   .chosen-container .chosen-results-scroll-down span,
   .chosen-container .chosen-results-scroll-up span {
-    background-image: url("/static/img/chosen/chosen-sprite@2x.png") !important;
+    background-image: url("../img/chosen/chosen-sprite@2x.png") !important;
     background-size: 52px 37px !important;
     background-repeat: no-repeat !important;
   }
@@ -738,7 +754,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* line 80, lib/_jquery.fancybox.scss */
 #fancybox-loading, .fancybox-close, .fancybox-prev span, .fancybox-next span {
-  background-image: url("/static/img/fancybox/fancybox_sprite.png");
+  background-image: url("../img/fancybox/fancybox_sprite.png");
 }
 
 /* line 84, lib/_jquery.fancybox.scss */
@@ -758,7 +774,7 @@ h1, h2, h3, h4, h5, h6 {
 #fancybox-loading div {
   width: 44px;
   height: 44px;
-  background: url("/static/img/fancybox/fancybox_loading.gif") center center no-repeat;
+  background: url("../img/fancybox/fancybox_loading.gif") center center no-repeat;
 }
 
 /* line 102, lib/_jquery.fancybox.scss */
@@ -780,7 +796,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%;
   cursor: pointer;
   text-decoration: none;
-  background: transparent url("/static/img/fancybox/blank.gif");
+  background: transparent url("../img/fancybox/blank.gif");
   /* helps IE */
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   z-index: 8040;
@@ -861,7 +877,7 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
   display: none;
   z-index: 8010;
-  background: url("/static/img/fancybox/fancybox_overlay.png");
+  background: url("../img/fancybox/fancybox_overlay.png");
 }
 
 /* line 192, lib/_jquery.fancybox.scss */
@@ -947,14 +963,14 @@ h1, h2, h3, h4, h5, h6 {
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) {
   /* line 267, lib/_jquery.fancybox.scss */
   #fancybox-loading, .fancybox-close, .fancybox-prev span, .fancybox-next span {
-    background-image: url("/static/img/fancybox/fancybox_sprite@2x.png");
+    background-image: url("../img/fancybox/fancybox_sprite@2x.png");
     background-size: 44px 152px;
     /*The size of the normal image, half the size of the hi-res image*/
   }
 
   /* line 272, lib/_jquery.fancybox.scss */
   #fancybox-loading div {
-    background-image: url("/static/img/fancybox/fancybox_loading@2x.gif");
+    background-image: url("../img/fancybox/fancybox_loading@2x.gif");
     background-size: 24px 24px;
     /*The size of the normal image, half the size of the hi-res image*/
   }
@@ -1568,7 +1584,7 @@ h1, h2, h3, h4, h5, h6 {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 0px 20px;
-  background: url(/static/img/page/result-bg.png) center center repeat-x;
+  background: url(../img/page/result-bg.png) center center repeat-x;
 }
 /* line 31, components/_content.scss */
 .content-nav h4 {
@@ -1714,12 +1730,16 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   z-index: 100;
 }
+/* line 49, components/_mainnav.scss */
+#mainmenu.stuck .mainnav-item {
+  line-height: 3.5rem;
+}
 
-/* line 50, components/_mainnav.scss */
+/* line 54, components/_mainnav.scss */
 #logo-min {
   display: inline-block;
   width: 100%;
-  margin-top: 5px;
+  margin-top: 26px;
 }
 
 /* line 3, components/_link.scss */
@@ -1855,7 +1875,7 @@ a.muted:hover,
   left: 50%;
   margin-left: -48px;
   border-radius: 0px 0px 48px 48px;
-  background: transparent url(/static/img/slider/arrow-down.png) center 25px no-repeat;
+  background: transparent url(../img/slider/arrow-down.png) center 25px no-repeat;
   -webkit-transition: all 0.4s;
   -moz-transition: all 0.4s;
   -o-transition: all 0.4s;
@@ -1876,7 +1896,7 @@ a.muted:hover,
   left: 50%;
   margin-left: -48px;
   border-radius: 48px 48px 0px 0px;
-  background: white url(/static/img/slider/arrow-up.png) center 25px no-repeat;
+  background: white url(../img/slider/arrow-up.png) center 25px no-repeat;
   -webkit-transition: all 0.4s;
   -moz-transition: all 0.4s;
   -o-transition: all 0.4s;
@@ -1936,23 +1956,23 @@ a.muted:hover,
 }
 
 /* line 15, components/_outdoor.scss */
-.outdoor--formations {
-  background: url(/static/img/page/formation-bg.jpg) left center no-repeat, url(/static/img/page/bg.jpg) center center repeat-x;
+.outdoor--formation {
+  background: url(../img/page/formation-bg.jpg) left center no-repeat, url(../img/page/bg.jpg) center center repeat-x;
 }
 
 /* line 19, components/_outdoor.scss */
 .outdoor--etablissements {
-  background: url(/static/img/page/etablissement-bg.jpg) left center no-repeat, url(/static/img/page/bg.jpg) center center repeat-x;
+  background: url(../img/page/etablissement-bg.jpg) left center no-repeat, url(../img/page/bg.jpg) center center repeat-x;
 }
 
 /* line 23, components/_outdoor.scss */
 .outdoor--pays {
-  background: url(/static/img/page/pays-bg.jpg) left center no-repeat, url(/static/img/page/bg.jpg) center center repeat-x;
+  background: url(../img/page/pays-bg.jpg) left center no-repeat, url(../img/page/bg.jpg) center center repeat-x;
 }
 
 /* line 27, components/_outdoor.scss */
 .outdoor--partenaires {
-  background: url(/static/img/page/partenair-bg.jpg) left center no-repeat, url(/static/img/page/bg.jpg) center center repeat-x;
+  background: url(../img/page/partenair-bg.jpg) left center no-repeat, url(../img/page/bg.jpg) center center repeat-x;
 }
 
 /* line 32, components/_outdoor.scss */
@@ -1973,14 +1993,15 @@ a.muted:hover,
 }
 
 /* line 11, components/_offreform.scss */
-.offreform input {
+.offreform input:not([type=submit]) {
   background: #fcfcfc;
   height: 35px;
 }
 
 /** Workaround */
-/* line 99, style.scss */
+/* line 112, style.scss */
 .chosen-container-single .chosen-single,
 .chosen-single {
   background: #fcfcfc !important;
+  color: black !important;
 }

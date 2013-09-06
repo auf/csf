@@ -96,7 +96,60 @@
 
 })(jQuery);
 
-// onDomReady
+
+/**
+ * ToggleItem
+ */
+(function($){
+    'use strict';
+
+    function endsWith(str, suffix) {
+        return str.indexOf(suffix, str.length - suffix.length) !== -1;
+    }
+
+    $(window).on("popstate", function(ev){
+        var url = location.pathname;
+        if( endsWith(location.pathname, '/') ){
+            url = url.substr(0, url.length -1);
+        }
+
+        var id = url.split('/');
+        id = id[ id.length -1 ];
+
+        var current = $('.toggleitem.is-current'),
+            next = $('#'+id);
+
+        if( next.length === 0 ){
+            $('.togglelink:first').addClass('is-active');
+            $('.toggleitem:first').addClass('is-current').show();
+            return;
+        }
+
+        if( current.length !== 0 ){
+            current.removeClass('is-current').fadeOut('fast', function(){
+                next.addClass('is-current').fadeIn('fast');
+            });
+        } else {
+
+        }
+    });
+
+    $('.togglelink').on('click', function(ev){
+        if(window.history.pushState){
+            ev.preventDefault();
+
+            $('.togglelink.is-active').removeClass('is-active');
+            $(ev.currentTarget).addClass('is-active');
+            history.pushState({ href: ev.currentTarget.href }, null, ev.currentTarget.href);
+            $(window).trigger("popstate");
+        }
+    });
+
+})(jQuery);
+
+/**
+ * Fancybox
+ */
 jQuery(function(){
     $('.fancybox-media').fancybox({
         openEffect  : 'none',

@@ -22,35 +22,36 @@
 <body>
 {% cms_toolbar %}
 
-<div id="wrapper" class="page {% block wrapper_class %}page-home{% endblock %}">
+<header id="header">
+  {% include 'inc/header.html' %}
+</header>
 
-  <header id="header">
-    {% include 'inc/header.html' %}
-  </header>
+<div id="wrapper" class="page {% block wrapper_class %}page-home{% endblock %}">
 
   <main id="main">
     {% block main %}{% endblock %}
   </main>
 
-  <footer id="footer">
-    {% include 'inc/footer.html' %}
-  </footer>
-
 </div>
 
-    {% addtoblock "js" %}
-    <script src="{{ STATIC_URL }}js/jquery.fancybox.pack.js"></script>
-    <script src="{{ STATIC_URL }}js/jquery.fancybox-media.js"></script>
-    <script src="{{ STATIC_URL }}js/chosen.jquery.min.js"></script>
-    <script src="{{ STATIC_URL }}js/waypoints.min.js"></script>
-    <script src="{{ STATIC_URL }}js/waypoints-sticky.min.js"></script>
-    <script src="{{ STATIC_URL }}js/sticky-kit.jquery.min.js"></script>
-    <script src="{{ STATIC_URL }}js/jquery.scrollTo.min.js"></script>
-    <script src="{{ STATIC_URL }}js/main.js"></script>
-    {% endaddtoblock %}
+<footer id="footer">
+  {% include 'inc/footer.html' %}
+</footer>
 
-    {% render_block "js" %}
-    {% block extra_js %}{% endblock %}
+{% addtoblock "js" %}
+<script src="{{ STATIC_URL }}js/jquery.fancybox.pack.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.fancybox-media.js"></script>
+<script src="{{ STATIC_URL }}js/chosen.jquery.min.js"></script>
+<script src="{{ STATIC_URL }}js/waypoints.min.js"></script>
+<script src="{{ STATIC_URL }}js/waypoints-sticky.min.js"></script>
+<script src="{{ STATIC_URL }}js/sticky-kit.jquery.min.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.scrollTo.min.js"></script>
+<script src="{{ STATIC_URL }}js/main.js"></script>
+{% endaddtoblock %}
+
+{% render_block "js" %}
+{% block extra_js %}{% endblock %}
+
 
 </body>
 </html>

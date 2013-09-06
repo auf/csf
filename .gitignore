@@ -43,3 +43,5 @@ csf/static
 /csf/settings/*-prod.py
 /csf/urls/*-prod.py
 
+#mac
+.DS_Store

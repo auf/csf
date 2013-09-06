@@ -84,11 +84,4 @@ class EtabliDetailView(DetailView):
 
         context['disciplines'] = [{'discipline': c.discipline, 'niveau': c.niveau} for c in OffreFormation.objects.filter(etablissement__etablissement__pk=context['object'].pk)]
 
-        context['object'].dans_le_pays = \
-            set(OffreFormation.objects.filter(etablissement__etablissement__pays__code=\
-                                             context['object'].pays.code)\
-                .values_list('etablissement__etablissement__pk', 'etablissement__etablissement__nom'))
-
-
-
         return context

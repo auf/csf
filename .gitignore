@@ -33,6 +33,7 @@ sitestatic
 
 #media
 csf/media
+csf/static
 
 #settings
 /csf/settings/*-local.py

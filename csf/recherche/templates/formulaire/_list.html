@@ -1,6 +1,6 @@
 {% load i18n %}
 
-  <div class="span4">
+  <div class="span2 offset2">
       <h3>{% trans "Par pays" %}</h3>
       <ul class="list list--bordered">
       {% for obj in pays %}
@@ -15,12 +15,25 @@
       {% endfor %}
       </ul>
   </div>
-  <div class="span4">
+  <div class="span8">
       <h3>{% trans "Par disciplines" %}</h3>
+    <div class="span4">
       <ul class="list list--bordered">
       {% for obj in discipline %}
-        <li><a href="/recherche/?discipline={{obj.0}}">{{obj.1}}</a></li>
+        {% if forloop.counter|divisibleby:2 %}
+          <li><a href="/recherche/?discipline={{obj.0}}">{{obj.1}}</a></li>
+        {% endif %}
       {% endfor %}
       </ul>
-  </div>
+    </div>
 
+    <div class="span4 offset1">
+      <ul class="list list--bordered">
+      {% for obj in discipline %}
+        {% if not forloop.counter|divisibleby:2 %}
+          <li><a href="/recherche/?discipline={{obj.0}}">{{obj.1}}</a></li>
+        {% endif %}
+      {% endfor %}
+      </ul>
+    </div>
+  </div>

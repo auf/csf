@@ -1,12 +1,42 @@
 {% load i18n %}
-
-{% for p, object_list in pays.items %}
   <div class="span4">
-      <h3>{{ p }}</h3>
+  <!-- belgique -->
+      <h3>{{ pays.keys.1 }}</h3>
       <ul class="list list--bordered">
-        {% for obj in object_list %}
+        {% for obj in pays.values.1 %}
            <li><a href="/recherche/{{obj.0}}/">{{obj.1}}</a></li>
       {% endfor %}
       </ul>
+
+  <!-- canada -->
+      <h3>{{ pays.keys.0 }}</h3>
+      <ul class="list list--bordered">
+        {% for obj in pays.values.0 %}
+           <li><a href="/recherche/{{obj.0}}/">{{obj.1}}</a></li>
+      {% endfor %}
+      </ul>
+
   </div>
-{% endfor %}
+
+  <!-- france -->
+  <div class="span8">
+     <h3>{{ pays.keys.2 }}</h3>
+      <div class="span4">
+          <ul class="list list--bordered">
+        {% for obj in pays.values.2 %}
+          {% if forloop.counter|divisibleby:2 %}
+           <li><a href="/recherche/{{obj.0}}/">{{obj.1}}</a></li>
+	  {% endif %}
+        {% endfor %}
+          </ul>
+      </div>
+      <div class="span4">
+          <ul class="list list--bordered">
+        {% for obj in pays.values.2 %}
+          {% if not forloop.counter|divisibleby:2 %}
+           <li><a href="/recherche/{{obj.0}}/">{{obj.1}}</a></li>
+	  {% endif %}
+        {% endfor %}
+          </ul>
+      </div>
+  </div>

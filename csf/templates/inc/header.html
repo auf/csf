@@ -14,14 +14,6 @@
                 <li class="mainnav-item">
                     <a href="#" class="link-dark muted">{% trans "Appendre le Français" %}</a>
                     <div class="hspacer"></div>
-                    <a href="#" class="link-dark">Br</a>
-                </li>
-
-            </ul>
-
-            <ul id="mainmenu-trigger" class="mainnav">
-
-                <li class="mainnav-item">
                     {% language_chooser %}
                 </li>
 
@@ -31,9 +23,10 @@
                 {% show_menu_below_id "accueil" %}
             </ul>
 
-
         </nav>
+    </div>
+    <div id="mainmenu-sub" class="subnav">
+       {% show_menu_below_id "pays" %}
     </div>
 
 </div>
-

@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% load cms_tags %}
 
+{% page_attribute "slug" as slug %}
+{% block wrapper_class %}page-{{ slug }}{% endblock %}
+
 {% block main %}
-  {% page_attribute "slug" as slug %}
-  <div class="outdoor outdoor--{{ slug }}">
+  <div class="outdoor">
     <div class="container">
         <div class="row">
             <div class="span4" style="margin-top: 100px;">

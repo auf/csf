@@ -2,5 +2,5 @@
 
 {% for child in children %}
     <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}" class="link-dark {% if child.selected %}is-active{% endif %}">{{ child.get_menu_title }}</a>
-    {% if not forloop.last %}<span class="hspacer hspacer--big"></span>{% endfor %}    
+    {% if not forloop.last %}<span class="hspacer hspacer--big"></span>{% endif %}    
 {% endfor %}

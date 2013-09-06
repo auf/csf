@@ -33,6 +33,11 @@ body {
         z-index: -1;
     }
 
+    &.page-scroller {
+        max-width: initial !important;
+        padding-bottom: 0;
+    }
+
     &.page-scroller:before  {
         height: 837px;
     }

@@ -15,6 +15,22 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" />
     {% endaddtoblock %}
 
+    {% addtoblock "js" %}
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.fancybox.pack.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.fancybox-media.js"></script>
+    <script src="{{ STATIC_URL }}js/chosen.jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}js/waypoints.min.js"></script>
+    <script src="{{ STATIC_URL }}js/waypoints-sticky.min.js"></script>
+    <script src="{{ STATIC_URL }}js/sticky-kit.jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.scrollTo.min.js"></script>
+    <script src="{{ STATIC_URL }}js/main.js"></script>
+    {% endaddtoblock %}
+
+    {% render_block "js" %}
+    {% block extra_js %}{% endblock %}
+
 </head>
 <body>
 {% cms_toolbar %}
@@ -35,21 +51,6 @@
 
 </div>
 
-{% addtoblock "js" %}
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<script src="{{ STATIC_URL }}js/jquery.fancybox.pack.js"></script>
-<script src="{{ STATIC_URL }}js/jquery.fancybox-media.js"></script>
-<script src="{{ STATIC_URL }}js/chosen.jquery.min.js"></script>
-<script src="{{ STATIC_URL }}js/waypoints.min.js"></script>
-<script src="{{ STATIC_URL }}js/waypoints-sticky.min.js"></script>
-<script src="{{ STATIC_URL }}js/sticky-kit.jquery.min.js"></script>
-<script src="{{ STATIC_URL }}js/jquery.scrollTo.min.js"></script>
-<script src="{{ STATIC_URL }}js/main.js"></script>
-{% endaddtoblock %}
-
-{% render_block "js" %}
-{% block extra_js %}{% endblock %}
 
 </body>
 </html>

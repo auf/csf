@@ -10,7 +10,8 @@
 {% endaddtoblock %}
 
 
-<form method="GET" action="/recherche/" class="offreform">
+<form method="GET" action="/recherche/" class="offreform plugin_{{ instance }}">
+
     {{ filter.form.etablissement__etablissement__pays }}
     
     <div class="spacer"></div>
@@ -23,12 +24,12 @@
 
     <div class="spacer"></div>
 
-    {{ form.search }}
+    {{ form.as_p }}
 
     <div class="spacer spacer--big"></div>
 
     <button type="submit" class="button">{% trans 'Rechercher' %}</button>
+</form>
     
     <div class="spacer spacer--big"></div>
 </form>
-

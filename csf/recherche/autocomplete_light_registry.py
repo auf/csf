@@ -23,10 +23,10 @@ class SearchAutocomplete(autocomplete_light.AutocompleteBase):
     def autocomplete_html(self):
         html = []
 
-        choice_html_format = u"""
+        choice_html_format = """
 <span class="div">
   <a href="/recherche/?etablissement__etablissement__pays=%s&niveau=%s&discipline=%s">
-  %s
+   %s  
   </a>
 </span>"""
 
@@ -36,7 +36,7 @@ class SearchAutocomplete(autocomplete_light.AutocompleteBase):
             html.append(choice_html_format % (item.etablissement.etablissement.pays.code,
                                               item.niveau.pk,
                                               item.discipline.pk,
-                                              str(item).split(':')[0]))
+					      unicode(item).split(':')[0]))
 
         if not html:
             html = self.empty_html_format % _('no matches found').capitalize()

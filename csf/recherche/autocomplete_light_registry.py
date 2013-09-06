@@ -16,7 +16,7 @@ class SearchAutocomplete(autocomplete_light.AutocompleteBase):
                                     Q(etablissement__etablissement__nom__icontains=q) |
                                     Q(discipline__display_name__icontains=q) |
                                     Q(niveau__display_name__icontains=q)
-                                   ).distinct()
+                                   ).distinct()[:10]
 
         return results
 

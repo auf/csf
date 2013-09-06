@@ -13,3 +13,11 @@
     padding: 10px 0px;
     margin-bottom: 0px;
 }
+
+.list.list--half li {
+    float: left;
+    width: 48%;
+    margin-right: 2%;
+
+    display: table-cell;
+}

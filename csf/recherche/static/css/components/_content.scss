@@ -13,6 +13,7 @@
 
 .content.content--pays {
     @include transform( translateY(-325px) );
+    margin-bottom: -225px;
 }
 
 .content-nav {
@@ -36,7 +37,7 @@
 
     @include box-sizing( border-box );
     width: 106px;
-    height: 106px;
+    height: 102px;
     border-radius: 50px;
     padding: 30px 20px;
     text-align: center;

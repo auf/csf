@@ -1,12 +1,13 @@
 @import "compass";
 
-$img-dir: "/static/img";
+$img-dir: "../img";
 $blue: #0197e9;
 
 // ---------------
 
 body {
     font-family: 'Open Sans', sans-serif;
+    color: #666;
 }
 
 #wrapper {
@@ -65,6 +66,19 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 15px * 4;
 }
 
+.hspacer {
+    display: inline-block;
+    width: 15px;
+}
+
+.hspacer.hspacer--big {
+    width: 15px * 2;
+}
+
+.hspacer.hspacer--huge {
+    width: 15px * 4;
+}
+
 .separator {
     display: block;
     border-top: solid 1px #ddd;
@@ -98,4 +112,5 @@ h1, h2, h3, h4, h5, h6 {
 .chosen-container-single .chosen-single,
 .chosen-single {
     background: #fcfcfc !important;
+    color: black !important;
 }

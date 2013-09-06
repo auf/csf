@@ -45,10 +45,35 @@
     left: 0px;
     display: block;
     z-index: 100;
+
+    .mainnav-item {
+        line-height: 3.5rem;
+    }
 }
 
 #logo-min {
     display: inline-block;
     width: 100%;
-    margin-top: 5px;
+    margin-top: 26px;
+}
+
+.subnav {
+    position: absolute;
+    top: 156px;
+    left: 0;
+    right: 0;
+    z-index: 11;
+
+    padding-left: 132px;
+    height: 55px;
+    line-height: 55px !important;
+
+    text-align: center;
+    background-color: white;
+    display: none;
+}
+
+.subnav.subnav--fixed {
+    position: fixed;
+    top: 77px;
 }

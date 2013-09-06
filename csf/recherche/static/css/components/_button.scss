@@ -11,4 +11,11 @@
     font-size: 18px;
     border: 0;
     box-shadow: none;
+
+
+    &[type="submit"] {
+        padding: 0;
+        height: 45px;
+        line-height: 45px;
+    }
 }

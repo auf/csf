@@ -4,7 +4,16 @@ $color-dark: #222;
     color: $color-dark;
 }
 
-a,
+a {
+    color: #666;
+
+    &.is-active,
+    &:hover {
+        color: $blue;
+        text-decoration: none;
+    }
+}
+
 .link-dark {
     color: $color-dark;
 

@@ -8,7 +8,7 @@
     text-align: center;
 }
 
-.offreform input {
+.offreform input:not([type=submit]) {
     background: #fcfcfc;
     height: 35px;
 }

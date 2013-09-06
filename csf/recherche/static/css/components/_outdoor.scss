@@ -12,7 +12,7 @@
     min-height: 690px;
 }
 
-.outdoor--formations  {
+.outdoor--formation  {
     @include outdoor-bg( url(#{$img-dir}/page/formation-bg.jpg) );
 }
 

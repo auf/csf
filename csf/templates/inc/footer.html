@@ -3,14 +3,17 @@
 <div class="container" style="padding-top: 50px;">
     <div class="row">
         <div class="span2 text-left">
-                <img class="pull-left" src="{{ STATIC_URL }}img/footer-logo.png" alt="" />
+            <img src="{{ STATIC_URL }}img/footer-logo.png" alt="{% trans 'Ciências sem fronteiras' %}" />
 		<div>
 
         <div class="span10 text-right">
-        <div class="spacer spacer--big"></div>
-		<ul class="pull-right">
-		  {% show_menu_below_id "pied" %}
-		</ul>
+            <div class="spacer spacer--big"></div>
+
+            {% show_menu_below_id "pied" 0 0 100 100 "menu/footer_menu.html" %}
+    		<ul class="pull-right">
+    		  {% show_menu_below_id "pied" %}
+              {% show_menu_below_id "pied" 0 0 100 100 "menu/menu.html" %}
+    		</ul>
         </div>
         </div>
     </div>

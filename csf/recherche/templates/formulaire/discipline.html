@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load cms_tags sekizai_tags %}
 {% load pagination_tags %}
 
@@ -13,6 +14,9 @@
                         <div class="pull-left" style="margin-right: 30px;">
                             <img src="{{ STATIC_URL }}img/page/icon-5.png" alt="" class="media-object">
                         </div>
+			<div class="media-body">
+			<h2>{% trans "Discipline" %}</h2>
+			</div>
                     </div>
                 </div>
 
@@ -34,7 +38,7 @@
             {% autopaginate discipline_list 1 %}
             {% paginate_bs2 %}
         </div>
-	 <h4>Résultats de recherche:</h4>
+	 <h4>{% trans "Résultats de recherche:" %}</h4>
 
     </div>
 
@@ -75,7 +79,9 @@
                     </div>
 
                     <div class="span6">
-                        <img src="//placehold.it/450x350" alt="" class="img-polaroid">
+			{% if etabli.images %}
+                        <img src="{{ etabli.images.url }}" alt="" class="img-polaroid">
+			{% endif %}
                     </div>
                 </div>
             {% endfor %}

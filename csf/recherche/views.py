@@ -55,6 +55,7 @@ class EtabliListView(ListView):
                       'nom': obj.etablissement.etablissement.nom,
                       'pays': obj.etablissement.etablissement.pays.nom,
                       'niveaux': [obj.niveau],
+		      'images': obj.etablissement.images,
                       }
                  )
 
@@ -72,16 +73,21 @@ class EtabliDetailView(DetailView):
     model = OffreFormation
     template_name = "formulaire/etabli.html"
 
-    def get_object(self, queryset=None):
-        pk = self.kwargs.get(self.pk_url_kwarg, None)
-        return OffreFormation.objects.filter(etablissement__etablissement__pk=pk)[0].etablissement.etablissement
-
     def get_context_data(self, **kwargs):
         context = super(EtabliDetailView, self).get_context_data(**kwargs)
+
+	context['images'] = context['object'].etablissement.images
+
+	context['etabli'] = context['object'].etablissement.etablissement
 
         context['form'] = SearchForm()
         context['filter'] = OffreFormationFilter(self.request.GET, queryset=OffreFormation.objects.all())
 
-        context['disciplines'] = [{'discipline': c.discipline, 'niveau': c.niveau} for c in OffreFormation.objects.filter(etablissement__etablissement__pk=context['object'].pk)]
+        context['disciplines'] = [{'discipline': c.discipline, 'niveau': c.niveau} for c in OffreFormation.objects.filter(etablissement__etablissement__pk=context['etabli'].pk)]
+
+        context['etabli'].dans_le_pays = \
+            set(OffreFormation.objects.filter(etablissement__etablissement__pays__code=\
+                                             context['etabli'].pays.code)\
+                .values_list('etablissement__etablissement__pk', 'etablissement__etablissement__nom'))
 
         return context

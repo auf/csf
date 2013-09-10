@@ -24,8 +24,8 @@ class SearchAutocomplete(autocomplete_light.AutocompleteBase):
         html = []
 
         choice_html_format = """
-<span class="div">
-  <a href="/recherche/?etablissement__etablissement__pays=%s&niveau=%s&discipline=%s">
+<span class="div" style="text-align: left;">
+  <a class="blue" href="/recherche/%s/">
    %s  
   </a>
 </span>"""
@@ -33,9 +33,7 @@ class SearchAutocomplete(autocomplete_light.AutocompleteBase):
         choice = self.choices_for_request()
 
         for item in choice['offre']:
-            html.append(choice_html_format % (item.etablissement.etablissement.pays.code,
-                                              item.niveau.pk,
-                                              item.discipline.pk,
+            html.append(choice_html_format % (item.etablissement.etablissement.id,
 					      unicode(item).split(':')[0]))
 
         if not html:

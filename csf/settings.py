@@ -64,6 +64,7 @@ INSTALLED_APPS = (
     'south',
     'raven.contrib.django',
     'auf.django.references',
+    'auf.django.pong',
     'csf.splash',
     'csf.formulaire',
     'csf.portail',

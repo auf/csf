@@ -33,14 +33,12 @@
 
     <div class="content-nav">
         <div class="content-pagination pull-right">
-
-	       {% regroup object_list by discipline as discipline_list %}
+            {% regroup object_list by discipline as discipline_list %}
 
             {% autopaginate discipline_list 1 %}
             {% paginate_bs2 %}
         </div>
         <h4>{% trans "Résultats de recherche:" %}</h4>
-
     </div>
 
     <div class="spacer spacer--huge"></div>

@@ -1,9 +1,9 @@
 .offreform {
     @include box-sizing( border-box );
-    width: 315px;
+    max-width: 315px;
     border-radius: 3px;
     background-color: #fff;
-    padding: 25px;
+    //padding: 25px;
 
     text-align: center;
 }

@@ -55,6 +55,10 @@
 
 .content-pagination {}
 
+.content-pagination li {
+    display: inline-block;
+}
+
 .content-pagination a {
     display: inline-block;
     width: 26px;

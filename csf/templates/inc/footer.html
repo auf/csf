@@ -4,16 +4,11 @@
     <div class="row">
         <div class="span2 text-left">
             <img src="{{ STATIC_URL }}img/footer-logo.png" alt="{% trans 'Ciências sem fronteiras' %}" />
-		<div>
+		</div>
 
         <div class="span10 text-right">
             <div class="spacer spacer--big"></div>
-
-            
-    		<ul class="pull-right">
-    		  {% show_menu_below_id "pied" 0 0 100 100 "menu/footer_menu.html" %}
-    		</ul>
-        </div>
+            {% show_menu_below_id "pied" 0 0 100 100 "menu/footer_menu.html" %}
         </div>
     </div>
 </div>

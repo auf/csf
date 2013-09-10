@@ -55,11 +55,7 @@
 
 .content-pagination {}
 
-.content-pagination li {
-    display: inline-block;
-}
-
-.content-pagination a {
+.content-pagination-item {
     display: inline-block;
     width: 26px;
     height: 25px;
@@ -67,9 +63,10 @@
     @include border-radius(13px, 13px 13px 12px 12px);
     background-color: transparent;
     text-align: center;
+
+    &.is-selected {
+        background-color: #e3e6e9;
+    }
 }
 
-.content-pagination .active a {
-    background-color: #e3e6e9;
-}
     

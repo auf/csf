@@ -45,3 +45,6 @@ csf/static
 
 #mac
 .DS_Store
+
+#sass
+.sass-cache/

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+
+{% page_attribute "slug" as slug %}
+{% block wrapper_class %}page-{{ slug }}{% endblock %}
+
+{% block main %}
+  <div class="outdoor">
+    <div class="container">
+        <div class="row">
+            <div class="span4">
+            {% block left %}{% endblock %}
+            {% placeholder gauche %}
+            </div>
+
+            <div class="span6" style="margin-left: 50px;">
+            {% block right %}{% endblock %}
+            {% placeholder droite %}
+            </div>
+
+        </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="row-fluid">
+      {% block bottom %}{% endblock %}
+      {% placeholder pied %}
+    
+    </div>
+  </div>
+</div>
+{% endblock%}

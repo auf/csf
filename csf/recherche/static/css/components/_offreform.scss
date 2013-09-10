@@ -1,14 +1,20 @@
 .offreform {
-    @include box-sizing( border-box );
-    max-width: 315px;
-    border-radius: 3px;
-    background-color: #fff;
-    //padding: 25px;
-
     text-align: center;
 }
 
 .offreform input:not([type=submit]) {
     background: #fcfcfc;
     height: 35px;
+}
+
+.offreform-wrapper {
+    @include box-sizing( border-box );
+    max-width: 315px;
+    border-radius: 3px;
+    background-color: #fff;
+    padding: 25px;
+}
+
+#id_search{
+    background: url(#{$img-dir}/form/lupa.png) center right no-repeat;
 }

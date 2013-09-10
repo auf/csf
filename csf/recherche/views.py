@@ -78,7 +78,9 @@ class EtabliDetailView(DetailView):
 
 	context['images'] = context['object'].etablissement.images
 
-	context['etabli'] = context['object'].etablissement.etablissement
+        pk = self.kwargs.get(self.pk_url_kwarg, None)
+
+	context['etabli'] = OffreFormation.objects.filter(etablissement__etablissement__pk=pk)[0].etablissement.etablissement
 
         context['form'] = SearchForm()
         context['filter'] = OffreFormationFilter(self.request.GET, queryset=OffreFormation.objects.all())

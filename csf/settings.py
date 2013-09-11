@@ -47,6 +47,10 @@ STATICFILES_FINDERS = global_settings.STATICFILES_FINDERS
 
 ROOT_URLCONF = 'csf.urls'
 
+LOCALE_INDEPENDENT_PATHS = (
+    r'^/api',
+)
+
 INSTALLED_APPS = (
     'localeurl',
     'admin_tools',

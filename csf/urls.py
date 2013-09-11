@@ -15,7 +15,7 @@ urlpatterns = patterns(
     '',
 
     #API
-    url(r'^api/pong/$', include('auf.django.pong.urls')),
+    url(r'^api/pong/', include('auf.django.pong.urls')),
         
     # interfaces publiques
     url(r'^$', include('csf.splash.urls')),

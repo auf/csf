@@ -1,5 +1,17 @@
-{% load cms_tags %}
+{% load cms_tags sekizai_tags %}
 {% load i18n %}
+
+{% addtoblock "css" %}
+<style>
+.offreform {
+  float: right;
+  padding: 25px;
+  margin-top: 50px;
+  margin-left: 50px;
+  background-color: white;
+}
+</style>
+{% endaddtoblock  %}
 <div class="slider">
 
     <ul class="slider-bulletgroup">
@@ -38,13 +50,7 @@
     <div class="slide" data-slide="2">
         <div class="slide-wrapper container">
             
-            <div class="pull-right" style="margin-right: 50px;">
-                <div class="offreform-wrapper">
-                    {% include "formulaire/_search.html" %}
-                </div>
-            </div>
-
-            <div style="width:580px">
+            <div style="width:800px">
               {% placeholder slide3 %}
             </div>
 

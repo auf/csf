@@ -28,7 +28,6 @@
     <div class="row-fluid">
         
         <div class="span3">
-            <h3>{% trans "Offre de formation" %}</h3>
             {% include "formulaire/_search.html" %}
 
             <h4>{% trans "Ailleurs dans le pays:" %}</h4>
@@ -55,7 +54,7 @@
                     <div class="spacer spacer--big"></div>
 
                     {% if images.logo %}
-                        <img src="{{ images.logo.url }}" alt="">
+                        <img style="height: 100px;" src="{{ images.logo.url }}" alt="">
                     {% endif %}
 		    
                 </div>

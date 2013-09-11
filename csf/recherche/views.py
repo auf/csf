@@ -76,11 +76,12 @@ class EtabliDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(EtabliDetailView, self).get_context_data(**kwargs)
 
-	context['images'] = context['object'].etablissement.images
 
         pk = self.kwargs.get(self.pk_url_kwarg, None)
 
-	context['etabli'] = OffreFormation.objects.filter(etablissement__etablissement__pk=pk)[0].etablissement.etablissement
+	offre = OffreFormation.objects.filter(etablissement__etablissement__pk=pk)[0]
+	context['images'] = offre.etablissement.images
+	context['etabli'] = offre.etablissement.etablissement
 
         context['form'] = SearchForm()
         context['filter'] = OffreFormationFilter(self.request.GET, queryset=OffreFormation.objects.all())

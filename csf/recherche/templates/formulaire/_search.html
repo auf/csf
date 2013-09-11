@@ -1,8 +1,8 @@
 {% load sekizai_tags %}
 {% load i18n %}
 
-
 <form method="GET" action="/recherche/" class="offreform plugin_{{ instance }}">
+	<h3>{% trans "Offre de formation" %}</h3>
 
     {{ filter.form.etablissement__etablissement__pays }}
     

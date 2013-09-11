@@ -13,7 +13,7 @@
                             <img src="{{ STATIC_URL }}img/page/icon-5.png" alt="" class="media-etabli" />
                         </div>
                         <div class="media-body">
-                            <h1>{% trans "Établissement" %}</h1>
+                            <h1 class="lineheight110">{% trans "Établissement" %}</h1>
                             <div class="spacer"></div>
                         </div>
                     </div>
@@ -47,6 +47,7 @@
                 <div class="span7">
                     <h3>{{ etabli.nom }}</h3>
 
+
                     {% if images.photo %}
                         <img src="{{ images.photo.url }}" alt="" class="img-polaroid">
                     {% endif %}
@@ -78,6 +79,7 @@
             <div class="row-fluid">
                 <div class="span12">
                     <div class="spacer"></div>
+                    <div class="spacer spacer--big"></div>
 
                     {% regroup disciplines by discipline as discipline_list %}
 
@@ -100,25 +102,25 @@
 
                                 <td>
                                     {% for item in discipline.list %}
-                                        {% if item.niveau.id == 1 %}<span>x</span>{% endif %}
+                                        {% if item.niveau.id == 1 %}<span>&#x2713;</span>{% endif %}
                                     {% endfor %}
                                 </td>
 
                                 <td>
                                     {% for item in discipline.list %}
-                                        {% if item.niveau.id == 5 %}<span>x</span>{% endif %}
+                                        {% if item.niveau.id == 5 %}<span>&#x2713;</span>{% endif %}
                                     {% endfor %}
                                 </td>
 
                                 <td>
                                     {% for item in discipline.list %}
-                                        {% if item.niveau.id == 2 %}<span>x</span>{% endif %}
+                                        {% if item.niveau.id == 2 %}<span>&#x2713;</span>{% endif %}
                                     {% endfor %}
                                 </td>
                                 
                                 <td>
                                     {% for item in discipline.list %}
-                                        {% if item.niveau.id == 4 %}<span>x</span>{% endif %}
+                                        {% if item.niveau.id == 4 %}<span>&#x2713;</span>{% endif %}
                                     {% endfor %}
                                 </td>
                             </tr>

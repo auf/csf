@@ -98,6 +98,18 @@
 
 
 /**
+ * Bottom button which goes to top
+ */
+(function($){
+
+    $('.content-bottombutton').on('click', function(){
+        $('html,body').animate({scrollTop: 0}, 700);
+    });
+
+})(jQuery);
+
+
+/**
  * ToggleItem
  */
 (function($){

@@ -102,7 +102,8 @@
  */
 (function($){
 
-    $('.content-bottombutton').on('click', function(){
+    $('.content-bottombutton').on('click', function(ev){
+        ev.preventDefault();
         $('html,body').animate({scrollTop: 0}, 700);
     });
 

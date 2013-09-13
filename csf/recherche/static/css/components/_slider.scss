@@ -3,6 +3,7 @@ $slider-height: 680px;
 //
 .slider {
     position: relative;
+    z-index: 1;
 
     background-color: #fff;
     @include background-image(linear-gradient(bottom, #ecf2f8, #f6f9fa 43%, #fff 59%));

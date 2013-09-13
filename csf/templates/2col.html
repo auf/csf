@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load cms_tags %}
+{% load i18n %}
 
 {% block wrapper_class %}{% page_attribute "slug" as slug %}page-{{ slug }}{% endblock %}
 
@@ -18,7 +19,6 @@
             {% placeholder droite %}
             </div>
             {% endcomment %}
-
         </div>
     </div>
   </div>
@@ -29,6 +29,7 @@
       {% placeholder pied %}
     
     </div>
+    <a href="#" class="content-bottombutton">{% trans "Haut de page" %}</a>
   </div>
 </div>
 {% endblock%}

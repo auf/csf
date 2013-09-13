@@ -101,6 +101,7 @@
  * Bottom button which goes to top
  */
 (function($){
+    'use strict';
 
     $('.content-bottombutton').on('click', function(ev){
         ev.preventDefault();

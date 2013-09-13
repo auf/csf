@@ -2,7 +2,8 @@
     display: inline-block;
     min-width: 200px;
     text-align: center;
-    line-height: 53px;
+    line-height: 45px;
+    height: 45px;
     @include border-radius(5px);
     background-color: #ddd !important;
 

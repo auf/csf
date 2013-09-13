@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load cms_tags %}
+{% load i18n %}
 
 {% block wrapper_class %}{% page_attribute "slug" as slug %}page-{{ slug }}{% endblock %}
 

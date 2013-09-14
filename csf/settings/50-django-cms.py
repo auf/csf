@@ -22,7 +22,7 @@ INSTALLED_APPS = (
 
 INSTALLED_APPS += (
     "cms",
-    "cms.stacks",
+#    "cms.stacks",
     "cms.publisher",
     'cms.plugins.picture',
     "cms.plugins.link",

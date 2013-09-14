@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+{% load i18n %}
+
+{% block wrapper_class %}{% page_attribute "slug" as slug %}page-{{ slug }}{% endblock %}
+
+{% block main %}
+  <div class="outdoor">
+    <div class="container">
+        <div class="row">
+            <div class="span8">
+            {% block left %}{% endblock %}
+            {% placeholder gauche %}
+            </div>
+
+            {% comment %}
+            <div class="span6" style="margin-left: 50px;">
+            {% block right %}{% endblock %}
+            {% placeholder droite %}
+            </div>
+            {% endcomment %}
+        </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="row-fluid">
+      {% block bottom %}{% endblock %}
+      {% placeholder pied %}
+    
+    </div>
+    <a href="#" class="content-bottombutton">{% trans "Haut de page" %}</a>
+  </div>
+</div>
+{% endblock%}

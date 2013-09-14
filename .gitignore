@@ -33,6 +33,7 @@ sitestatic
 
 #media
 csf/media
+csf/static
 
 #settings
 /csf/settings/*-local.py
@@ -42,3 +43,8 @@ csf/media
 /csf/settings/*-prod.py
 /csf/urls/*-prod.py
 
+#mac
+.DS_Store
+
+#sass
+.sass-cache/

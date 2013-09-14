@@ -1,0 +1,41 @@
+@mixin outdoor-bg($url){
+    background-image: #{$url};
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-attachment: fixed;
+}
+
+.outdoor {
+    //background-color: #fff;
+    //@include background-image(linear-gradient(bottom, #e3ebf3, #f6f9fa));
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    min-height: 100px;
+    margin: { top: 60px; bottom: 40px; }
+}
+
+/** PAGES */
+.page,
+.page-formations  {
+    @include outdoor-bg( url(#{$img-dir}/page/formation-bg.jpg) );
+    background-position: 120px 0px;
+}
+
+.page-etablissements {
+    @include outdoor-bg( url(#{$img-dir}/page/etablissement-bg.jpg) );
+    background-position: -50px 0px;
+}
+
+.page-pays {
+    @include outdoor-bg( url(#{$img-dir}/page/pays-bg.jpg) );
+    background-position: -40px 0px;
+}
+
+.page-partenaires {
+    @include outdoor-bg( url(#{$img-dir}/page/partenair-bg.jpg) );
+    background-position: 10px 0px;
+}
+
+.outdoor-spacer {
+    margin-top: 100px;
+}

@@ -1,0 +1,72 @@
+.content {
+    @extend .container;
+    position: relative;
+
+    @include box-sizing( border-box );
+    //@include transform( translateY(-100px) );
+    @include border-radius(3px);
+    @include box-shadow(0 3px 3px rgba(0,0,0,.1));
+    background-color: #fff;
+    border: solid 1px #ddd; 
+    padding: 50px 35px;
+}
+
+.content.content--pays {
+    //@include transform( translateY(-325px) );
+    //margin-bottom: -225px;
+}
+
+.content-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-bottom: solid 1px #ddd;
+    height: 80px;
+    line-height: 80px;
+    @include box-sizing( border-box );
+    padding: 0px 20px;
+
+    background: url(#{$img-dir}/page/result-bg.png) center center repeat-x;
+
+    h4 { line-height: 60px; }
+}
+
+.content-bottombutton {
+    background-color: #0197e9;
+
+    @include box-sizing( border-box );
+    width: 106px;
+    height: 102px;
+    border-radius: 50px;
+    padding: 30px 20px;
+    text-align: center;
+
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+    bottom: -50px;
+
+    font-size: 18px;
+    color: #fff !important;
+}
+
+
+
+.content-pagination {}
+
+.content-pagination-item {
+    display: inline-block;
+    width: 26px;
+    height: 25px;
+    line-height: 25px;
+    @include border-radius(13px, 13px 13px 12px 12px);
+    background-color: transparent;
+    text-align: center;
+
+    &.is-selected {
+        background-color: #e3e6e9;
+    }
+}
+
+    

@@ -1,0 +1,16 @@
+{% load menu_tags %}
+{% load i18n %}
+<div class="container" style="padding-top: 50px;">
+    <div class="row">
+        <div class="span2 text-left">
+            <img src="{{ STATIC_URL }}img/footer-logo.png" alt="{% trans 'Ciências sem fronteiras' %}" />
+		</div>
+
+        <div class="span10 text-right">
+            <div class="spacer spacer--big"></div>
+            {% show_menu_below_id "pied" 0 0 100 100 "menu/footer_menu.html" %}
+        </div>
+    </div>
+</div>
+
+<div class="spacer spacer--big"></div>

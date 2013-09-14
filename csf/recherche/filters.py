@@ -10,3 +10,13 @@ class OffreFormationFilter(django_filters.FilterSet):
                   'discipline',
                   'niveau',
         ]
+
+    def __init__(self, *args, **kwargs):
+        super(OffreFormationFilter,self).__init__(*args, **kwargs)
+        self.filters['discipline'].extra['empty_label'] = 'Discipline'
+        self.filters['niveau'].extra['empty_label'] = 'Niveau'
+        self.filters['etablissement__etablissement__pays'].extra['empty_label'] = 'Pays'
+
+        self.filters['etablissement__etablissement__pays'].extra['queryset'] = \
+              self.filters['etablissement__etablissement__pays'].extra['queryset'].filter(code__in=
+              OffreFormation.objects.values_list('etablissement__etablissement__pays__code')).distinct()

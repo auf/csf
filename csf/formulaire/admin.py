@@ -88,7 +88,10 @@ class OrderedAdmin(admin.ModelAdmin):
 class TypeUrlsAdmin(OrderedAdmin):
     exclude = ('required',)
 
+class OffreFormationAdmin(admin.ModelAdmin):
+    pass
 
+admin.site.register(OffreFormation, OffreFormationAdmin)
 admin.site.unregister(User)
 admin.site.register(Discipline, OrderedAdmin)
 admin.site.register(Niveau, OrderedAdmin)

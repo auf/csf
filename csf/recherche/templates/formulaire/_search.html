@@ -1,18 +1,24 @@
 {% load sekizai_tags %}
 {% load i18n %}
 
-{% addtoblock "js" %}
-<script type="text/javascript" src="{{STATIC_URL }}js/vendor/jquery-1.9.1.min.js"></script>
-{% endaddtoblock %}
+<form method="GET" action="/recherche/" class="offreform plugin_{{ instance }}">
+	<h3>{% trans "Offre de formation" %}</h3>
 
-{% addtoblock "js" %}
-{% include 'autocomplete_light/static.html' %}
-{% endaddtoblock %}
+    {{ filter.form.etablissement__etablissement__pays }}
+    
+    <div class="spacer"></div>
+    
+    {{ filter.form.discipline }}
+    
+    <div class="spacer"></div>
+    
+    {{ filter.form.niveau }}
 
+    <div class="spacer"></div>
 
-<form method="GET" action="/recherche/" class="offreform">
-    {{ filter.form.as_p }}
-    <input type="submit" value="{% trans "Rechercher" %}" class="button">
-    {{ form.as_p }}
+    {{ form.search }}
+
+    <div class="spacer spacer--big"></div>
+
+    <button type="submit" class="button">{% trans 'Rechercher' %}</button>
 </form>
-

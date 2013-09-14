@@ -1,0 +1,38 @@
+.infotable {
+    width: 100%;
+}
+
+.infotable thead {
+    margin-bottom: 25px;
+}
+
+.infotable th {
+    font-weight: 400;
+    padding: 8px 0px 15px 0px;
+    line-height: 20px;
+
+    &:first-child {
+        text-align: left;
+    }
+}
+
+.infotable tr {
+    border-bottom: solid 1px #ddd;
+
+    &:last-child {
+        border-bottom: 0;
+    }
+}
+
+.infotable td:not(:first-child) {
+    text-align: center;
+    font-weight: bold;
+    color: #999;
+    font-size: 24px;
+    line-height: 20px;
+    padding: 10px 0px;
+}
+
+.th--master {
+    font-size: 24px;
+}

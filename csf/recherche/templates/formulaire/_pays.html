@@ -1,0 +1,44 @@
+{% load i18n %}
+  <div class="span4">
+  <!-- belgique -->
+      <h3>{{ pays.keys.1 }}</h3>
+      <ul class="list list--bordered">
+        {% for obj in pays.values.1 %}
+           <li><a href="/recherche/{{obj.0}}/">{{obj.1}}</a></li>
+      {% endfor %}
+      </ul>
+
+      <div class="spacer"></div>
+
+  <!-- canada -->
+      <h3>{{ pays.keys.0 }}</h3>
+      <ul class="list list--bordered">
+        {% for obj in pays.values.0 %}
+           <li><a href="/recherche/{{obj.0}}/">{{obj.1}}</a></li>
+      {% endfor %}
+      </ul>
+
+  </div>
+
+  <!-- france -->
+  <div class="span4">
+    <h3>{{ pays.keys.2 }}</h3>
+    <ul class="list list--bordered">
+    {% for obj in pays.values.2 %}
+      {% if forloop.counter|divisibleby:2 %}
+        <li><a href="/recherche/{{obj.0}}/">{{obj.1}}</a></li>
+      {% endif %}
+    {% endfor %}
+    </ul>
+  </div>
+  
+  <div class="span4">
+    <h3>&nbsp;</h3>
+    <ul class="list list--bordered">
+      {% for obj in pays.values.2 %}
+        {% if not forloop.counter|divisibleby:2 %}
+          <li><a href="/recherche/{{obj.0}}/">{{obj.1}}</a></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>

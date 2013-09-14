@@ -16,27 +16,25 @@ class SearchAutocomplete(autocomplete_light.AutocompleteBase):
                                     Q(etablissement__etablissement__nom__icontains=q) |
                                     Q(discipline__display_name__icontains=q) |
                                     Q(niveau__display_name__icontains=q)
-                                   ).distinct()
+                                   ).distinct()[:10]
 
         return results
 
     def autocomplete_html(self):
         html = []
 
-        choice_html_format = u"""
-<span class="div">
-  <a href="../?etablissement__etablissement__pays=%s&niveau=%s&discipline=%s">
-  %s
+        choice_html_format = """
+<span class="div" style="text-align: left;">
+  <a class="blue" href="/recherche/%s/">
+   %s  
   </a>
 </span>"""
 
         choice = self.choices_for_request()
 
         for item in choice['offre']:
-            html.append(choice_html_format % (item.etablissement.etablissement.pays.code,
-                                              item.niveau.pk,
-                                              item.discipline.pk,
-                                              str(item).split(':')[0]))
+            html.append(choice_html_format % (item.etablissement.etablissement.id,
+					      unicode(item).split(':')[0]))
 
         if not html:
             html = self.empty_html_format % _('no matches found').capitalize()

@@ -1,0 +1,11 @@
+{% load menu_tags %}
+
+{% for child in children %}
+    <li class="mainnav-item">
+      {% if child.is_leaf_node %}
+        <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}" class="link-dark {% if child.selected %}is-active{% endif %}">{{ child.get_menu_title }}</a>
+      {% else %}
+        <a href="#" class="link-dark {% if child.selected %}is-active{% endif %}" data-trigger-subnav>{{ child.get_menu_title }}</a>
+      {% endif %}
+    </li>
+{% endfor %}

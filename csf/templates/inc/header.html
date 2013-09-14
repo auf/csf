@@ -1,0 +1,53 @@
+{% load i18n %}
+{% load cms_tags sekizai_tags menu_tags %}
+<div class="container">
+    
+    <div class="row">
+        <div id="logo" class="span2">
+            <a href="/"><img src="{{ STATIC_URL }}img/logo.png" alt="{% trans 'Agencie Universitaire de la francophonie' %}" /></a>
+        </div>
+
+        <nav class="span10">
+            
+            <ul class="mainnav mainnav--top">
+
+                <li class="mainnav-item">
+                    <a href="#" class="link-dark muted">{% trans "Appendre le Français" %}</a>
+                    <div class="hspacer"></div>
+                    {% language_chooser %}
+                </li>
+
+            </ul>
+
+            <ul id="mainmenu-trigger" class="mainnav">
+                {% show_menu_below_id "accueil" 0 0 100 100 "menu/menu.html" %}
+            </ul>
+
+        </nav>
+    </div>
+    <div id="mainmenu-sub" class="subnav">
+       {% show_menu_below_id "pays" 0 100 100 100 "menu/submenu.html" %}
+    </div>
+</div>
+
+
+<div id="mainmenu">
+    <div class="container">
+        <div class="row">
+            <div class="span2">
+                <a id="logo-min" href="/"><img src="{{ STATIC_URL }}img/logo-min.png" alt="{% trans 'Agencie Universitaire de la francophonie' %}"></a>
+            </div>
+
+            <div class="span10">
+                <ul class="mainnav">
+                {% show_menu_below_id "accueil" 0 0 100 100 "menu/menu.html" %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="mainmenu-fixedsub" class="subnav subnav--fixed" style="display: none;">
+	{% show_menu_below_id "pays" 0 100 100 100 "menu/submenu.html" %}
+    </div>
+</div>
+

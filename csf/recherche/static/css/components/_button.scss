@@ -1,0 +1,22 @@
+.button {
+    display: inline-block;
+    min-width: 200px;
+    text-align: center;
+    line-height: 45px;
+    height: 45px;
+    @include border-radius(5px);
+    background-color: #ddd !important;
+
+    color: #4c4643 !important;
+    text-decoration: none !important;
+    font-size: 18px;
+    border: 0;
+    box-shadow: none;
+
+
+    &[type="submit"] {
+        padding: 0;
+        height: 45px;
+        line-height: 45px;
+    }
+}

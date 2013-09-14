@@ -22,13 +22,12 @@ INSTALLED_APPS = (
 
 INSTALLED_APPS += (
     "cms",
-    "cms.stacks",
+#    "cms.stacks",
     "cms.publisher",
     'cms.plugins.picture',
     "cms.plugins.link",
     "djangocms_text_ckeditor",
     "cmsplugin_youtube",
-    "cmsplugin_contact",
     "menus",
     "mptt",
     "sekizai",
@@ -63,4 +62,5 @@ CMS_LANGUAGES = {
 CMS_TEMPLATES = (
     ('1col.html', gettext('homepage')),
     ('2col.html', gettext('two columns')),
+    ('2col-withform.html', gettext('two columns with form')),
 )

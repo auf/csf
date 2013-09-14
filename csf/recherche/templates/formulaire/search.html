@@ -5,12 +5,15 @@
 {% block container_class %}outdoor outdoor--formation{% endblock %}
 
 {% block left %}
-    {% include "_search.html" %}
+    <!-- -->
+    <div class="offreform-wrapper">
+      {% include "_search.html" %}
+    </div>
 {% endblock %}
 
 {% block right %}
   <h2>Consultez la liste des établissements</h2>
-  <p class="muted">Sélectionnez un établissement en <br>cherchant par pays.</p>
+  <p class="muted">{% trans "Sélectionnez un établissement en <br>cherchant par pays." %}</p>
 
   <p>
       <img src="{{ STATIC_URL }}img/page/etablissement-icons.png" alt="" style="margin-left: -25px;">
@@ -22,14 +25,14 @@
       <h3>{% trans "Par pays" %}</h3>
       <ul class="list">
       {% for obj in pays %}
-        <li><a href="../?etablissement__etablissement__pays={{obj.0}}">{{obj.1}}</a></li>
+        <li><a href="/recherche/?etablissement__etablissement__pays={{obj.0}}">{{obj.1}}</a></li>
       {% endfor %}
       </ul>
 
       <h3>{% trans "Par cycles" %}</h3>
       <ul class="list">
       {% for obj in niveau %}
-        <li><a href="../?niveau={{obj.0}}">{{obj.1}}</a></li>
+        <li><a href="/recherche/?niveau={{obj.0}}">{{obj.1}}</a></li>
       {% endfor %}
       </ul>
   </div>
@@ -37,7 +40,7 @@
       <h3>{% trans "Par disciplines" %}</h3>
       <ul class="list">
       {% for obj in discipline %}
-        <li><a href="../?discipline={{obj.0}}">{{obj.1}}</a></li>
+        <li><a href="/recherche/?discipline={{obj.0}}">{{obj.1}}</a></li>
       {% endfor %}
       </ul>
   </div>

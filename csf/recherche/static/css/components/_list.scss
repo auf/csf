@@ -1,0 +1,27 @@
+.list {
+    padding: 0;
+    margin: 0;
+}
+
+.list li {
+    margin-bottom: 10px;
+    list-style: none;
+}
+
+.list.list--bordered li {
+    border-bottom: solid 1px #ddd;
+    padding: 10px 0px;
+    margin-bottom: 0px;
+
+    &:last-child {
+        border-bottom: 0;
+    }
+}
+
+.list.list--half li {
+    float: left;
+    width: 48%;
+    margin-right: 2%;
+
+    display: table-cell;
+}

@@ -19,3 +19,4 @@ for f in conffiles:
     module.__file__ = f
     sys.modules[modulename] = module
 
+from conf import *

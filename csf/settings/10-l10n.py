@@ -17,3 +17,7 @@ USE_TZ = True
 MIDDLEWARE_CLASSES += (
     'django.middleware.locale.LocaleMiddleware',
 )
+
+LOCALE_INDEPENDENT_PATHS = (
+    r'^/api',
+)

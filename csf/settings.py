@@ -18,4 +18,5 @@ for f in conffiles:
     module = types.ModuleType(modulename)
     module.__file__ = f
     sys.modules[modulename] = module
-
+    
+from conf import *

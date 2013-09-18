@@ -24,6 +24,7 @@ INSTALLED_APPS += (
     'csf.recherche',
     'csf.portail',
     'csf.gestion',
+    'auf.django.pong',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS += (

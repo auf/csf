@@ -1,14 +1,16 @@
 import os
 
-from django.conf.global_settings import *
+from django.conf.global_settings import *  # NOQA
 
 SITE_ID = '1'
 
 PROJECT_ROOT = os.path.dirname(__file__)
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+ROOT = os.path.dirname(PROJECT_ROOT)
+
+MEDIA_ROOT = os.path.join(ROOT, 'media')
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+STATIC_ROOT = os.path.join(ROOT, 'static')
 STATIC_URL = '/static/'
 
 INSTALLED_APPS = (

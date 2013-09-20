@@ -10,7 +10,7 @@ ROOT = os.path.dirname(PROJECT_ROOT)
 MEDIA_ROOT = os.path.join(ROOT, 'media')
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = os.path.join(ROOT, 'static')
+STATIC_ROOT = os.path.join(ROOT, 'sitestatic')
 STATIC_URL = '/static/'
 
 INSTALLED_APPS = (

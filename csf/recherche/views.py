@@ -69,10 +69,17 @@ class EtabliListView(ListView):
         return context
 
     def get_queryset(self):
-        return OffreFormationFilter(self.request.GET, queryset=OffreFormation.catalogue.all()\
-                  .select_related('niveau', 'discipline', 'etablissement__etablissement',
-                                  'etablissement__etablissement__pays',
-                                  'etablissement__images'))
+        return OffreFormationFilter(self.request.GET,
+                queryset=OffreFormation.catalogue\
+                        .all()\
+                        .select_related(
+                            'niveau',
+                            'discipline',
+                            'etablissement__etablissement',
+                            'etablissement__etablissement__pays',
+                            'etablissement__images')\
+                        .order_by('discipline__display_name', 'niveau__ordering')
+                        )
 
 
 class EtabliDetailView(DetailView):
@@ -103,5 +110,4 @@ class EtabliDetailView(DetailView):
             set(OffreFormation.catalogue.filter(etablissement__etablissement__pays__code=\
                                              context['etabli'].pays.code)\
                 .values_list('etablissement__etablissement__pk', 'etablissement__etablissement__nom'))
-
         return context

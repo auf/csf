@@ -331,7 +331,19 @@ class URLEtablissement(BaseURLEtablissement):
         related_name='urls')
 
 
+class OffreDispoManager(models.Manager):
+    """
+    On ne s'intéresse qu'aux formations qui ont été sélectionnées par un
+    établissement participant au programme.
+    """
+    def get_query_set(self):
+        return super(OffreDispoManager,
+                self).get_query_set().filter(offert=True,
+                        etablissement__participant=True)
+
+
 class OffreFormation(BaseOffreFormation):
+    objects = OffreDispoManager()
 
     etablissement = models.ForeignKey(
         EtablissementEligible,

@@ -1,5 +1,7 @@
 from django.views.generic import ListView, DetailView, TemplateView
 
+from auf.django.references import models as ref
+
 from csf.formulaire.models import OffreFormation
 
 from forms import SearchForm
@@ -70,7 +72,8 @@ class EtabliListView(ListView):
 
 
 class EtabliDetailView(DetailView):
-    model = OffreFormation
+    # id dans l'url correspond à ref.etablissement mais n'est pas utilisé dans la vue
+    model = ref.Etablissement 
     template_name = "formulaire/etabli.html"
 
     def get_context_data(self, **kwargs):

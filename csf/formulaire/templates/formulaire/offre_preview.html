@@ -5,8 +5,15 @@
 <script src="{{ STATIC_URL }}js/form.js"></script>
 {% endblock %}
 
+{% block wrapper_class %}page-preview{% endblock %}
 
-{% block content %}
+{% block "extra_css" %}
+<style>
+    #wrapper.page-preview {background-image: none;}
+</style>
+{% endblock "extra_css" %}
+
+{% block main %}
 <div class="row">
   <div class="span12">
     <h1>

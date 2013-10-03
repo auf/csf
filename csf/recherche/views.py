@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.views.generic import ListView, DetailView, TemplateView
 
 from auf.django.references import models as ref
@@ -13,11 +15,12 @@ class SearchView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(SearchView, self).get_context_data(**kwargs)
         context['form'] = SearchForm()
-        context['filter'] = OffreFormationFilter(self.request.GET, queryset=OffreFormation.objects.all())
-        context['pays'] = set(OffreFormation.objects.values_list('etablissement__etablissement__pays__code',
+        context['filter'] = OffreFormationFilter(self.request.GET,
+                queryset=OffreFormation.catalogue.all())
+        context['pays'] = set(OffreFormation.catalogue.values_list('etablissement__etablissement__pays__code',
                                                              'etablissement__etablissement__pays__nom').distinct())
-        context['niveau'] = set(OffreFormation.objects.values_list('niveau__pk', 'niveau__display_name').distinct())
-        context['discipline'] = set(OffreFormation.objects.values_list('discipline__pk', 'discipline__display_name').distinct())
+        context['niveau'] = set(OffreFormation.catalogue.values_list('niveau__pk', 'niveau__display_name').distinct())
+        context['discipline'] = set(OffreFormation.catalogue.values_list('discipline__pk', 'discipline__display_name').distinct())
 
             
         return context
@@ -66,7 +69,7 @@ class EtabliListView(ListView):
         return context
 
     def get_queryset(self):
-        return OffreFormationFilter(self.request.GET, queryset=OffreFormation.objects.all()\
+        return OffreFormationFilter(self.request.GET, queryset=OffreFormation.catalogue.all()\
                   .select_related('niveau', 'discipline', 'etablissement__etablissement',
                                   'etablissement__etablissement__pays'))
 
@@ -82,17 +85,17 @@ class EtabliDetailView(DetailView):
 
         pk = self.kwargs.get(self.pk_url_kwarg, None)
 
-	offre = OffreFormation.objects.filter(etablissement__etablissement__pk=pk)[0]
+	offre = OffreFormation.catalogue.filter(etablissement__etablissement__pk=pk)[0]
 	context['images'] = offre.etablissement.images
 	context['etabli'] = offre.etablissement.etablissement
 
         context['form'] = SearchForm()
-        context['filter'] = OffreFormationFilter(self.request.GET, queryset=OffreFormation.objects.all())
+        context['filter'] = OffreFormationFilter(self.request.GET, queryset=OffreFormation.catalogue.all())
 
-        context['disciplines'] = [{'discipline': c.discipline, 'niveau': c.niveau} for c in OffreFormation.objects.filter(etablissement__etablissement__pk=context['etabli'].pk)]
+        context['disciplines'] = [{'discipline': c.discipline, 'niveau': c.niveau} for c in OffreFormation.catalogue.filter(etablissement__etablissement__pk=context['etabli'].pk)]
 
         context['etabli'].dans_le_pays = \
-            set(OffreFormation.objects.filter(etablissement__etablissement__pays__code=\
+            set(OffreFormation.catalogue.filter(etablissement__etablissement__pays__code=\
                                              context['etabli'].pays.code)\
                 .values_list('etablissement__etablissement__pk', 'etablissement__etablissement__nom'))
 

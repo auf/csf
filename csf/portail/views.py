@@ -19,7 +19,7 @@ def home(request):
 @login_required
 def pays_detail(request, id):
     pays = get_object_or_404(ref.Pays, id=id,)
-    offres = OffreFormation.objects.filter(
+    offres = OffreFormation.catalogue.filter(
         etablissement__etablissement__pays__id=id,
         etablissement__participant=True,
         offert=True,
@@ -33,7 +33,7 @@ def pays_detail(request, id):
 @login_required
 def niveau_detail(request, id):
     niveau = get_object_or_404(Niveau, id=id,)
-    offres = OffreFormation.objects.filter(
+    offres = OffreFormation.catalogue.filter(
         niveau=id,
         etablissement__participant=True,
         offert=True,
@@ -47,7 +47,7 @@ def niveau_detail(request, id):
 @login_required
 def discipline_detail(request, id):
     discipline = get_object_or_404(Discipline, id=id,)
-    offres = OffreFormation.objects.filter(
+    offres = OffreFormation.catalogue.filter(
         discipline=id,
         etablissement__participant=True,
         offert=True,

@@ -343,7 +343,8 @@ class OffreDispoManager(models.Manager):
 
 
 class OffreFormation(BaseOffreFormation):
-    objects = OffreDispoManager()
+    objects = models.Manager()
+    catalogue = OffreDispoManager()
 
     etablissement = models.ForeignKey(
         EtablissementEligible,

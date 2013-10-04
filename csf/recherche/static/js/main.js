@@ -23,17 +23,17 @@
 
     bulletgroup.stick_in_parent();
 
-    var bullets = $('.slider-bullet'),
-        current = 0;
+    var bullets = $('.slider-bullet');
+    var current = 0;
 
     $('.slider').on('click', '[data-bullet]', function(){
         var index = this.getAttribute('data-bullet'),
             selector = '[data-slide="'+index+'"]';
-
         $(window).scrollTo(selector, 600);
     });
 
     $('.slide').waypoint(function(direction){
+        console.log($(this));
         bullets.eq(current).removeClass('is-current');
         current = this.getAttribute('data-slide');
         if( direction === 'up' ){
@@ -41,7 +41,7 @@
             if( current < 0 ){ current = 0; }
         }
         bullets.eq(current).addClass('is-current');
-    });
+    }, {offset: 80 });
 })(jQuery);
 
 // Menu

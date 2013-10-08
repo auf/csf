@@ -36,10 +36,20 @@ class FormationListPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super(FormationListPlugin, self).render(context, instance, placeholder)
-        context['pays'] = set(OffreFormation.catalogue.values_list('etablissement__etablissement__pays__code',
-                                                             'etablissement__etablissement__pays__nom').distinct())
-        context['niveau'] = set(OffreFormation.catalogue.values_list('niveau__pk', 'niveau__display_name').distinct())
-        context['discipline'] = set(OffreFormation.catalogue.values_list('discipline__pk', 'discipline__display_name').distinct())
+        context['pays'] = OffreFormation.catalogue\
+                .values_list('etablissement__etablissement__pays__code',
+                             'etablissement__etablissement__pays__nom')\
+                .order_by('etablissement__etablissement__pays__nom')\
+                .distinct()
+        context['niveau'] = OffreFormation.catalogue.\
+                values_list('niveau__pk', 'niveau__display_name')\
+                .order_by('niveau__ordering')\
+                .distinct()
+
+        context['discipline'] = OffreFormation.catalogue\
+                .values_list('discipline__pk', 'discipline__display_name')\
+                .order_by('discipline__ordering')\
+                .distinct()
 
         return context
 

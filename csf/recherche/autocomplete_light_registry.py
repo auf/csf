@@ -13,7 +13,7 @@ class SearchAutocomplete(autocomplete_light.AutocompleteBase):
         q = self.request.GET.get('q', '')
 
         results = {}
-        results['offre'] = OffreFormation.objects.filter(
+        results['offre'] = OffreFormation.catalogue.filter(
                                     Q(etablissement__etablissement__nom__icontains=q) |
                                     Q(discipline__display_name__icontains=q) |
                                     Q(niveau__display_name__icontains=q)

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 
@@ -40,13 +42,13 @@ CMS_LANGUAGES = {
     1: [
         {
             'code': 'fr',
-            'name': gettext('French'),
+            'name': gettext(u'français'),
             'public': True,
             'fallbacks': ['pt'],
         },
         {
             'code': 'pt',
-            'name': gettext('Portugues'),
+            'name': gettext(u'português'),
             'public': True,
             'fallbacks': ['fr'],
         },

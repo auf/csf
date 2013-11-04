@@ -47,21 +47,34 @@
         
                 <div class="span7">
                     <h3>{{ etabli.nom }}</h3>
-
-
                     {% if images.photo %}
                         <img src="{{ images.photo.url }}" alt="" class="img-polaroid">
                     {% endif %}
 
                     <div class="spacer spacer--big"></div>
-
-                    {% if images.logo %}
-                        <img style="height: 100px;" src="{{ images.logo.url }}" alt="">
-                    {% endif %}
-		    
+                    <table class="infotable">
+                        <thead>
+                            <tr>
+                                <th class="th--master">{% trans "Informations" %}</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    {% with urls=etabli.etablissement_eligible.urls %}
+                    {% for u in urls.all %}
+                        {% if u.url %}
+                        <p><a href="{{ u.url }}">{{ u.type.display_name }}</p>
+                        {% endif %}
+                    {% endfor %}
+                    {% endwith %}
                 </div>
 
                 <div class="span3 offset1">
+                    {% if images.logo %}
+                    <img style="height: 100px;
+                                position:absolute;
+                                right: 55px;"
+                         src="{{ images.logo.url }}" alt="">
+                    {% endif %}
                     <h3 class="info-title">{% trans "Pays" %}</h3>
                     <div class="info-data">{{ etabli.pays.nom }}</div>
 		    
@@ -72,8 +85,15 @@
 
                     <div class="spacer"></div>
 
-                    <h3 class="info-title">{% trans "Contacts" %}</h3>
-                    <a href="{{ etabli.url }}" class="info-data">{{ etabli.url }}</a>
+                    <h3 class="info-title">{% trans "Contact" %}</h3>
+                    {% with contact=etabli.etablissement_eligible.contact_info %}
+                        <p class="info-data">{{ contact.prenom|title }} {{ contact.nom|title }}</p>
+                        <a href="mailto:{{ contact.courriel }}">{{ contact.courriel|lower }}</a>
+                        {% if contact.telephone %}
+                            <div><img width="12" src="{{ STATIC_URL}}img/phone.png" />&nbsp;
+                            {{ contact.telephone }}</div>
+                        {% endif %}
+                    {% endwith %}
                 </div>
             </div>
 
@@ -92,7 +112,7 @@
                                 <th>{% trans "1er Cycle" %}</th>
                                 <th>{% trans "2e Cycle" %}</th>
                                 <th>{% trans "3e Cycle" %}</th>
-                                <th>{% trans "Post doctorat" %}</th>
+                                <th>{% trans "Postdoctorat" %}</th>
                             </tr>
                         </thead>
 

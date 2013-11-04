@@ -4,9 +4,11 @@ TIME_ZONE = 'America/Montreal'
 
 LANGUAGE_CODE = 'fr'
 
+gettext = lambda s: s
+
 LANGUAGES = (
-    ('pt', 'Portugues'),
-    ('fr', 'French'),
+    ('pt', gettext(u'português')),
+    ('fr', gettext(u'français')),
 )
 
 USE_I18N = True

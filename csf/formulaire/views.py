@@ -86,19 +86,21 @@ def preview(request, etablissement, ordering=('-discipline__id', 'niveau__orderi
     if etablissement.participant in (None, False):
         raise Http404()
 
-    niveaux = Niveau.objects.all()
+    niveaux = Niveau.objects.all().order_by('ordering')
     niveaux_count = niveaux.count()
-
+    
+    offres = OffreFormation.objects\
+            .filter(etablissement=etablissement)\
+            .order_by(*ordering)
     ctx = {
         'etablissement': etablissement,
         'niveaux': niveaux,
         'offre_column_count': niveaux_count,
         'form_first_column_span': 12-niveaux_count,
         'urls': etablissement.urls.order_by('type__ordering'),
-        'offres': etablissement.offres_formation.order_by(
-            *ordering)
+        'offres': offres,
         }
-
+        
     return render_to_response(
         'formulaire/offre_preview.html',
         ctx,
@@ -198,7 +200,6 @@ def offre_form(request, etablissement, ordering=('-discipline__id', 'niveau__ord
                 msg,
                 )
             if request.POST.get('publish_draft', None) == 'true':
-
                 for draft_offre in dof_qs.all():
                     offre, nothing = OffreFormation.objects.get_or_create(
                         etablissement=etablissement,

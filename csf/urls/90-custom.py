@@ -3,8 +3,8 @@
 urlpatterns += patterns('',
         
     # interfaces publiques
-    url(r'^$', include('csf.splash.urls')),
-    url(r'^demo/', include('csf.portail.urls')),
+    #url(r'^$', include('csf.splash.urls')),
+    #url(r'^demo/', include('csf.portail.urls')),
     url(r'^etablissement/(?P<id>\d+)/$',
         'csf.formulaire.views.preview',
         name='etab_preview'),

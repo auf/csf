@@ -21,7 +21,7 @@ class FormationPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         context = super(FormationPlugin, self).render(context, instance, placeholder)
         context['form'] = SearchForm()
-        context['filter'] = OffreFormationFilter({}, queryset=OffreFormation.objects.all())
+        context['filter'] = OffreFormationFilter({}, queryset=OffreFormation.catalogue.all())
 
         return context
 
@@ -36,10 +36,20 @@ class FormationListPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super(FormationListPlugin, self).render(context, instance, placeholder)
-        context['pays'] = set(OffreFormation.objects.values_list('etablissement__etablissement__pays__code',
-                                                             'etablissement__etablissement__pays__nom').distinct())
-        context['niveau'] = set(OffreFormation.objects.values_list('niveau__pk', 'niveau__display_name').distinct())
-        context['discipline'] = set(OffreFormation.objects.values_list('discipline__pk', 'discipline__display_name').distinct())
+        context['pays'] = OffreFormation.catalogue\
+                .values_list('etablissement__etablissement__pays__code',
+                             'etablissement__etablissement__pays__nom')\
+                .order_by('etablissement__etablissement__pays__nom')\
+                .distinct()
+        context['niveau'] = OffreFormation.catalogue.\
+                values_list('niveau__pk', 'niveau__display_name')\
+                .order_by('niveau__ordering')\
+                .distinct()
+
+        context['discipline'] = OffreFormation.catalogue\
+                .values_list('discipline__pk', 'discipline__display_name')\
+                .order_by('discipline__ordering')\
+                .distinct()
 
         return context
 
@@ -53,13 +63,13 @@ class PaysListPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super(PaysListPlugin, self).render(context, instance, placeholder)
-        pays = set(OffreFormation.objects.values_list('etablissement__etablissement__pays__code',
+        pays = set(OffreFormation.catalogue.values_list('etablissement__etablissement__pays__code',
                                                   'etablissement__etablissement__pays__nom').distinct())
 
         context['pays'] = {}
         for code, name in pays:
             context['pays'][name] = \
-                 set(OffreFormation.objects.filter(etablissement__etablissement__pays__code=code)\
+                 set(OffreFormation.catalogue.filter(etablissement__etablissement__pays__code=code)\
                  .values_list('etablissement__etablissement__pk', 'etablissement__etablissement__nom'))
 
         return context

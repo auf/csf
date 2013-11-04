@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% load sekizai_tags %}
+
+{% block wrapper_class %}page-gestion{% endblock %}
+
+{% block "extra_css" %}
+<style>
+   #wrapper.page-gestion {background-image: none;}
+</style>
+{% endblock "extra_css" %}
+
+{% block main %}
 
 <h2>Tableau de bord</h2>
 

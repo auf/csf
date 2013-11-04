@@ -19,4 +19,4 @@ class OffreFormationFilter(django_filters.FilterSet):
 
         self.filters['etablissement__etablissement__pays'].extra['queryset'] = \
               self.filters['etablissement__etablissement__pays'].extra['queryset'].filter(code__in=
-              OffreFormation.objects.values_list('etablissement__etablissement__pays__code')).distinct()
+              OffreFormation.catalogue.values_list('etablissement__etablissement__pays__code')).distinct()

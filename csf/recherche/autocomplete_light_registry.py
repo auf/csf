@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.db.models import Q
 from django.utils.translation import ugettext as _
 
@@ -11,8 +13,7 @@ class SearchAutocomplete(autocomplete_light.AutocompleteBase):
         q = self.request.GET.get('q', '')
 
         results = {}
-
-        results['offre'] = OffreFormation.objects.filter(
+        results['offre'] = OffreFormation.catalogue.filter(
                                     Q(etablissement__etablissement__nom__icontains=q) |
                                     Q(discipline__display_name__icontains=q) |
                                     Q(niveau__display_name__icontains=q)
@@ -37,7 +38,7 @@ class SearchAutocomplete(autocomplete_light.AutocompleteBase):
 					      unicode(item).split(':')[0]))
 
         if not html:
-            html = self.empty_html_format % _('no matches found').capitalize()
+            html = self.empty_html_format % _(u'aucun résultat').capitalize()
 
         return self.autocomplete_html_format % ''.join(html)
 

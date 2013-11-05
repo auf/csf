@@ -66,3 +66,5 @@ CMS_TEMPLATES = (
     ('2col.html', gettext('two columns')),
     ('2col-withform.html', gettext('two columns with form')),
 )
+
+CMS_SEO_FIELDS = True

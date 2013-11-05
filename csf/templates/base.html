@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{% block head_title %}{% trans "Ciências sem fronteiras" %}{% endblock %}</title>
+    <title>{% block head_title %}{% trans "Ciências sem fronteiras" %}{% endblock %} - {% page_attribute "page_title" %}</title>
     <meta charset="utf-8" />
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
@@ -19,6 +19,8 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     {% include 'autocomplete_light/static.html' %}
 
+    <meta name="description" content="{% page_attribute "meta_description" %}">
+    <meta name="keywords" content="{% page_attribute "keywords" %}">
 </head>
 <body>
 {% cms_toolbar %}

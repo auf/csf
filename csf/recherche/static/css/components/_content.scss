@@ -8,7 +8,7 @@
     @include box-shadow(0 3px 3px rgba(0,0,0,.1));
     background-color: #fff;
     border: solid 1px #ddd; 
-    padding: 50px 35px;
+    padding: 50px 35px 100px 35px;
 }
 
 .content.content--pays {
@@ -39,7 +39,7 @@
     width: 106px;
     height: 102px;
     border-radius: 50px;
-    padding: 30px 20px;
+    padding: 30px 18px;
     text-align: center;
 
     position: absolute;
